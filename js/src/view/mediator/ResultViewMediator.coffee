@@ -27,10 +27,11 @@ class ResultViewMediator extends puremvc.Mediator
   handleEvent: (event) =>
     switch event.type
       when enummers.view.event.AppEvents::ENUMMER_CLICKED
-        if not event.item? then @sendNotification enummers.AppConstants::ENUMMER_SELECTED, event.item
+        if event.item?
+          @sendNotification enummers.AppConstants::ENUMMER_SELECTED, event.item
+          @viewComponent.updateResult()
       when enummers.view.event.AppEvents::MODEL_UPDATED
         if not event.model? and event.model is enummers.model.ResultModel.NAME then @sendNotification enummers.AppConstants::ENUMMER_SELECTED, event.soortFilter
-        console.log event.soortFilter
 
   # Handle notifications from other PureMVC actors
   handleNotification: (note) ->

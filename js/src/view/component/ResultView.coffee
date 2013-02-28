@@ -8,9 +8,10 @@ class ResultView
   constructor: (event) ->
     # data
     @enummersdata = []
-
+    @timeout = 100
     # Fixed DOM elements managed by this view component
-    @result = $('#result')[0]
+    @result = $("#result")[0]
+    @grid = $("#result").find("#grid")
     @viewModel = {}
 
     # Event listeners for fixed UI elements
@@ -34,28 +35,54 @@ class ResultView
     enummerClickedEvent.item = @viewModel.selectedItem()
     @dispatchEvent enummerClickedEvent
 
-  setResult: (data) ->
+  setResult: (data) =>
     @viewModel = new enummers.model.component.ResultModel(data)
     @viewModel.view = @result
     @viewModel.enummers(data)
     ko.applyBindings(@viewModel, $('#result')[0])
-    $('#enummers').isotope(
-      itemSelector: '.enummer'
-      layoutMode : 'fitRows'
-      animationOptions:
-        duration: 750
-        easing: 'linear'
-        queue: false
-    );
+    setTimeout ( =>
+      ###
+      @grid.isotope(
+        itemSelector: '.enummer',
+        layoutMode : 'fitRows',
+        animationOptions:
+          duration: 750,
+          easing: 'linear',
+          queue: true
+      )
+      ###
+      @grid.masonry(
+        itemSelector: 'div.enummer',
+        columnWidth: 5,
+        isAnimated: !Modernizr.csstransitions
+      )
+    ),@timeout
+
+
+  updateResult: =>
+    setTimeout ( =>
+      #@grid.isotope( 'remove', $('#grid').find('.black') )
+      #@grid.isotope( 'remove', $('#grid').find('.black') )
+      @grid.masonry('reload');
+    ),@timeout
 
   filterBySoort: (data) =>
     @viewModel.filterBySoort data
+    setTimeout ( =>
+      @updateResult()
+    ),@timeout
 
   filterByCategorie: (data) =>
     @viewModel.filterByCategorie data
+    setTimeout ( =>
+      @updateResult()
+    ),@timeout
 
   filterBySearch: (data) =>
     @viewModel.filterBySearch data
+    setTimeout ( =>
+      @updateResult()
+    ),@timeout
 
   # STATIC MEMBERS
   NAME: "ResultView"

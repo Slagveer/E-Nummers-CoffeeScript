@@ -546,6 +546,8 @@ puremvc.DefineNamespace('enummers.model.component', function(exports) {
 ResultModel = (function() {
 
   function ResultModel(data) {
+    this.filterBySearch = __bind(this.filterBySearch, this);
+
     this.filterByCategorie = __bind(this.filterByCategorie, this);
 
     this.filterBySoort = __bind(this.filterBySoort, this);
@@ -558,24 +560,43 @@ ResultModel = (function() {
     this.enummers = ko.observableArray([]);
     this.soortFilter = ko.observableArray([]);
     this.categorieFilter = ko.observableArray([]);
-    this.searchFilter = ko.observable("");
+    this.searchFilter = ko.observable("").extend({
+      logChange: "searchFilter"
+    });
     this.selectedItem = ko.observable("").extend({
       logChange: "selectedItem"
     });
     this.filteredEnummers = ko.computed(function() {
-      if (_this.soortFilter().length === 0 && _this.categorieFilter().length === 0) {
-        return _this.enummers();
-      } else if (_this.soortFilter().length !== 0 && _this.categorieFilter().length === 0) {
-        return ko.utils.arrayFilter(_this.enummers(), function(item) {
-          return _this.soortFilter.indexOf(item.soortId) !== -1;
-        });
-      } else if (_this.soortFilter().length === 0 && _this.categorieFilter().length !== 0) {
-        return ko.utils.arrayFilter(_this.enummers(), function(item) {
-          return _this.categorieFilter.indexOf(item.categorieId) !== -1;
-        });
+      if (_this.searchFilter() === "") {
+        if (_this.soortFilter().length === 0 && _this.categorieFilter().length === 0) {
+          return _this.enummers();
+        } else if (_this.soortFilter().length !== 0 && _this.categorieFilter().length === 0) {
+          return ko.utils.arrayFilter(_this.enummers(), function(item) {
+            return _this.soortFilter.indexOf(item.soortId) !== -1;
+          });
+        } else if (_this.soortFilter().length === 0 && _this.categorieFilter().length !== 0) {
+          return ko.utils.arrayFilter(_this.enummers(), function(item) {
+            return _this.categorieFilter.indexOf(item.categorieId) !== -1;
+          });
+        } else {
+          return ko.utils.arrayFilter(_this.enummers(), function(item) {
+            return _this.soortFilter.indexOf(item.soortId) !== -1 && _this.categorieFilter.indexOf(item.categorieId) !== -1;
+          });
+        }
       } else {
         return ko.utils.arrayFilter(_this.enummers(), function(item) {
-          return _this.soortFilter.indexOf(item.soortId) !== -1 && _this.categorieFilter.indexOf(item.categorieId) !== -1;
+          var betekenis, naam, _ref, _ref1;
+          naam = (_ref = item.naam) != null ? _ref : "";
+          betekenis = (_ref1 = item.betekenis) != null ? _ref1 : "";
+          if (_this.soortFilter().length === 0 && _this.categorieFilter().length === 0) {
+            return ko.utils.stringContains(item.naam.toLowerCase(), _this.searchFilter()) || ko.utils.stringContains(betekenis.toLowerCase(), _this.searchFilter());
+          } else if (_this.soortFilter().length !== 0 && _this.categorieFilter().length === 0) {
+            return (ko.utils.stringContains(item.naam.toLowerCase(), _this.searchFilter()) || ko.utils.stringContains(betekenis.toLowerCase(), _this.searchFilter())) && _this.soortFilter.indexOf(item.soortId) !== -1;
+          } else if (_this.soortFilter().length === 0 && _this.categorieFilter().length !== 0) {
+            return (ko.utils.stringContains(naam.toLowerCase(), _this.searchFilter()) || ko.utils.stringContains(betekenis.toLowerCase(), _this.searchFilter())) && _this.categorieFilter.indexOf(item.categorieId) !== -1;
+          } else {
+            return (ko.utils.stringContains(naam.toLowerCase(), _this.searchFilter()) || ko.utils.stringContains(betekenis.toLowerCase(), _this.searchFilter())) && _this.soortFilter.indexOf(item.soortId) !== -1 && _this.categorieFilter.indexOf(item.categorieId) !== -1;
+          }
         });
       }
     });
@@ -605,7 +626,7 @@ ResultModel = (function() {
   ResultModel.prototype.dispatchModelUpdatedEvent = function(item) {
     var modelUpdatedEvent;
     modelUpdatedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.MODEL_UPDATED);
-    modelUpdatedEvent.model = NAME;
+    modelUpdatedEvent.model = this.NAME;
     modelUpdatedEvent.item = item;
     return this.dispatchEvent(modelUpdatedEvent);
   };
@@ -648,6 +669,13 @@ ResultModel = (function() {
     }
     console.log("" + this.NAME + " :: Categorie hash: " + hash);
     return console.log("" + this.NAME + " :: Categorie array: " + (this.categorieFilter().length));
+  };
+
+  ResultModel.prototype.filterBySearch = function(data) {
+    var hash;
+    this.searchFilter(data);
+    hash = "!" + data + "!";
+    return console.log("" + this.NAME + " :: Search hash: " + hash);
   };
 
   ResultModel.prototype.NAME = "ResultModel";
@@ -1241,8 +1269,14 @@ ResultView = (function() {
     this.filterByCategorie = __bind(this.filterByCategorie, this);
 
     this.filterBySoort = __bind(this.filterBySoort, this);
+
+    this.updateResult = __bind(this.updateResult, this);
+
+    this.setResult = __bind(this.setResult, this);
     this.enummersdata = [];
-    this.result = $('#result')[0];
+    this.timeout = 100;
+    this.result = $("#result")[0];
+    this.grid = $("#result").find("#grid");
     this.viewModel = {};
     this.result.component = this;
     enummers.view.event.AppEvents.prototype.addEventListener(this.result, "click", function(event) {
@@ -1272,31 +1306,59 @@ ResultView = (function() {
   };
 
   ResultView.prototype.setResult = function(data) {
+    var _this = this;
     this.viewModel = new enummers.model.component.ResultModel(data);
     this.viewModel.view = this.result;
     this.viewModel.enummers(data);
     ko.applyBindings(this.viewModel, $('#result')[0]);
-    return $('#enummers').isotope({
-      itemSelector: '.enummer',
-      layoutMode: 'fitRows',
-      animationOptions: {
-        duration: 750,
-        easing: 'linear',
-        queue: false
-      }
-    });
+    return setTimeout((function() {
+      /*
+            @grid.isotope(
+              itemSelector: '.enummer',
+              layoutMode : 'fitRows',
+              animationOptions:
+                duration: 750,
+                easing: 'linear',
+                queue: true
+            )
+      */
+      return _this.grid.masonry({
+        itemSelector: 'div.enummer',
+        columnWidth: 5,
+        isAnimated: !Modernizr.csstransitions
+      });
+    }), this.timeout);
+  };
+
+  ResultView.prototype.updateResult = function() {
+    var _this = this;
+    return setTimeout((function() {
+      return _this.grid.masonry('reload');
+    }), this.timeout);
   };
 
   ResultView.prototype.filterBySoort = function(data) {
-    return this.viewModel.filterBySoort(data);
+    var _this = this;
+    this.viewModel.filterBySoort(data);
+    return setTimeout((function() {
+      return _this.updateResult();
+    }), this.timeout);
   };
 
   ResultView.prototype.filterByCategorie = function(data) {
-    return this.viewModel.filterByCategorie(data);
+    var _this = this;
+    this.viewModel.filterByCategorie(data);
+    return setTimeout((function() {
+      return _this.updateResult();
+    }), this.timeout);
   };
 
   ResultView.prototype.filterBySearch = function(data) {
-    return this.viewModel.filterBySearch(data);
+    var _this = this;
+    this.viewModel.filterBySearch(data);
+    return setTimeout((function() {
+      return _this.updateResult();
+    }), this.timeout);
   };
 
   ResultView.prototype.NAME = "ResultView";
@@ -1688,15 +1750,15 @@ ResultViewMediator = (function(_super) {
   ResultViewMediator.prototype.handleEvent = function(event) {
     switch (event.type) {
       case enummers.view.event.AppEvents.prototype.ENUMMER_CLICKED:
-        if (!(event.item != null)) {
-          return this.sendNotification(enummers.AppConstants.prototype.ENUMMER_SELECTED, event.item);
+        if (event.item != null) {
+          this.sendNotification(enummers.AppConstants.prototype.ENUMMER_SELECTED, event.item);
+          return this.viewComponent.updateResult();
         }
         break;
       case enummers.view.event.AppEvents.prototype.MODEL_UPDATED:
         if (!(event.model != null) && event.model === enummers.model.ResultModel.NAME) {
-          this.sendNotification(enummers.AppConstants.prototype.ENUMMER_SELECTED, event.soortFilter);
+          return this.sendNotification(enummers.AppConstants.prototype.ENUMMER_SELECTED, event.soortFilter);
         }
-        return console.log(event.soortFilter);
     }
   };
 
@@ -1740,7 +1802,7 @@ SearchViewMediator = (function(_super) {
   }
 
   SearchViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.view.event.AppEvents.prototype.ENUMMERS_LOADED];
+    return [enummers.AppConstants.prototype.ENUMMERS_LOADED];
   };
 
   SearchViewMediator.prototype.onRegister = function() {

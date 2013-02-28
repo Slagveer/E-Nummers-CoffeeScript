@@ -9,7 +9,7 @@ class SearchViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.view.event.AppEvents::ENUMMERS_LOADED]
+    [enummers.AppConstants::ENUMMERS_LOADED]
 
 
   # Code to be executed when the Mediator instance is registered with the View

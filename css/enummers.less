@@ -66,6 +66,10 @@ body {
     width: 520px !important;
 }
 
+.hide{
+    display: none !important;
+}
+
 #search{
     color: #ffffff;
     font-size:30px;
@@ -189,6 +193,33 @@ body {
                     line-height: 40px;
                 }
             }
+            .extra-container{
+                .container-component;
+                width:50%;
+                height:100%;
+                a{
+                    text-decoration: none;
+                    color: #000;
+                    position: absolute; bottom: 10px;
+                    height:12px;
+                    top: 150px;
+                    font-size:12px;
+                    line-height: 12px;
+                    .setbackground(#ccc);
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    border-radius: 5px;
+                    padding:2px 4px 2px 4px;
+                    font-weight: bold;
+                }
+                a:hover, a:visited{
+                    color:#00ACED;
+                }
+                .icons{
+                    position: absolute;
+                    top:70px;
+                }
+            }
             .id{
                 position: absolute;
                 bottom:20px;
@@ -237,6 +268,34 @@ body {
     -o-transition-property:      -o-transform, opacity;
     transition-property:         transform, opacity;
 }
+
+/**** Masonry CSS3 Transitions ****/
+
+.masonry,
+.masonry .masonry-brick {
+    -webkit-transition-duration: 0.7s;
+    -moz-transition-duration: 0.7s;
+    -ms-transition-duration: 0.7s;
+    -o-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+}
+
+.masonry {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -ms-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+
+.masonry .masonry-brick {
+    -webkit-transition-property: left, right, top;
+    -moz-transition-property: left, right, top;
+    -ms-transition-property: left, right, top;
+    -o-transition-property: left, right, top;
+    transition-property: left, right, top;
+}
+
 
 /**** disabling Isotope CSS3 transitions ****/
 

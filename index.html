@@ -32,12 +32,12 @@
                     <div class="effect-container" __data-bind="template: { name: 'effecten-template', templateUrl: 'js/views/templates', foreach: $root.effecten },style: { display : $data == app.viewModel.selectedItem() ? 'block' : 'none' }"></div>
                     <h3 data-bind="text: naam"></h3>
                 </div>
-                <div class="extra-container"  __data-bind="css: { 'hide' : $data != app.viewModel.selectedItem() }">
-                    <h3 class="animated" __data-bind="text: betekenis"></h3>
+                <div class="extra-container"  data-bind="css: { 'hide' : $data != $root.selectedItem() }">
+                    <h3 class="animated" data-bind="text: betekenis"></h3>
                     <div class="icons">
-                        <div class="hidden " __data-bind="stylesoortclass: soortId"/>
+                        <div class="hidden " data-bind="stylesoortclass: soortId"/>
                     </div>
-                    <a __data-bind="href: naam,text: 'Tweet ' + naam" href="https://twitter.com/intent/tweet?button_hashtag=enummers&text=Tweet%20#E-Nummers" class="twitter-hashtag-button" data-lang="nl" data-related="enummers"></a>
+                    <a data-bind="href: naam,text: 'Tweet ' + naam" href="https://twitter.com/intent/tweet?button_hashtag=enummers&text=Tweet%20#E-Nummers" class="twitter-hashtag-button" data-lang="nl" data-related="enummers"></a>
                 </div>
                 <div class="id"><span data-bind="text: id"></span></div>
             </div>
@@ -232,6 +232,8 @@
         <script src="./js/custom_ko_binding.js"></script>
         <!-- ISOTOPE LIBRARY -->
         <script src="./js/libs/jquery.isotope.js"></script>
+        <!-- MASONRY LIBRARY -->
+        <script src="./js/libs/jquery.masonry.js"></script>
         <script src="js/main.js"></script>
 
         <!-- START THE APPLICATION -->

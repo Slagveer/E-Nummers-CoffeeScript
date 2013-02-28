@@ -35,3 +35,19 @@ ko.bindingHandlers.id = {
         $(element).attr('id',valueAccessor);
     }
 }
+
+ko.utils.stringStartsWith = function (string, startsWith) {
+    string = string || "";
+    if (startsWith.length > string.length){
+        return false;
+    }
+    return string.substring(0, startsWith.length) === startsWith;
+};
+
+ko.utils.stringContains = function (string, contains) {
+    string = string || "";
+    if (contains.length > string.length){
+        return false;
+    }
+    return string.split(contains).length > 1;
+};
