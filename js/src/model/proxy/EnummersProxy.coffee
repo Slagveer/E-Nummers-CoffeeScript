@@ -14,7 +14,7 @@ class EnummersProxy extends puremvc.Proxy
     @loadData()
 
   loadData: ->
-    $.when(@getCategorieen(),@getSoorten(),@getEnummers()).done(
+    $.when(@getCategorieen(),@getSoorten(),@getEnummersEffecten(),@getEnummers(),@getEffecten()).done(
       (data) =>
         @sendNotification enummers.AppConstants::DATABASE_LOADED,
           enummers: data
@@ -66,10 +66,46 @@ class EnummersProxy extends puremvc.Proxy
       cache: false
       timeout: 5000
       success: (data) =>
+        console.log data[0].length
+        dfd.resolve(data[0])
+        @sendNotification enummers.AppConstants::ENUMMERS_LOADED,
+          enummers: data[0]
+        return @
+      error:  (jqXHR, textStatus, errorThrown) ->
+        dfd.reject(textStatus)
+        console.log errorThrown
+        return @
+    dfd.promise()
+
+  getEffecten: ->
+    dfd = $.Deferred()
+    $.ajax 'http://127.0.0.1:3000/effecten',#'http://109.235.76.92:3000/enummers',
+      dataType: "json"
+      cache: false
+      timeout: 5000
+      success: (data) =>
         console.log data.length
         dfd.resolve(data)
-        @sendNotification enummers.AppConstants::ENUMMERS_LOADED,
-          enummers: data
+        @sendNotification enummers.AppConstants::EFFECTEN_LOADED,
+          effecten: data
+        return @
+      error:  (jqXHR, textStatus, errorThrown) ->
+        dfd.reject(textStatus)
+        console.log errorThrown
+        return @
+    dfd.promise()
+
+  getEnummersEffecten: ->
+    dfd = $.Deferred()
+    $.ajax 'http://127.0.0.1:3000/enummerseffecten',#'http://109.235.76.92:3000/enummers',
+      dataType: "json"
+      cache: false
+      timeout: 5000
+      success: (data) =>
+        console.log data.length
+        dfd.resolve(data)
+        @sendNotification enummers.AppConstants::ENUMMERS_EFFECTEN_LOADED,
+          enummerseffecten: data
         return @
       error:  (jqXHR, textStatus, errorThrown) ->
         dfd.reject(textStatus)

@@ -51,3 +51,25 @@ ko.utils.stringContains = function (string, contains) {
     }
     return string.split(contains).length > 1;
 };
+
+ko.bindingHandlers.cssExtra = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        // This will be called when the binding is first applied to an element
+        // Set up any initial state, event handlers, etc. here
+        switch(valueAccessor()){
+            case 1:
+                $(element).attr({"class":"animated soort1"});
+                break;
+            case 2:
+                $(element).attr({"class":"animated soort2"});
+                break;
+            default:
+                $(element).attr({"class":"animated soort3"});
+        }
+    },
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever the associated observable changes value.
+        // Update the DOM element based on the supplied values here.
+    }
+};

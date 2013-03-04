@@ -11,6 +11,8 @@ class ResultViewMediator extends puremvc.Mediator
   listNotificationInterests: ->
     [
       enummers.AppConstants::ENUMMERS_LOADED,
+      enummers.AppConstants::EFFECTEN_LOADED,
+      enummers.AppConstants::ENUMMERS_EFFECTEN_LOADED,
       enummers.AppConstants::SOORTFILTER_CHANGED,
       enummers.AppConstants::CATEGORYFILTER_CHANGED,
       enummers.AppConstants::SEARCHFILTER_CHANGED
@@ -38,6 +40,10 @@ class ResultViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::ENUMMERS_LOADED
         @viewComponent.setResult(note.getBody().enummers)
+      when enummers.AppConstants::EFFECTEN_LOADED
+        @viewComponent.setEffecten(note.getBody().effecten)
+      when enummers.AppConstants::ENUMMERS_EFFECTEN_LOADED
+        @viewComponent.setEnummersEffecten(note.getBody().enummerseffecten)
       when enummers.AppConstants::SOORTFILTER_CHANGED
         @viewComponent.filterBySoort(note.getBody())
       when enummers.AppConstants::CATEGORYFILTER_CHANGED

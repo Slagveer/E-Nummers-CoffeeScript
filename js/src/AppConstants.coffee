@@ -31,6 +31,8 @@ class AppConstants
   SOORTFILTER_CHANGED: "soort_changed"
   CATEGORYFILTER_CHANGED: "category_changed"
   SHOW_INFO: "show_info"
+  EFFECTEN_LOADED: "effecten_loaded"
+  ENUMMERS_EFFECTEN_LOADED: "enummers_effecten_loaded"
 
   # Filter routes
   FILTER_ALL: "all"

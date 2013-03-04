@@ -56,6 +56,10 @@ AppConstants = (function() {
 
   AppConstants.prototype.SHOW_INFO = "show_info";
 
+  AppConstants.prototype.EFFECTEN_LOADED = "effecten_loaded";
+
+  AppConstants.prototype.ENUMMERS_EFFECTEN_LOADED = "enummers_effecten_loaded";
+
   AppConstants.prototype.FILTER_ALL = "all";
 
   AppConstants.prototype.FILTER_ACTIVE = "active";
@@ -285,7 +289,7 @@ EnummersProxy = (function(_super) {
 
   EnummersProxy.prototype.loadData = function() {
     var _this = this;
-    return $.when(this.getCategorieen(), this.getSoorten(), this.getEnummers()).done(function(data) {
+    return $.when(this.getCategorieen(), this.getSoorten(), this.getEnummersEffecten(), this.getEnummers(), this.getEffecten()).done(function(data) {
       return _this.sendNotification(enummers.AppConstants.prototype.DATABASE_LOADED, {
         enummers: data
       });
@@ -353,10 +357,60 @@ EnummersProxy = (function(_super) {
       cache: false,
       timeout: 5000,
       success: function(data) {
+        console.log(data[0].length);
+        dfd.resolve(data[0]);
+        _this.sendNotification(enummers.AppConstants.prototype.ENUMMERS_LOADED, {
+          enummers: data[0]
+        });
+        return _this;
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        dfd.reject(textStatus);
+        console.log(errorThrown);
+        return this;
+      }
+    });
+    return dfd.promise();
+  };
+
+  EnummersProxy.prototype.getEffecten = function() {
+    var dfd,
+      _this = this;
+    dfd = $.Deferred();
+    $.ajax('http://127.0.0.1:3000/effecten', {
+      dataType: "json",
+      cache: false,
+      timeout: 5000,
+      success: function(data) {
         console.log(data.length);
         dfd.resolve(data);
-        _this.sendNotification(enummers.AppConstants.prototype.ENUMMERS_LOADED, {
-          enummers: data
+        _this.sendNotification(enummers.AppConstants.prototype.EFFECTEN_LOADED, {
+          effecten: data
+        });
+        return _this;
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        dfd.reject(textStatus);
+        console.log(errorThrown);
+        return this;
+      }
+    });
+    return dfd.promise();
+  };
+
+  EnummersProxy.prototype.getEnummersEffecten = function() {
+    var dfd,
+      _this = this;
+    dfd = $.Deferred();
+    $.ajax('http://127.0.0.1:3000/enummerseffecten', {
+      dataType: "json",
+      cache: false,
+      timeout: 5000,
+      success: function(data) {
+        console.log(data.length);
+        dfd.resolve(data);
+        _this.sendNotification(enummers.AppConstants.prototype.ENUMMERS_EFFECTEN_LOADED, {
+          enummerseffecten: data
         });
         return _this;
       },
@@ -552,12 +606,18 @@ ResultModel = (function() {
 
     this.filterBySoort = __bind(this.filterBySoort, this);
 
+    this.findEffect = __bind(this.findEffect, this);
+
     this.setSelectedItem = __bind(this.setSelectedItem, this);
 
     var _this = this;
     this.resultdata = [];
     this.view;
     this.enummers = ko.observableArray([]);
+    this.effecten = ko.observableArray([]).extend({
+      logChange: "effecten"
+    });
+    this.enummerseffecten = ko.observableArray([]);
     this.soortFilter = ko.observableArray([]);
     this.categorieFilter = ko.observableArray([]);
     this.searchFilter = ko.observable("").extend({
@@ -600,6 +660,11 @@ ResultModel = (function() {
         });
       }
     });
+    this.hasItems = ko.observable(false);
+    this.filteredEnummers.subscribe(function(value) {
+      var _ref;
+      return _this.hasItems((_ref = value && value.length) != null ? _ref : false);
+    });
   }
 
   ResultModel.prototype.getModelName = function() {
@@ -629,6 +694,14 @@ ResultModel = (function() {
     modelUpdatedEvent.model = this.NAME;
     modelUpdatedEvent.item = item;
     return this.dispatchEvent(modelUpdatedEvent);
+  };
+
+  ResultModel.prototype.findEffect = function(ids, id) {
+    if (ids.split(id).length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   ResultModel.prototype.filterBySoort = function(data) {
@@ -1272,12 +1345,16 @@ ResultView = (function() {
 
     this.updateResult = __bind(this.updateResult, this);
 
+    this.setEffecten = __bind(this.setEffecten, this);
+
+    this.setEnummersEffecten = __bind(this.setEnummersEffecten, this);
+
     this.setResult = __bind(this.setResult, this);
     this.enummersdata = [];
     this.timeout = 100;
     this.result = $("#result")[0];
     this.grid = $("#result").find("#grid");
-    this.viewModel = {};
+    this.viewModel = this.viewModel = new enummers.model.component.ResultModel([]);
     this.result.component = this;
     enummers.view.event.AppEvents.prototype.addEventListener(this.result, "click", function(event) {
       return this.component.dispatchEnummerClicked(event);
@@ -1307,7 +1384,6 @@ ResultView = (function() {
 
   ResultView.prototype.setResult = function(data) {
     var _this = this;
-    this.viewModel = new enummers.model.component.ResultModel(data);
     this.viewModel.view = this.result;
     this.viewModel.enummers(data);
     ko.applyBindings(this.viewModel, $('#result')[0]);
@@ -1322,12 +1398,24 @@ ResultView = (function() {
                 queue: true
             )
       */
-      return _this.grid.masonry({
+      _this.grid.masonry({
         itemSelector: 'div.enummer',
         columnWidth: 5,
         isAnimated: !Modernizr.csstransitions
       });
+      return $('.effect').popover({
+        trigger: 'hover',
+        placement: 'top'
+      });
     }), this.timeout);
+  };
+
+  ResultView.prototype.setEnummersEffecten = function(data) {
+    return this.viewModel.enummerseffecten(data);
+  };
+
+  ResultView.prototype.setEffecten = function(data) {
+    return this.viewModel.effecten(data);
   };
 
   ResultView.prototype.updateResult = function() {
@@ -1338,11 +1426,8 @@ ResultView = (function() {
   };
 
   ResultView.prototype.filterBySoort = function(data) {
-    var _this = this;
     this.viewModel.filterBySoort(data);
-    return setTimeout((function() {
-      return _this.updateResult();
-    }), this.timeout);
+    return dsfgdfggrecd;
   };
 
   ResultView.prototype.filterByCategorie = function(data) {
@@ -1738,7 +1823,7 @@ ResultViewMediator = (function(_super) {
   }
 
   ResultViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.SOORTFILTER_CHANGED, enummers.AppConstants.prototype.CATEGORYFILTER_CHANGED, enummers.AppConstants.prototype.SEARCHFILTER_CHANGED];
+    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.EFFECTEN_LOADED, enummers.AppConstants.prototype.ENUMMERS_EFFECTEN_LOADED, enummers.AppConstants.prototype.SOORTFILTER_CHANGED, enummers.AppConstants.prototype.CATEGORYFILTER_CHANGED, enummers.AppConstants.prototype.SEARCHFILTER_CHANGED];
   };
 
   ResultViewMediator.prototype.onRegister = function() {
@@ -1766,6 +1851,10 @@ ResultViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.ENUMMERS_LOADED:
         return this.viewComponent.setResult(note.getBody().enummers);
+      case enummers.AppConstants.prototype.EFFECTEN_LOADED:
+        return this.viewComponent.setEffecten(note.getBody().effecten);
+      case enummers.AppConstants.prototype.ENUMMERS_EFFECTEN_LOADED:
+        return this.viewComponent.setEnummersEffecten(note.getBody().enummerseffecten);
       case enummers.AppConstants.prototype.SOORTFILTER_CHANGED:
         return this.viewComponent.filterBySoort(note.getBody());
       case enummers.AppConstants.prototype.CATEGORYFILTER_CHANGED:

@@ -1,8 +1,13 @@
 class ResultModel
+  # Create Todo Implement unobtrusive event handling (event handling) in Appliness 7 oktober
   constructor: (data) ->
     @resultdata = []
     @view
     @enummers = ko.observableArray([])
+    @effecten = ko.observableArray([]).extend(
+      logChange: "effecten"
+    )
+    @enummerseffecten = ko.observableArray([])           
     @soortFilter = ko.observableArray([])
     @categorieFilter = ko.observableArray([])
     @searchFilter = ko.observable("").extend(
@@ -11,6 +16,7 @@ class ResultModel
     @selectedItem = ko.observable("").extend(
       logChange: "selectedItem"
     )
+
     @filteredEnummers = ko.computed =>
       if @searchFilter() is ""
         if @soortFilter().length is 0 and @categorieFilter().length is 0
@@ -40,6 +46,10 @@ class ResultModel
           else
             return (ko.utils.stringContains(naam.toLowerCase(), @searchFilter()) or ko.utils.stringContains(betekenis.toLowerCase(), @searchFilter())) and @soortFilter.indexOf(item.soortId) isnt -1 and @categorieFilter.indexOf(item.categorieId) isnt -1
         )
+    @hasItems = ko.observable(false)
+    @filteredEnummers.subscribe((value) =>
+      @hasItems (value and value.length) ? false
+    )
 
   getModelName: ->
     console.log "Class #{enummers.model.component.ResultModel::NAME}"
@@ -63,6 +73,12 @@ class ResultModel
     modelUpdatedEvent.model = @NAME
     modelUpdatedEvent.item = item
     @dispatchEvent modelUpdatedEvent
+
+  findEffect: (ids, id) =>
+    if ids.split(id).length > 1
+      return true
+    else
+      return false
 
   filterBySoort: (data) =>
     @soortFilter(data)

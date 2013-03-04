@@ -27,21 +27,26 @@
 
         <script type="text/html" id="enummers-template">
 
-            <div class="enummer box red stripes" data-bind="clickWithParams:{action:$root.setSelectedItem, params: [$data]}, css: { 'black' : $data == $root.selectedItem() }" __data-bind="clickWithParams: { action: $parent.selectItem, params: [ $data ] }, styleclass: soortId, css: { 'black' : $data == app.viewModel.selectedItem() },attr : { enummer: $data.naam }">
+            <div class="enummer box red stripes" data-bind="clickWithParams:{action:$root.setSelectedItem, params: [$data]}, css: { 'black' : $data == $root.selectedItem(), 'red': soortId == 1, 'orange': soortId == 2, 'green': soortId == 3 }" __data-bind="clickWithParams: { action: $parent.selectItem, params: [ $data ] }, styleclass: soortId, css: { 'black' : $data == app.viewModel.selectedItem() },attr : { enummer: $data.naam }">
                 <div class="main-container">
-                    <div class="effect-container" __data-bind="template: { name: 'effecten-template', templateUrl: 'js/views/templates', foreach: $root.effecten },style: { display : $data == app.viewModel.selectedItem() ? 'block' : 'none' }"></div>
-                    <h3 data-bind="text: naam"></h3>
+                    <div class="effect-container" data-bind="template: { name: 'effecten-template', foreach: $root.effecten },style: { display : $data == $root.selectedItem() ? 'block' : 'none' }"></div>
+                    <h3 class="title" data-bind="text: naam"></h3>
                 </div>
                 <div class="extra-container"  data-bind="css: { 'hide' : $data != $root.selectedItem() }">
                     <h3 class="animated" data-bind="text: betekenis"></h3>
                     <div class="icons">
-                        <div class="hidden " data-bind="stylesoortclass: soortId"/>
+                        <div class="hidden " data-bind="css:{ 'soort1': soortId ==  '1', 'soort2': soortId == '2', 'soort3': soortId == '3'}"/>
                     </div>
                     <a data-bind="href: naam,text: 'Tweet ' + naam" href="https://twitter.com/intent/tweet?button_hashtag=enummers&text=Tweet%20#E-Nummers" class="twitter-hashtag-button" data-lang="nl" data-related="enummers"></a>
                 </div>
                 <div class="id"><span data-bind="text: id"></span></div>
             </div>
 
+        </script>
+
+        <script type="text/html" id="effecten-template">
+            <div class="effect" rumble="true" data-bind="visible : $root.findEffect($parent.effecten,id), attr: { id: $parent.naam + '-' + id, class: 'effect ' + naam }" data-toggle="popover" data-original-title="${naam}" data-content="${omschrijving}">
+            </div>
         </script>
 
         <script type="text/html" id="checkbox-soorten-template">
@@ -135,7 +140,7 @@
             <div id="soorten" class="row">
                 <div class="span6 soorten box">
                     <div class="row">
-                        <div data-bind="template: { name: 'checkbox-soorten-template', foreach: soortdata }" class="menu-container"></div>
+                        <div data-bind="template: { name: 'checkbox-soorten-template', foreach: soortdata }" class="soorten-menu-container"></div>
                     </div>
                 </div>
             </div>
@@ -147,7 +152,7 @@
             <div id="categorieen" class="row">
                 <div class="span12 categorieen box">
                     <div class="row">
-                        <div data-bind="template: { name: 'checkbox-categorieen-template' }" class="menu-container"></div>
+                        <div data-bind="template: { name: 'checkbox-categorieen-template' }" class="categorieen-menu-container"></div>
                     </div>
                 </div>
             </div>

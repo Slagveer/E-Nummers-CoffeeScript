@@ -31,6 +31,9 @@ body {
     .popover-title{
         background: #000;
     }
+    h3{
+        font-size:14px !important;
+    }
 }
 
 .box{
@@ -64,6 +67,21 @@ body {
 .black{
     background-color: #000;
     width: 520px !important;
+}
+.soort1, .soort2, .soort3{
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-image: url("../img/gevaar.png");
+    width:70px;
+    height:70px;
+    display: block !important;
+    visibility: visible !important;
+}
+.soort2{
+    background-image: url("../img/gevaar_veilig.png");
+}
+.soort3{
+    background-image: url("../img/veilig.png");
 }
 
 .hide{
@@ -99,6 +117,23 @@ body {
         border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
         color: #FFFFFF;
         text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    }
+}
+
+.search{
+    height:90px;
+    line-height: 70px;
+}
+
+.categorieen-menu-container{
+    .span2{
+        height:70px !important;
+    }
+}
+
+.soorten-menu-container{
+    .span2{
+        height:90px !important;
     }
 }
 
@@ -186,11 +221,42 @@ body {
                 .container-component;
                 width:50%;
                 height:100%;
-                h3{
+                h3.title{
                     top:50px;
                     position: relative;
                     font-size: 40px !important;
                     line-height: 40px;
+                }
+                .effect-container{
+                    position: absolute;
+                    z-index:100;
+                    display: none;
+                    .astma{
+                        background:url(../img/astma_lt.png) 0px 0px no-repeat;
+                    }
+                    .astma-volwassen{
+                        background:url(../img/astma-volwassen_lt.png) 0px 0px no-repeat;
+                    }
+                    .alergie{
+                        background:url(../img/alergie_lt.png) 0px 0px no-repeat;
+                    }
+                    .netelroos{
+                        background:url(../img/netelroos_lt.png) 0px 0px no-repeat;
+                    }
+                    .overgevoelig{
+                        background:url(../img/overgevoelig_lt.png) 0px 0px no-repeat;
+                    }
+                    .lever{
+                        background:url(../img/lever_lt.png) 0px 0px no-repeat;
+                    }
+                    .nier{
+                        background:url(../img/nier_lt.png) 0px 0px no-repeat;
+                    }
+                }
+                .effect{
+                    width:50px;height:50px;background-color:#000;position:relative;float:left;
+                    background-repeat: no-repeat;
+                    font-size: 20px;
                 }
             }
             .extra-container{
