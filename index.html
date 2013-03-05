@@ -27,7 +27,7 @@
 
         <script type="text/html" id="enummers-template">
 
-            <div class="enummer box red stripes" data-bind="clickWithParams:{action:$root.setSelectedItem, params: [$data]}, css: { 'black' : $data == $root.selectedItem(), 'red': soortId == 1, 'orange': soortId == 2, 'green': soortId == 3 }" __data-bind="clickWithParams: { action: $parent.selectItem, params: [ $data ] }, styleclass: soortId, css: { 'black' : $data == app.viewModel.selectedItem() },attr : { enummer: $data.naam }">
+            <div class="enummer box" data-bind="clickWithParams:{action:$root.setSelectedItem, params: [$data]}, css: { 'black' : $data == $root.selectedItem(), 'red': soortId == 1, 'orange': soortId == 2, 'green': soortId == 3 }">
                 <div class="main-container">
                     <div class="effect-container" data-bind="template: { name: 'effecten-template', foreach: $root.effecten },style: { display : $data == $root.selectedItem() ? 'block' : 'none' }"></div>
                     <h3 class="title" data-bind="text: naam"></h3>
@@ -168,7 +168,10 @@
 
                 <div id="info" class="span3">
                     <div class="row">
-                        <div id="state" class="span3 box"></div>
+                        <div id="status" class="span3 box stripes" data-bind="visible: $root.selectedItem() != null">
+                            <h2 data-bind="text: selectedItem() ? selectedItem().betekenis : ''"></h2>
+                            <div id="status-selected" data-bind="text: selectedItem() ? selectedItem().naam : ''"></div>
+                        </div>
                     </div>
                 </div>
 

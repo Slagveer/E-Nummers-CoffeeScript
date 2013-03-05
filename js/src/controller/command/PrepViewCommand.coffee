@@ -18,6 +18,7 @@ class PrepViewCommand extends puremvc.SimpleCommand
     @facade.registerMediator new enummers.view.mediator.SoortenViewMediator()
     @facade.registerMediator new enummers.view.mediator.ResultViewMediator()
     @facade.registerMediator new enummers.view.mediator.SearchViewMediator()
+    @facade.registerMediator new enummers.view.mediator.StatusViewMediator()
 
 puremvc.DefineNamespace 'enummers.controller.command', (exports) ->
   exports.PrepViewCommand = PrepViewCommand

@@ -12,7 +12,7 @@ class ResultView
     # Fixed DOM elements managed by this view component
     @result = $("#result")[0]
     @grid = $("#result").find("#grid")
-    @viewModel = @viewModel = new enummers.model.component.ResultModel([])
+    @viewModel = new enummers.model.component.ResultModel([])
 
     # Event listeners for fixed UI elements
     @result.component = this
@@ -30,16 +30,17 @@ class ResultView
   dispatchEvent: (event) ->
     enummers.view.event.AppEvents::dispatchEvent @result, event
 
-  dispatchEnummerClicked: ->
+  dispatchEnummerClicked: =>
     enummerClickedEvent = @createEvent(enummers.view.event.AppEvents::ENUMMER_CLICKED)
     enummerClickedEvent.item = @viewModel.selectedItem()
+    enummerClickedEvent.model = enummers.model.component.ResultModel::NAME
     @dispatchEvent enummerClickedEvent
 
   setResult: (data) =>
     #@viewModel = new enummers.model.component.ResultModel(data)
     @viewModel.view = @result
     @viewModel.enummers(data)
-    ko.applyBindings(@viewModel, $('#result')[0])
+    ko.applyBindings(@viewModel, @result)
     setTimeout ( =>
       ###
       @grid.isotope(

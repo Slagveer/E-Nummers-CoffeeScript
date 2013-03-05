@@ -11,7 +11,7 @@ PureMVC JS is multi-core, meaning you may have multiple,
 named and isolated PureMVC cores. This app only has one.
 */
 
-var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, TodoCommand, TodoForm, TodoFormMediator, TodoProxy,
+var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TodoProxy,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -59,6 +59,8 @@ AppConstants = (function() {
   AppConstants.prototype.EFFECTEN_LOADED = "effecten_loaded";
 
   AppConstants.prototype.ENUMMERS_EFFECTEN_LOADED = "enummers_effecten_loaded";
+
+  AppConstants.prototype.STATUS_CHANGED = "status_changed";
 
   AppConstants.prototype.FILTER_ALL = "all";
 
@@ -608,15 +610,19 @@ ResultModel = (function() {
 
     this.findEffect = __bind(this.findEffect, this);
 
+    this.dispatchModelUpdatedEvent = __bind(this.dispatchModelUpdatedEvent, this);
+
+    this.dispatchEvent = __bind(this.dispatchEvent, this);
+
     this.setSelectedItem = __bind(this.setSelectedItem, this);
+
+    this.getCSS = __bind(this.getCSS, this);
 
     var _this = this;
     this.resultdata = [];
     this.view;
     this.enummers = ko.observableArray([]);
-    this.effecten = ko.observableArray([]).extend({
-      logChange: "effecten"
-    });
+    this.effecten = ko.observableArray([]);
     this.enummerseffecten = ko.observableArray([]);
     this.soortFilter = ko.observableArray([]);
     this.categorieFilter = ko.observableArray([]);
@@ -666,6 +672,52 @@ ResultModel = (function() {
       return _this.hasItems((_ref = value && value.length) != null ? _ref : false);
     });
   }
+
+  ResultModel.prototype.getCSS = function(data) {
+    var css;
+    css = {};
+    if (data.id === 1) {
+      console.log("" + data.id + " " + (this.selectedItem().id));
+    }
+    if (data === this.selectedItem()) {
+      switch (data.soortId) {
+        case 1:
+          css = {
+            "red black": true
+          };
+          break;
+        case 2:
+          css = {
+            "orange black": true
+          };
+          break;
+        case 3:
+          css = {
+            "green black": true
+          };
+      }
+    }
+    if (data !== this.selectedItem()) {
+      switch (data.soortId) {
+        case 1:
+          css = {
+            "red": true
+          };
+          break;
+        case 2:
+          css = {
+            "orange": true
+          };
+          break;
+        case 3:
+          css = {
+            "green": true
+          };
+      }
+    }
+    console.log(css);
+    return css;
+  };
 
   ResultModel.prototype.getModelName = function() {
     return console.log("Class " + enummers.model.component.ResultModel.prototype.NAME);
@@ -808,6 +860,53 @@ SearchModel = (function() {
 
 puremvc.DefineNamespace('enummers.model.component', function(exports) {
   return exports.SearchModel = SearchModel;
+});
+
+StatusModel = (function() {
+
+  function StatusModel(data) {
+    this.setStatus = __bind(this.setStatus, this);
+    this.selectedItem = ko.observable();
+    this.view;
+  }
+
+  StatusModel.prototype.getModelName = function() {
+    return console.log("Class " + enummers.model.component.StatusModel.prototype.NAME);
+  };
+
+  StatusModel.prototype.setStatus = function(enummer) {
+    this.selectedItem = enummer;
+    return dispatchModelUpdatedEvent;
+  };
+
+  StatusModel.prototype.addEventListener = function(type, listener, useCapture) {
+    return enummers.view.event.AppEvents.prototype.addEventListener(this.view, type, listener, useCapture);
+  };
+
+  StatusModel.prototype.createEvent = function(eventName) {
+    return enummers.view.event.AppEvents.prototype.createEvent(eventName);
+  };
+
+  StatusModel.prototype.dispatchEvent = function(event) {
+    return enummers.view.event.AppEvents.prototype.dispatchEvent(this.view, event);
+  };
+
+  StatusModel.prototype.dispatchModelUpdatedEvent = function() {
+    var modelUpdatedEvent;
+    modelUpdatedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.MODEL_UPDATED);
+    modelUpdatedEvent.model = this.NAME;
+    modelUpdatedEvent.item = this.selectedItem();
+    return this.dispatchEvent(modelUpdatedEvent);
+  };
+
+  StatusModel.prototype.NAME = "StatusModel";
+
+  return StatusModel;
+
+})();
+
+puremvc.DefineNamespace('enummers.model.component', function(exports) {
+  return exports.StatusModel = StatusModel;
 });
 
 /*
@@ -1350,11 +1449,13 @@ ResultView = (function() {
     this.setEnummersEffecten = __bind(this.setEnummersEffecten, this);
 
     this.setResult = __bind(this.setResult, this);
+
+    this.dispatchEnummerClicked = __bind(this.dispatchEnummerClicked, this);
     this.enummersdata = [];
     this.timeout = 100;
     this.result = $("#result")[0];
     this.grid = $("#result").find("#grid");
-    this.viewModel = this.viewModel = new enummers.model.component.ResultModel([]);
+    this.viewModel = new enummers.model.component.ResultModel([]);
     this.result.component = this;
     enummers.view.event.AppEvents.prototype.addEventListener(this.result, "click", function(event) {
       return this.component.dispatchEnummerClicked(event);
@@ -1379,6 +1480,7 @@ ResultView = (function() {
     var enummerClickedEvent;
     enummerClickedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.ENUMMER_CLICKED);
     enummerClickedEvent.item = this.viewModel.selectedItem();
+    enummerClickedEvent.model = enummers.model.component.ResultModel.prototype.NAME;
     return this.dispatchEvent(enummerClickedEvent);
   };
 
@@ -1386,7 +1488,7 @@ ResultView = (function() {
     var _this = this;
     this.viewModel.view = this.result;
     this.viewModel.enummers(data);
-    ko.applyBindings(this.viewModel, $('#result')[0]);
+    ko.applyBindings(this.viewModel, this.result);
     return setTimeout((function() {
       /*
             @grid.isotope(
@@ -1510,6 +1612,68 @@ SearchView = (function() {
 
 puremvc.DefineNamespace('enummers.view.component', function(exports) {
   return exports.SearchView = SearchView;
+});
+
+/*
+@author Mike Britton, Cliff Hall
+
+@class StatusView
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+StatusView = (function() {
+
+  function StatusView(event) {
+    this.initStatus = __bind(this.initStatus, this);
+
+    this.changeStatus = __bind(this.changeStatus, this);
+    this.status = $("#status")[0];
+    this.viewModel = {};
+    this.status.component = this;
+    enummers.view.event.AppEvents.prototype.addEventListener(this.status, "click", function(event) {
+      return this.component.dispatchSoortClicked(event);
+    });
+  }
+
+  StatusView.prototype.ENTER_KEY = 13;
+
+  StatusView.prototype.addEventListener = function(type, listener, useCapture) {
+    return enummers.view.event.AppEvents.prototype.addEventListener(this.status, type, listener, useCapture);
+  };
+
+  StatusView.prototype.createEvent = function(eventName) {
+    return enummers.view.event.AppEvents.prototype.createEvent(eventName);
+  };
+
+  StatusView.prototype.dispatchEvent = function(event) {
+    return enummers.view.event.AppEvents.prototype.dispatchEvent(this.status, event);
+  };
+
+  StatusView.prototype.dispatchSoortClicked = function() {
+    var logoClickedEvent;
+    logoClickedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.STATUS_CLICKED);
+    return this.dispatchEvent(logoClickedEvent);
+  };
+
+  StatusView.prototype.changeStatus = function(data) {
+    return this.status = data;
+  };
+
+  StatusView.prototype.initStatus = function() {
+    this.viewModel = new enummers.model.component.StatusModel();
+    this.viewModel.view = this.status;
+    return ko.applyBindings(this.viewModel, this.status);
+  };
+
+  StatusView.prototype.NAME = "StatusView";
+
+  return StatusView;
+
+})();
+
+puremvc.DefineNamespace('enummers.view.component', function(exports) {
+  return exports.StatusView = StatusView;
 });
 
 /*
@@ -1782,6 +1946,7 @@ SoortenViewMediator = (function(_super) {
       case enummers.view.event.AppEvents.prototype.CHECKBOX_CLICKED:
         return this.sendNotification(enummers.AppConstants.prototype.RELOAD_PAGE);
       case enummers.view.event.AppEvents.prototype.MODEL_UPDATED:
+        console.log(event);
         if ((event.model != null) && event.model === enummers.model.component.SoortModel.prototype.NAME) {
           return this.sendNotification(enummers.AppConstants.prototype.SOORTFILTER_CHANGED, event.item);
         }
@@ -1841,8 +2006,8 @@ ResultViewMediator = (function(_super) {
         }
         break;
       case enummers.view.event.AppEvents.prototype.MODEL_UPDATED:
-        if (!(event.model != null) && event.model === enummers.model.ResultModel.NAME) {
-          return this.sendNotification(enummers.AppConstants.prototype.ENUMMER_SELECTED, event.soortFilter);
+        if (!(event.model != null) && event.model === enummers.model.component.ResultModel.prototype.NAME) {
+          return this.sendNotification(enummers.AppConstants.prototype.ENUMMER_SELECTED, event.item);
         }
     }
   };
@@ -1923,6 +2088,60 @@ SearchViewMediator = (function(_super) {
 
 puremvc.DefineNamespace('enummers.view.mediator', function(exports) {
   return exports.SearchViewMediator = SearchViewMediator;
+});
+
+/*
+@author Mike Britton
+
+@class StatusViewMediator
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+StatusViewMediator = (function(_super) {
+
+  __extends(StatusViewMediator, _super);
+
+  function StatusViewMediator() {
+    this.handleNotification = __bind(this.handleNotification, this);
+    return StatusViewMediator.__super__.constructor.apply(this, arguments);
+  }
+
+  StatusViewMediator.prototype.listNotificationInterests = function() {
+    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.ENUMMER_SELECTED];
+  };
+
+  StatusViewMediator.prototype.onRegister = function() {
+    this.setViewComponent(new enummers.view.component.StatusView);
+    return this.viewComponent.addEventListener(enummers.view.event.AppEvents.prototype.MODEL_UPDATED, this);
+  };
+
+  StatusViewMediator.prototype.handleEvent = function(event) {
+    switch (event.type) {
+      case enummers.view.event.AppEvents.prototype.MODEL_UPDATED:
+        if ((event.model != null) && event.model === enummers.model.component.StatusModel.prototype.NAME) {
+          return this.sendNotification(enummers.AppConstants.prototype.STATUS_CHANGED, event.item);
+        }
+    }
+  };
+
+  StatusViewMediator.prototype.handleNotification = function(note) {
+    switch (note.getName()) {
+      case enummers.AppConstants.prototype.ENUMMER_SELECTED:
+        return this.viewComponent.changeStatus(note.getBody());
+      case enummers.AppConstants.prototype.ENUMMERS_LOADED:
+        return this.viewComponent.initStatus();
+    }
+  };
+
+  StatusViewMediator.prototype.NAME = "StatusViewMediator";
+
+  return StatusViewMediator;
+
+})(puremvc.Mediator);
+
+puremvc.DefineNamespace('enummers.view.mediator', function(exports) {
+  return exports.StatusViewMediator = StatusViewMediator;
 });
 
 /*
@@ -2060,7 +2279,8 @@ PrepViewCommand = (function(_super) {
     this.facade.registerMediator(new enummers.view.mediator.CategorieenViewMediator());
     this.facade.registerMediator(new enummers.view.mediator.SoortenViewMediator());
     this.facade.registerMediator(new enummers.view.mediator.ResultViewMediator());
-    return this.facade.registerMediator(new enummers.view.mediator.SearchViewMediator());
+    this.facade.registerMediator(new enummers.view.mediator.SearchViewMediator());
+    return this.facade.registerMediator(new enummers.view.mediator.StatusViewMediator());
   };
 
   return PrepViewCommand;

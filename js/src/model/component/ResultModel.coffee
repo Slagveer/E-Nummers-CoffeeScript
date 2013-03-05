@@ -4,9 +4,7 @@ class ResultModel
     @resultdata = []
     @view
     @enummers = ko.observableArray([])
-    @effecten = ko.observableArray([]).extend(
-      logChange: "effecten"
-    )
+    @effecten = ko.observableArray([])
     @enummerseffecten = ko.observableArray([])           
     @soortFilter = ko.observableArray([])
     @categorieFilter = ko.observableArray([])
@@ -16,7 +14,6 @@ class ResultModel
     @selectedItem = ko.observable("").extend(
       logChange: "selectedItem"
     )
-
     @filteredEnummers = ko.computed =>
       if @searchFilter() is ""
         if @soortFilter().length is 0 and @categorieFilter().length is 0
@@ -51,6 +48,31 @@ class ResultModel
       @hasItems (value and value.length) ? false
     )
 
+  getCSS: (data) =>
+    css = {}
+    if data.id is 1
+      console.log "#{data.id} #{@selectedItem().id}"
+    if data is @selectedItem()
+      switch data.soortId
+        when 1
+          css = {"red black":true}
+        when 2
+          css = {"orange black":true}
+        when 3
+          css = {"green black":true}
+    if data isnt @selectedItem()
+      switch data.soortId
+        when 1
+          css = {"red":true}
+        when 2
+          css = {"orange":true}
+        when 3
+          css = {"green":true}
+    #obj['green'] = true;
+
+    console.log css
+    return css
+
   getModelName: ->
     console.log "Class #{enummers.model.component.ResultModel::NAME}"
 
@@ -65,10 +87,10 @@ class ResultModel
   createEvent: (eventName) ->
     enummers.view.event.AppEvents::createEvent eventName
 
-  dispatchEvent: (event) ->
+  dispatchEvent: (event) =>
     enummers.view.event.AppEvents::dispatchEvent @view , event
 
-  dispatchModelUpdatedEvent: (item) ->
+  dispatchModelUpdatedEvent: (item) =>
     modelUpdatedEvent = @createEvent(enummers.view.event.AppEvents::MODEL_UPDATED)
     modelUpdatedEvent.model = @NAME
     modelUpdatedEvent.item = item

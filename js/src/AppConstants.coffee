@@ -33,6 +33,7 @@ class AppConstants
   SHOW_INFO: "show_info"
   EFFECTEN_LOADED: "effecten_loaded"
   ENUMMERS_EFFECTEN_LOADED: "enummers_effecten_loaded"
+  STATUS_CHANGED: "status_changed"
 
   # Filter routes
   FILTER_ALL: "all"

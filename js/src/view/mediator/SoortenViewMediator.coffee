@@ -24,6 +24,7 @@ class SoortenViewMediator extends puremvc.Mediator
       when enummers.view.event.AppEvents::CHECKBOX_CLICKED
         @sendNotification enummers.AppConstants::RELOAD_PAGE
       when enummers.view.event.AppEvents::MODEL_UPDATED
+        console.log event
         @sendNotification enummers.AppConstants::SOORTFILTER_CHANGED, event.item if event.model? and event.model is enummers.model.component.SoortModel::NAME
 
   # Handle notifications from other PureMVC actors
