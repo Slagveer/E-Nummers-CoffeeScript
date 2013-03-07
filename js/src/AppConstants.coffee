@@ -34,6 +34,8 @@ class AppConstants
   EFFECTEN_LOADED: "effecten_loaded"
   ENUMMERS_EFFECTEN_LOADED: "enummers_effecten_loaded"
   STATUS_CHANGED: "status_changed"
+  FACEBOOK_COMMENTS_LOADED: "facebook_comments_loaded"
+  TWITTER_TWEETS_LOADED: "twitter_tweets_loaded"
 
   # Filter routes
   FILTER_ALL: "all"

@@ -1,37 +1,37 @@
 ###
 @author Mike Britton
 
-@class StatusViewMediator
+@class FaceBookViewMediator
 @link https://github.com/PureMVC/puremvc-js-demo-enummers.git
 ###
-class StatusViewMediator extends puremvc.Mediator
+class FaceBookViewMediator extends puremvc.Mediator
   # INSTANCE MEMBERS
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.AppConstants::ENUMMERS_LOADED,enummers.AppConstants::ENUMMER_SELECTED]
+    [enummers.AppConstants::FACEBOOK_COMMENTS_LOADED]
+
 
   # Code to be executed when the Mediator instance is registered with the View
   onRegister: ->
-    @setViewComponent new enummers.view.component.StatusView
+    @setViewComponent new enummers.view.component.FaceBookView
     @viewComponent.addEventListener enummers.view.event.AppEvents::MODEL_UPDATED, this
 
   # Handle events from the view component
   handleEvent: (event) ->
     switch event.type
       when enummers.view.event.AppEvents::MODEL_UPDATED
-        @sendNotification enummers.AppConstants::STATUS_CHANGED, event.item if event.model? and event.model is enummers.model.component.StatusModel::NAME
+        console.log event
+        @sendNotification enummers.AppConstants::SOORTFILTER_CHANGED, event.item if event.model? and event.model is enummers.model.component.FaceBookModel::NAME
 
   # Handle notifications from other PureMVC actors
-  handleNotification: (note) =>
+  handleNotification: (note) ->
     switch note.getName()
-      when enummers.AppConstants::ENUMMER_SELECTED
-        @viewComponent.changeStatus(note.getBody())
-      when enummers.AppConstants::ENUMMERS_LOADED
-        @viewComponent.setStatus()
+      when enummers.AppConstants::FACEBOOK_COMMENTS_LOADED
+        @viewComponent.setComments(note.getBody().comments)
 
   # STATIC MEMBERS
-  NAME: "StatusViewMediator"
+  NAME: "FaceBookViewMediator"
 
 puremvc.DefineNamespace 'enummers.view.mediator', (exports) ->
-  exports.StatusViewMediator = StatusViewMediator
+  exports.FaceBookViewMediator = FaceBookViewMediator

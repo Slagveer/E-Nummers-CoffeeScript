@@ -52,10 +52,14 @@ class ResultView
           queue: true
       )
       ###
-      @grid.masonry(
-        itemSelector: 'div.enummer',
-        columnWidth: 5,
-        isAnimated: !Modernizr.csstransitions
+      $.when(
+        @grid.masonry(
+          itemSelector: 'div.enummer',
+          columnWidth: 5,
+          isAnimated: !Modernizr.csstransitions
+        )
+      ).then(=>
+        console.log "FINISH"
       )
       $('.effect').popover {trigger:'hover',placement:'top'}
     ),@timeout
@@ -70,7 +74,11 @@ class ResultView
     setTimeout ( =>
       #@grid.isotope( 'remove', $('#grid').find('.black') )
       #@grid.isotope( 'remove', $('#grid').find('.black') )
-      @grid.masonry('reload');
+      $.when(
+        @grid.masonry('reload')
+      ).then(=>
+        console.log "FINISH"
+      )
     ),@timeout
 
   filterBySoort: (data) =>

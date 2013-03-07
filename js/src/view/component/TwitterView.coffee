@@ -1,48 +1,49 @@
 ###
 @author Mike Britton, Cliff Hall
 
-@class StatusView
+@class TwitterView
 @link https://github.com/PureMVC/puremvc-js-demo-enummers.git
 ###
-class StatusView
+class TwitterView
   constructor: (event) ->
 
     # data
 
     # Fixed DOM elements managed by this view component
-    @status = $("#status")[0]
+    @twitter = $("#twitter")[0]
+    @tweets = []
     @viewModel = {}
 
     # Event listeners for fixed UI elements
-    @status.component = this
-    enummers.view.event.AppEvents::addEventListener @status, "click", (event) ->
+    @twitter.component = this
+    enummers.view.event.AppEvents::addEventListener @twitter, "click", (event) ->
       @component.dispatchSoortClicked event
 
   # INSTANCE MEMBERS
   ENTER_KEY: 13
   addEventListener: (type, listener, useCapture) ->
-    enummers.view.event.AppEvents::addEventListener @status, type, listener, useCapture
+    enummers.view.event.AppEvents::addEventListener @twitter, type, listener, useCapture
 
   createEvent: (eventName) ->
     enummers.view.event.AppEvents::createEvent eventName
 
   dispatchEvent: (event) ->
-    enummers.view.event.AppEvents::dispatchEvent @status, event
+    enummers.view.event.AppEvents::dispatchEvent @twitter, event
 
   dispatchSoortClicked: ->
     logoClickedEvent = @createEvent(enummers.view.event.AppEvents::STATUS_CLICKED)
     @dispatchEvent logoClickedEvent
 
-  changeStatus: (data) =>
-    @viewModel.setStatus(data);
+  changeTweets: (data) =>
+    @tweets = data;
 
-  setStatus: =>
-    @viewModel = new enummers.model.component.StatusModel()
-    @viewModel.view = @status
-    ko.applyBindings(@viewModel, @status)
+  setTweets: (data) =>
+    @viewModel = new enummers.model.component.TwitterModel(data)
+    @viewModel.view = @twitter
+    ko.applyBindings(@viewModel, @twitter)
 
   # STATIC MEMBERS
-  NAME: "StatusView"
+  NAME: "TwitterView"
 
 puremvc.DefineNamespace 'enummers.view.component', (exports) ->
-  exports.StatusView = StatusView
+  exports.TwitterView = TwitterView

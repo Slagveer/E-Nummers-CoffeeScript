@@ -9,7 +9,7 @@ class EnummersProxy extends puremvc.Proxy
   stats: {}
   viewModel: {}
   filter: enummers.AppConstants::FILTER_ALL
-  LOCAL_STORAGE: "todos-puremvc"
+  LOCAL_STORAGE: "enummers-puremvc"
   onRegister: ->
     @loadData()
 

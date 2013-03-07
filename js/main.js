@@ -11,10 +11,10 @@ PureMVC JS is multi-core, meaning you may have multiple,
 named and isolated PureMVC cores. This app only has one.
 */
 
-var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TodoProxy,
+var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, FaceBookModel, FaceBookProxy, FaceBookView, FaceBookViewMediator, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TwitterModel, TwitterProxy, TwitterView, TwitterViewMediator,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 AppConstants = (function() {
 
@@ -62,6 +62,10 @@ AppConstants = (function() {
 
   AppConstants.prototype.STATUS_CHANGED = "status_changed";
 
+  AppConstants.prototype.FACEBOOK_COMMENTS_LOADED = "facebook_comments_loaded";
+
+  AppConstants.prototype.TWITTER_TWEETS_LOADED = "twitter_tweets_loaded";
+
   AppConstants.prototype.FILTER_ALL = "all";
 
   AppConstants.prototype.FILTER_ACTIVE = "active";
@@ -79,186 +83,137 @@ puremvc.DefineNamespace('enummers', function(exports) {
 /*
 @author Mike Britton, Cliff Hall
 
-@class TodoProxy
+@class TwitterProxy
 @link https://github.com/PureMVC/puremvc-js-demo-enummers.git
 */
 
 
-TodoProxy = (function(_super) {
+TwitterProxy = (function(_super) {
 
-  __extends(TodoProxy, _super);
+  __extends(TwitterProxy, _super);
 
-  function TodoProxy() {
-    return TodoProxy.__super__.constructor.apply(this, arguments);
+  function TwitterProxy() {
+    this.process = __bind(this.process, this);
+    return TwitterProxy.__super__.constructor.apply(this, arguments);
   }
 
-  TodoProxy.prototype.todos = [];
+  TwitterProxy.prototype.LOCAL_STORAGE = "twitter-puremvc";
 
-  TodoProxy.prototype.stats = {};
-
-  TodoProxy.prototype.filter = enummers.AppConstants.prototype.FILTER_ALL;
-
-  TodoProxy.prototype.LOCAL_STORAGE = "todos-puremvc";
-
-  TodoProxy.prototype.onRegister = function() {
+  TwitterProxy.prototype.onRegister = function() {
     return this.loadData();
   };
 
-  TodoProxy.prototype.loadData = function() {
-    var storageObject;
-    storageObject = void 0;
-    if (!localStorage.getItem(this.LOCAL_STORAGE)) {
-      this.saveData();
-    }
-    storageObject = JSON.parse(localStorage.getItem(this.LOCAL_STORAGE));
-    this.todos = storageObject.todos;
-    this.filter = storageObject.filter;
-    return this.computeStats();
-  };
-
-  TodoProxy.prototype.saveData = function() {
-    var storageObject;
-    storageObject = {
-      todos: this.todos,
-      filter: this.filter
-    };
-    return localStorage.setItem(this.LOCAL_STORAGE, JSON.stringify(storageObject));
-  };
-
-  TodoProxy.prototype.computeStats = function() {
-    this.stats.totalTodo = this.todos.length;
-    this.stats.todoCompleted = this.getCompletedCount();
-    return this.stats.todoLeft = this.stats.totalTodo - this.stats.todoCompleted;
-  };
-
-  TodoProxy.prototype.filterTodos = function(filter) {
-    var filtered, i;
-    i = void 0;
-    this.filter = filter;
-    this.saveData();
-    i = this.todos.length;
-    filtered = [];
-    while (i--) {
-      if (filter === enummers.AppConstants.prototype.FILTER_ALL) {
-        filtered.push(this.todos[i]);
-      } else if (this.todos[i].completed === true && filter === enummers.AppConstants.prototype.FILTER_COMPLETED) {
-        filtered.push(this.todos[i]);
-      } else {
-        if (this.todos[i].completed === false && filter === enummers.AppConstants.prototype.FILTER_ACTIVE) {
-          filtered.push(this.todos[i]);
-        }
-      }
-    }
-    return this.sendNotification(enummers.AppConstants.prototype.TODOS_FILTERED, {
-      todos: filtered,
-      stats: this.stats,
-      filter: this.filter
+  TwitterProxy.prototype.loadData = function(id) {
+    var _this = this;
+    return $.when(this.getComments(id)).done(function(data) {
+      return _this.sendNotification(enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED, {
+        comments: data
+      });
     });
   };
 
-  TodoProxy.prototype.todosModified = function() {
-    this.computeStats();
-    return this.filterTodos(this.filter);
-  };
-
-  TodoProxy.prototype.removeTodosCompleted = function() {
-    var i;
-    i = this.todos.length;
-    if ((function() {
-      var _results;
-      _results = [];
-      while (i--) {
-        _results.push(this.todos[i].completed);
+  TwitterProxy.prototype.getComments = function(id) {
+    var dfd,
+      _this = this;
+    dfd = $.Deferred();
+    $.ajax("http://search.twitter.com/search.json?q=%40e-nummers&callback=?&rpp=100&result_type=recent", {
+      dataType: "jsonp",
+      cache: false,
+      timeout: 5000,
+      success: function(data) {
+        console.log(data.results.length);
+        dfd.resolve(data.results);
+        return _this;
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        dfd.reject(textStatus);
+        console.log(errorThrown);
+        return this;
       }
-      return _results;
-    }).call(this)) {
-      this.todos.splice(i, 1);
-    }
-    return this.todosModified();
+    });
+    return dfd.promise();
   };
 
-  TodoProxy.prototype.deleteTodo = function(id) {
-    var i;
-    i = this.todos.length;
-    if ((function() {
-      var _results;
-      _results = [];
-      while (i--) {
-        _results.push(this.todos[i].id === id);
-      }
-      return _results;
-    }).call(this)) {
-      this.todos.splice(i, 1);
-    }
-    return this.todosModified();
+  TwitterProxy.prototype.NAME = "TwitterProxy";
+
+  TwitterProxy.prototype.process = function() {
+    return console.log(data);
   };
 
-  TodoProxy.prototype.toggleCompleteStatus = function(status) {
-    var i;
-    i = this.todos.length;
-    while (i--) {
-      this.todos[i].completed = status;
-    }
-    return this.todosModified();
-  };
-
-  TodoProxy.prototype.updateTodo = function(todo) {
-    var i;
-    i = this.todos.length;
-    while (i--) {
-      if (this.todos[i].id === todo.id) {
-        this.todos[i].title = todo.title;
-        this.todos[i].completed = todo.completed;
-      }
-    }
-    return this.todosModified();
-  };
-
-  TodoProxy.prototype.addTodo = function(newTodo) {
-    newTodo.id = this.getUuid();
-    this.todos.push(newTodo);
-    return this.todosModified();
-  };
-
-  TodoProxy.prototype.getCompletedCount = function() {
-    var completed, i, todo, _i, _len, _ref;
-    i = this.todos.length;
-    completed = 0;
-    _ref = this.todos;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      todo = _ref[_i];
-      if (todo.completed) {
-        completed++;
-      }
-    }
-    return completed;
-  };
-
-  TodoProxy.prototype.getUuid = function() {
-    var i, random, uuid;
-    i = void 0;
-    random = void 0;
-    uuid = "";
-    i = 0;
-    while (i < 32) {
-      random = Math.random() * 16 | 0;
-      if (i === 8 || i === 12 || i === 16 || i === 20) {
-        uuid += "-";
-      }
-      uuid += (i === 12 ? 4 : (i === 16 ? random & 3 | 8 : random)).toString(16);
-      i++;
-    }
-    return uuid;
-  };
-
-  TodoProxy.prototype.NAME = "TodoProxy";
-
-  return TodoProxy;
+  return TwitterProxy;
 
 })(puremvc.Proxy);
 
 puremvc.DefineNamespace('enummers.model.proxy', function(exports) {
-  return exports.TodoProxy = TodoProxy;
+  return exports.TwitterProxy = TwitterProxy;
+});
+
+/*
+@author Mike Britton, Cliff Hall
+
+@class FaceBookProxy
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+FaceBookProxy = (function(_super) {
+
+  __extends(FaceBookProxy, _super);
+
+  function FaceBookProxy() {
+    this.process = __bind(this.process, this);
+    return FaceBookProxy.__super__.constructor.apply(this, arguments);
+  }
+
+  FaceBookProxy.prototype.LOCAL_STORAGE = "facebook-puremvc";
+
+  FaceBookProxy.prototype.onRegister = function() {
+    return this.loadData("http://127.0.0.1:3000/facebook");
+  };
+
+  FaceBookProxy.prototype.loadData = function(id) {
+    var _this = this;
+    return $.when(this.getComments(id)).done(function(data) {
+      return _this.sendNotification(enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED, {
+        comments: data
+      });
+    });
+  };
+
+  FaceBookProxy.prototype.getComments = function(url) {
+    var dfd,
+      _this = this;
+    dfd = $.Deferred();
+    $.ajax(url, {
+      dataType: "json",
+      cache: false,
+      timeout: 5000,
+      success: function(data) {
+        console.log(data);
+        dfd.resolve(data);
+        return _this;
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        dfd.reject(textStatus);
+        console.log(textStatus);
+        return this;
+      }
+    });
+    return dfd.promise();
+  };
+
+  FaceBookProxy.prototype.NAME = "FaceBookProxy";
+
+  FaceBookProxy.prototype.process = function() {
+    return console.log(data);
+  };
+
+  return FaceBookProxy;
+
+})(puremvc.Proxy);
+
+puremvc.DefineNamespace('enummers.model.proxy', function(exports) {
+  return exports.FaceBookProxy = FaceBookProxy;
 });
 
 /*
@@ -283,7 +238,7 @@ EnummersProxy = (function(_super) {
 
   EnummersProxy.prototype.filter = enummers.AppConstants.prototype.FILTER_ALL;
 
-  EnummersProxy.prototype.LOCAL_STORAGE = "todos-puremvc";
+  EnummersProxy.prototype.LOCAL_STORAGE = "enummers-puremvc";
 
   EnummersProxy.prototype.onRegister = function() {
     return this.loadData();
@@ -866,7 +821,7 @@ StatusModel = (function() {
 
   function StatusModel(data) {
     this.setStatus = __bind(this.setStatus, this);
-    this.selectedItem = ko.observable();
+    this.status = ko.observable();
     this.view;
   }
 
@@ -875,8 +830,8 @@ StatusModel = (function() {
   };
 
   StatusModel.prototype.setStatus = function(enummer) {
-    this.selectedItem = enummer;
-    return dispatchModelUpdatedEvent;
+    this.status(enummer);
+    return this.dispatchModelUpdatedEvent;
   };
 
   StatusModel.prototype.addEventListener = function(type, listener, useCapture) {
@@ -895,7 +850,7 @@ StatusModel = (function() {
     var modelUpdatedEvent;
     modelUpdatedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.MODEL_UPDATED);
     modelUpdatedEvent.model = this.NAME;
-    modelUpdatedEvent.item = this.selectedItem();
+    modelUpdatedEvent.item = this.status();
     return this.dispatchEvent(modelUpdatedEvent);
   };
 
@@ -907,6 +862,98 @@ StatusModel = (function() {
 
 puremvc.DefineNamespace('enummers.model.component', function(exports) {
   return exports.StatusModel = StatusModel;
+});
+
+FaceBookModel = (function() {
+
+  function FaceBookModel(data) {
+    this.setComments = __bind(this.setComments, this);
+    this.comments = ko.observableArray(data);
+    this.view;
+  }
+
+  FaceBookModel.prototype.getModelName = function() {
+    return console.log("Class " + enummers.model.component.FaceBookModel.prototype.NAME);
+  };
+
+  FaceBookModel.prototype.setComments = function(data) {
+    return this.comments(data);
+  };
+
+  FaceBookModel.prototype.addEventListener = function(type, listener, useCapture) {
+    return enummers.view.event.AppEvents.prototype.addEventListener(this.view, type, listener, useCapture);
+  };
+
+  FaceBookModel.prototype.createEvent = function(eventName) {
+    return enummers.view.event.AppEvents.prototype.createEvent(eventName);
+  };
+
+  FaceBookModel.prototype.dispatchEvent = function(event) {
+    return enummers.view.event.AppEvents.prototype.dispatchEvent(this.view, event);
+  };
+
+  FaceBookModel.prototype.dispatchModelUpdatedEvent = function(item) {
+    var modelUpdatedEvent;
+    modelUpdatedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.MODEL_UPDATED);
+    modelUpdatedEvent.model = this.NAME;
+    modelUpdatedEvent.item = this.comments();
+    return this.dispatchEvent(modelUpdatedEvent);
+  };
+
+  FaceBookModel.prototype.NAME = "FaceBookModel";
+
+  return FaceBookModel;
+
+})();
+
+puremvc.DefineNamespace('enummers.model.component', function(exports) {
+  return exports.FaceBookModel = FaceBookModel;
+});
+
+TwitterModel = (function() {
+
+  function TwitterModel(data) {
+    this.setComments = __bind(this.setComments, this);
+    this.tweets = ko.observableArray([]);
+    this.view;
+  }
+
+  TwitterModel.prototype.getModelName = function() {
+    return console.log("Class " + enummers.model.component.TwitterModel.prototype.NAME);
+  };
+
+  TwitterModel.prototype.setComments = function(data) {
+    return this.tweets(data);
+  };
+
+  TwitterModel.prototype.addEventListener = function(type, listener, useCapture) {
+    return enummers.view.event.AppEvents.prototype.addEventListener(this.view, type, listener, useCapture);
+  };
+
+  TwitterModel.prototype.createEvent = function(eventName) {
+    return enummers.view.event.AppEvents.prototype.createEvent(eventName);
+  };
+
+  TwitterModel.prototype.dispatchEvent = function(event) {
+    return enummers.view.event.AppEvents.prototype.dispatchEvent(this.view, event);
+  };
+
+  TwitterModel.prototype.dispatchModelUpdatedEvent = function(item) {
+    var modelUpdatedEvent;
+    modelUpdatedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.MODEL_UPDATED);
+    modelUpdatedEvent.model = this.NAME;
+    modelUpdatedEvent.item = this.tweets();
+    return this.dispatchEvent(modelUpdatedEvent);
+  };
+
+  TwitterModel.prototype.NAME = "TwitterModel";
+
+  return TwitterModel;
+
+})();
+
+puremvc.DefineNamespace('enummers.model.component', function(exports) {
+  return exports.TwitterModel = TwitterModel;
 });
 
 /*
@@ -1500,10 +1547,12 @@ ResultView = (function() {
                 queue: true
             )
       */
-      _this.grid.masonry({
+      $.when(_this.grid.masonry({
         itemSelector: 'div.enummer',
         columnWidth: 5,
         isAnimated: !Modernizr.csstransitions
+      })).then(function() {
+        return console.log("FINISH");
       });
       return $('.effect').popover({
         trigger: 'hover',
@@ -1523,7 +1572,9 @@ ResultView = (function() {
   ResultView.prototype.updateResult = function() {
     var _this = this;
     return setTimeout((function() {
-      return _this.grid.masonry('reload');
+      return $.when(_this.grid.masonry('reload')).then(function() {
+        return console.log("FINISH");
+      });
     }), this.timeout);
   };
 
@@ -1625,7 +1676,7 @@ puremvc.DefineNamespace('enummers.view.component', function(exports) {
 StatusView = (function() {
 
   function StatusView(event) {
-    this.initStatus = __bind(this.initStatus, this);
+    this.setStatus = __bind(this.setStatus, this);
 
     this.changeStatus = __bind(this.changeStatus, this);
     this.status = $("#status")[0];
@@ -1657,10 +1708,10 @@ StatusView = (function() {
   };
 
   StatusView.prototype.changeStatus = function(data) {
-    return this.status = data;
+    return this.viewModel.setStatus(data);
   };
 
-  StatusView.prototype.initStatus = function() {
+  StatusView.prototype.setStatus = function() {
     this.viewModel = new enummers.model.component.StatusModel();
     this.viewModel.view = this.status;
     return ko.applyBindings(this.viewModel, this.status);
@@ -1674,6 +1725,132 @@ StatusView = (function() {
 
 puremvc.DefineNamespace('enummers.view.component', function(exports) {
   return exports.StatusView = StatusView;
+});
+
+/*
+@author Mike Britton, Cliff Hall
+
+@class FaceBookView
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+FaceBookView = (function() {
+
+  function FaceBookView(event) {
+    this.setComments = __bind(this.setComments, this);
+
+    this.changeComments = __bind(this.changeComments, this);
+    this.facebook = $("#facebook")[0];
+    this.viewModel = {};
+    this.facebook.component = this;
+    enummers.view.event.AppEvents.prototype.addEventListener(this.facebook, "click", function(event) {
+      return this.component.dispatchSoortClicked(event);
+    });
+  }
+
+  FaceBookView.prototype.ENTER_KEY = 13;
+
+  FaceBookView.prototype.addEventListener = function(type, listener, useCapture) {
+    return enummers.view.event.AppEvents.prototype.addEventListener(this.facebook, type, listener, useCapture);
+  };
+
+  FaceBookView.prototype.createEvent = function(eventName) {
+    return enummers.view.event.AppEvents.prototype.createEvent(eventName);
+  };
+
+  FaceBookView.prototype.dispatchEvent = function(event) {
+    return enummers.view.event.AppEvents.prototype.dispatchEvent(this.facebook, event);
+  };
+
+  FaceBookView.prototype.dispatchSoortClicked = function() {
+    var logoClickedEvent;
+    logoClickedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.STATUS_CLICKED);
+    return this.dispatchEvent(logoClickedEvent);
+  };
+
+  FaceBookView.prototype.changeComments = function(data) {
+    return this.viewModel.comments(data);
+  };
+
+  FaceBookView.prototype.setComments = function(data) {
+    this.viewModel = new enummers.model.component.FaceBookModel(data);
+    this.viewModel.view = this.facebook;
+    ko.applyBindings(this.viewModel, this.facebook);
+    return console.log(data);
+  };
+
+  FaceBookView.prototype.NAME = "FaceBookView";
+
+  return FaceBookView;
+
+})();
+
+puremvc.DefineNamespace('enummers.view.component', function(exports) {
+  return exports.FaceBookView = FaceBookView;
+});
+
+/*
+@author Mike Britton, Cliff Hall
+
+@class TwitterView
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+TwitterView = (function() {
+
+  function TwitterView(event) {
+    this.setTweets = __bind(this.setTweets, this);
+
+    this.changeTweets = __bind(this.changeTweets, this);
+    this.twitter = $("#twitter")[0];
+    this.tweets = [];
+    this.viewModel = {};
+    this.twitter.component = this;
+    enummers.view.event.AppEvents.prototype.addEventListener(this.twitter, "click", function(event) {
+      return this.component.dispatchSoortClicked(event);
+    });
+  }
+
+  TwitterView.prototype.ENTER_KEY = 13;
+
+  TwitterView.prototype.addEventListener = function(type, listener, useCapture) {
+    return enummers.view.event.AppEvents.prototype.addEventListener(this.twitter, type, listener, useCapture);
+  };
+
+  TwitterView.prototype.createEvent = function(eventName) {
+    return enummers.view.event.AppEvents.prototype.createEvent(eventName);
+  };
+
+  TwitterView.prototype.dispatchEvent = function(event) {
+    return enummers.view.event.AppEvents.prototype.dispatchEvent(this.twitter, event);
+  };
+
+  TwitterView.prototype.dispatchSoortClicked = function() {
+    var logoClickedEvent;
+    logoClickedEvent = this.createEvent(enummers.view.event.AppEvents.prototype.STATUS_CLICKED);
+    return this.dispatchEvent(logoClickedEvent);
+  };
+
+  TwitterView.prototype.changeTweets = function(data) {
+    return this.tweets = data;
+  };
+
+  TwitterView.prototype.setTweets = function(data) {
+    this.viewModel = new enummers.model.component.TwitterModel(data);
+    this.viewModel.view = this.twitter;
+    return ko.applyBindings(this.viewModel, this.twitter);
+  };
+
+  TwitterView.prototype.NAME = "TwitterView";
+
+  return TwitterView;
+
+})();
+
+puremvc.DefineNamespace('enummers.view.component', function(exports) {
+  return exports.TwitterView = TwitterView;
 });
 
 /*
@@ -2130,7 +2307,7 @@ StatusViewMediator = (function(_super) {
       case enummers.AppConstants.prototype.ENUMMER_SELECTED:
         return this.viewComponent.changeStatus(note.getBody());
       case enummers.AppConstants.prototype.ENUMMERS_LOADED:
-        return this.viewComponent.initStatus();
+        return this.viewComponent.setStatus();
     }
   };
 
@@ -2142,6 +2319,110 @@ StatusViewMediator = (function(_super) {
 
 puremvc.DefineNamespace('enummers.view.mediator', function(exports) {
   return exports.StatusViewMediator = StatusViewMediator;
+});
+
+/*
+@author Mike Britton
+
+@class FaceBookViewMediator
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+FaceBookViewMediator = (function(_super) {
+
+  __extends(FaceBookViewMediator, _super);
+
+  function FaceBookViewMediator() {
+    return FaceBookViewMediator.__super__.constructor.apply(this, arguments);
+  }
+
+  FaceBookViewMediator.prototype.listNotificationInterests = function() {
+    return [enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED];
+  };
+
+  FaceBookViewMediator.prototype.onRegister = function() {
+    this.setViewComponent(new enummers.view.component.FaceBookView);
+    return this.viewComponent.addEventListener(enummers.view.event.AppEvents.prototype.MODEL_UPDATED, this);
+  };
+
+  FaceBookViewMediator.prototype.handleEvent = function(event) {
+    switch (event.type) {
+      case enummers.view.event.AppEvents.prototype.MODEL_UPDATED:
+        console.log(event);
+        if ((event.model != null) && event.model === enummers.model.component.FaceBookModel.prototype.NAME) {
+          return this.sendNotification(enummers.AppConstants.prototype.SOORTFILTER_CHANGED, event.item);
+        }
+    }
+  };
+
+  FaceBookViewMediator.prototype.handleNotification = function(note) {
+    switch (note.getName()) {
+      case enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED:
+        return this.viewComponent.setComments(note.getBody().comments);
+    }
+  };
+
+  FaceBookViewMediator.prototype.NAME = "FaceBookViewMediator";
+
+  return FaceBookViewMediator;
+
+})(puremvc.Mediator);
+
+puremvc.DefineNamespace('enummers.view.mediator', function(exports) {
+  return exports.FaceBookViewMediator = FaceBookViewMediator;
+});
+
+/*
+@author Mike Britton
+
+@class TwitterViewMediator
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+TwitterViewMediator = (function(_super) {
+
+  __extends(TwitterViewMediator, _super);
+
+  function TwitterViewMediator() {
+    return TwitterViewMediator.__super__.constructor.apply(this, arguments);
+  }
+
+  TwitterViewMediator.prototype.listNotificationInterests = function() {
+    return [enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED];
+  };
+
+  TwitterViewMediator.prototype.onRegister = function() {
+    this.setViewComponent(new enummers.view.component.TwitterView);
+    return this.viewComponent.addEventListener(enummers.view.event.AppEvents.prototype.MODEL_UPDATED, this);
+  };
+
+  TwitterViewMediator.prototype.handleEvent = function(event) {
+    switch (event.type) {
+      case enummers.view.event.AppEvents.prototype.MODEL_UPDATED:
+        console.log(event);
+        if ((event.model != null) && event.model === enummers.model.component.TwitterModel.prototype.NAME) {
+          return this.sendNotification(enummers.AppConstants.prototype.SOORTFILTER_CHANGED, event.item);
+        }
+    }
+  };
+
+  TwitterViewMediator.prototype.handleNotification = function(note) {
+    switch (note.getName()) {
+      case enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED:
+        return this.viewComponent.setTweets(note.getBody().tweets);
+    }
+  };
+
+  TwitterViewMediator.prototype.NAME = "TwitterViewMediator";
+
+  return TwitterViewMediator;
+
+})(puremvc.Mediator);
+
+puremvc.DefineNamespace('enummers.view.mediator', function(exports) {
+  return exports.TwitterViewMediator = TwitterViewMediator;
 });
 
 /*
@@ -2241,7 +2522,9 @@ PrepModelCommand = (function(_super) {
 
 
   PrepModelCommand.prototype.execute = function(note) {
-    return this.facade.registerProxy(new enummers.model.proxy.EnummersProxy());
+    this.facade.registerProxy(new enummers.model.proxy.EnummersProxy());
+    this.facade.registerProxy(new enummers.model.proxy.FaceBookProxy());
+    return this.facade.registerProxy(new enummers.model.proxy.TwitterProxy());
   };
 
   return PrepModelCommand;
@@ -2280,7 +2563,9 @@ PrepViewCommand = (function(_super) {
     this.facade.registerMediator(new enummers.view.mediator.SoortenViewMediator());
     this.facade.registerMediator(new enummers.view.mediator.ResultViewMediator());
     this.facade.registerMediator(new enummers.view.mediator.SearchViewMediator());
-    return this.facade.registerMediator(new enummers.view.mediator.StatusViewMediator());
+    this.facade.registerMediator(new enummers.view.mediator.StatusViewMediator());
+    this.facade.registerMediator(new enummers.view.mediator.TwitterViewMediator());
+    return this.facade.registerMediator(new enummers.view.mediator.FaceBookViewMediator());
   };
 
   return PrepViewCommand;

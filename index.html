@@ -27,7 +27,7 @@
 
         <script type="text/html" id="enummers-template">
 
-            <div class="enummer box" data-bind="clickWithParams:{action:$root.setSelectedItem, params: [$data]}, css: { 'black' : $data == $root.selectedItem(), 'red': soortId == 1, 'orange': soortId == 2, 'green': soortId == 3 }">
+            <div class="enummer box" data-bind="attr:{enummer:naam},clickWithParams:{action:$root.setSelectedItem, params: [$data]}, css: { 'black' : $data == $root.selectedItem(), 'red': soortId == 1, 'orange': soortId == 2, 'green': soortId == 3 }">
                 <div class="main-container">
                     <div class="effect-container" data-bind="template: { name: 'effecten-template', foreach: $root.effecten },style: { display : $data == $root.selectedItem() ? 'block' : 'none' }"></div>
                     <h3 class="title" data-bind="text: naam"></h3>
@@ -60,7 +60,47 @@
             </div>
         </script>
 
+        <script type="text/html" id="_comments-template">
+            <div class="comment facebook-share-button">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" data-bind="attr:{'src':'http://graph.facebook.com/' + from.id + '/picture'}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading" data-bind="text:from.name"></h4>
+                        <a data-bind="attr:{href:link}" target="_new">
+                            <p data-bind="text:message"></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </script>
+
         <!-- JQUERY TMPL -->
+
+        <script type="text/html" id="comments-template">
+
+            <div class="comment facebook-share-button">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" data-bind="attr:{'src':'http://graph.facebook.com/' + from.id + '/picture'}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading" data-bind="text:from.name"></h4>
+                        {{if type == 'link'}}
+                        <a class="link" data-bind="attr:{href:link}" target="_new">
+                            <p data-bind="text:message"></p>
+                        </a>
+                        {{/if}}
+                        {{if type != 'link'}}
+                        <p data-bind="text:message"></p>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+
+        </script>
 
         <script type="text/html" id="checkbox-categorieen-template">
             {{each(i,categorie) categorydata}}
@@ -161,16 +201,16 @@
                 <div class="span12">&nbsp;</div>
             </div>
 
-            <div id="result" class="row">
-                <div class="span9">
+            <div class="row">
+                <div id="result" class="span9">
                     <div id="grid" data-bind="template: { name: 'enummers-template', foreach: filteredEnummers }"></div>
                 </div>
 
                 <div id="info" class="span3">
-                    <div class="row">
-                        <div id="status" class="span3 box stripes" data-bind="visible: $root.selectedItem() != null">
-                            <h2 data-bind="text: selectedItem() ? selectedItem().betekenis : ''"></h2>
-                            <div id="status-selected" data-bind="text: selectedItem() ? selectedItem().naam : ''"></div>
+                    <div id="status" class="row">
+                        <div class="span3 box" data-bind="visible: $root.status() != null">
+                            <h2 data-bind="text: status() ? status().betekenis : ''"></h2>
+                            <div id="status-selected" data-bind="text: status() ? status().naam : ''"></div>
                         </div>
                     </div>
                 </div>
@@ -180,7 +220,12 @@
                         <div id="twitter" class="span3 box"></div>
                     </div>
                     <div class="row">
-                        <div id="facebook" class="span3 box"></div>
+                        <div id="facebook" class="span3 box">
+                            <div class="facebook-container" data-bind="visible: $root.comments().length > 0">
+                                <img class="facebook-logo" src="img/facebook.png" alt="Comment this">
+                                <div data-bind="template: { name: 'comments-template', foreach: $root.comments }"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,6 +263,8 @@
             </div>
 
             <hr>
+
+            <div id="fb-root"></div>
 
             <div class="footer">
                 <p>&copy; Company 2013</p>
@@ -261,6 +308,33 @@
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>
+            window.fbAsyncInit = function() {
+                // init the FB JS SDK
+                FB.init({
+                    appId      : '547621198605534', // App ID from the App Dashboard
+                    status     : true, // check the login status upon init?
+                    cookie     : true, // set sessions cookies to allow your server to access the session?
+                    xfbml      : true  // parse XFBML tags on this page?
+                });
+
+                // Additional initialization code such as adding Event Listeners goes here
+
+            };
+
+            // Load the SDK's source Asynchronously
+            // Note that the debug version is being actively developed and might
+            // contain some type checks that are overly strict.
+            // Please report such bugs using the bugs tool.
+            (function(d, debug){
+                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement('script'); js.id = id; js.async = true;
+                js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+                ref.parentNode.insertBefore(js, ref);
+            }(document, /*debug*/ false));
         </script>
 
     </body>

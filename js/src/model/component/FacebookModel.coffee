@@ -1,10 +1,10 @@
-class FacebookModel
+class FaceBookModel
   constructor: (data) ->
-    @comments = ko.observableArray([])
+    @comments = ko.observableArray(data)
     @view
 
   getModelName: ->
-    console.log "Class #{enummers.model.component.FacebookModel::NAME}"
+    console.log "Class #{enummers.model.component.FaceBookModel::NAME}"
 
   setComments: (data) =>
     @comments(data)
@@ -19,10 +19,6 @@ class FacebookModel
     enummers.view.event.AppEvents::dispatchEvent @view , event
 
   dispatchModelUpdatedEvent: (item) ->
-    modelUpdatedEvent = @createEvent(enummers.view.event.AppEvents::MODEL_UPDATED)
-    modelUpdatedEvent.item = item
-    @dispatchEvent modelUpdatedEvent
-
     # Needed to create a notification with the selected item in an event
     modelUpdatedEvent = @createEvent(enummers.view.event.AppEvents::MODEL_UPDATED)
     modelUpdatedEvent.model = @NAME
@@ -30,7 +26,7 @@ class FacebookModel
     @dispatchEvent modelUpdatedEvent
 
   # STATIC MEMBERS
-  NAME: "FacebookModel"
+  NAME: "FaceBookModel"
 
 puremvc.DefineNamespace 'enummers.model.component', (exports) ->
-  exports.FacebookModel = FacebookModel
+  exports.FaceBookModel = FaceBookModel

@@ -1,48 +1,49 @@
 ###
 @author Mike Britton, Cliff Hall
 
-@class StatusView
+@class FaceBookView
 @link https://github.com/PureMVC/puremvc-js-demo-enummers.git
 ###
-class StatusView
+class FaceBookView
   constructor: (event) ->
 
     # data
 
     # Fixed DOM elements managed by this view component
-    @status = $("#status")[0]
+    @facebook = $("#facebook")[0]
     @viewModel = {}
 
     # Event listeners for fixed UI elements
-    @status.component = this
-    enummers.view.event.AppEvents::addEventListener @status, "click", (event) ->
+    @facebook.component = this
+    enummers.view.event.AppEvents::addEventListener @facebook, "click", (event) ->
       @component.dispatchSoortClicked event
 
   # INSTANCE MEMBERS
   ENTER_KEY: 13
   addEventListener: (type, listener, useCapture) ->
-    enummers.view.event.AppEvents::addEventListener @status, type, listener, useCapture
+    enummers.view.event.AppEvents::addEventListener @facebook, type, listener, useCapture
 
   createEvent: (eventName) ->
     enummers.view.event.AppEvents::createEvent eventName
 
   dispatchEvent: (event) ->
-    enummers.view.event.AppEvents::dispatchEvent @status, event
+    enummers.view.event.AppEvents::dispatchEvent @facebook, event
 
   dispatchSoortClicked: ->
     logoClickedEvent = @createEvent(enummers.view.event.AppEvents::STATUS_CLICKED)
     @dispatchEvent logoClickedEvent
 
-  changeStatus: (data) =>
-    @viewModel.setStatus(data);
+  changeComments: (data) =>
+    @viewModel.comments data;
 
-  setStatus: =>
-    @viewModel = new enummers.model.component.StatusModel()
-    @viewModel.view = @status
-    ko.applyBindings(@viewModel, @status)
+  setComments: (data) =>
+    @viewModel = new enummers.model.component.FaceBookModel(data)
+    @viewModel.view = @facebook
+    ko.applyBindings(@viewModel, @facebook)
+    console.log data
 
   # STATIC MEMBERS
-  NAME: "StatusView"
+  NAME: "FaceBookView"
 
 puremvc.DefineNamespace 'enummers.view.component', (exports) ->
-  exports.StatusView = StatusView
+  exports.FaceBookView = FaceBookView

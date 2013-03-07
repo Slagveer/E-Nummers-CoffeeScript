@@ -14,6 +14,8 @@ class PrepModelCommand extends puremvc.SimpleCommand
   ###
   execute: (note) ->
     @facade.registerProxy new enummers.model.proxy.EnummersProxy()
+    @facade.registerProxy new enummers.model.proxy.FaceBookProxy()
+    @facade.registerProxy new enummers.model.proxy.TwitterProxy()
 
 puremvc.DefineNamespace 'enummers.controller.command', (exports) ->
   exports.PrepModelCommand = PrepModelCommand
