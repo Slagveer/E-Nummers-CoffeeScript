@@ -35,12 +35,15 @@ class TwitterView
     @dispatchEvent logoClickedEvent
 
   changeTweets: (data) =>
-    @tweets = data;
+    @viewModel.tweets data;
 
   setTweets: (data) =>
     @viewModel = new enummers.model.component.TwitterModel(data)
     @viewModel.view = @twitter
     ko.applyBindings(@viewModel, @twitter)
+
+  changeMessage: =>
+    @viewModel.changeMessage()
 
   # STATIC MEMBERS
   NAME: "TwitterView"

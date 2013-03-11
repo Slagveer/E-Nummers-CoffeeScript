@@ -14,6 +14,7 @@ config =
   outDir:  'js'
   inFiles: [
     'AppConstants'
+
     'model/proxy/TwitterProxy'
     'model/proxy/FaceBookProxy'
     'model/proxy/EnummersProxy'
@@ -24,7 +25,9 @@ config =
     'model/component/StatusModel'
     'model/component/FaceBookModel'
     'model/component/TwitterModel'
+
     'view/event/AppEvents'
+
     'view/component/TodoForm'
     'view/component/LogoView'
     'view/component/CategorieenView'
@@ -44,11 +47,15 @@ config =
     'view/mediator/StatusViewMediator'
     'view/mediator/FaceBookViewMediator'
     'view/mediator/TwitterViewMediator'
+
     'controller/command/StartupCommand'
     'controller/command/PrepControllerCommand'
     'controller/command/PrepModelCommand'
     'controller/command/PrepViewCommand'
     'controller/command/TodoCommand'
+    'controller/command/FaceBookTimerCommand'
+    'controller/command/TwitterTimerCommand'
+
     'app'
   ]
   outFile: "main"

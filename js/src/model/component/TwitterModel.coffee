@@ -1,13 +1,18 @@
 class TwitterModel
   constructor: (data) ->
-    @tweets = ko.observableArray([])
+    @tweets = ko.observableArray(data)
+    @currentMessage = ko.observable()
     @view
 
   getModelName: ->
     console.log "Class #{enummers.model.component.TwitterModel::NAME}"
 
-  setComments: (data) =>
+  setTweets: (data) =>
     @tweets(data)
+
+  changeMessage: =>
+    number = Math.floor(Math.random() * @tweets().length)
+    @currentMessage @tweets()[number]
 
   addEventListener: (type, listener, useCapture) ->
     enummers.view.event.AppEvents::addEventListener @view, type, listener, useCapture

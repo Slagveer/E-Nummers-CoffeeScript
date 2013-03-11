@@ -9,7 +9,7 @@ class FaceBookViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.AppConstants::FACEBOOK_COMMENTS_LOADED]
+    [enummers.AppConstants::FACEBOOK_COMMENTS_LOADED,enummers.AppConstants::CHANGE_MESSAGE]
 
 
   # Code to be executed when the Mediator instance is registered with the View
@@ -29,6 +29,8 @@ class FaceBookViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::FACEBOOK_COMMENTS_LOADED
         @viewComponent.setComments(note.getBody().comments)
+      when enummers.AppConstants::CHANGE_MESSAGE
+        @viewComponent.changeMessage() if note.getBody().type is "facebook"
 
   # STATIC MEMBERS
   NAME: "FaceBookViewMediator"

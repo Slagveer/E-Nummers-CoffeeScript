@@ -40,7 +40,9 @@ class FaceBookView
     @viewModel = new enummers.model.component.FaceBookModel(data)
     @viewModel.view = @facebook
     ko.applyBindings(@viewModel, @facebook)
-    console.log data
+
+  changeMessage: =>
+    @viewModel.changeMessage()
 
   # STATIC MEMBERS
   NAME: "FaceBookView"

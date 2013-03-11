@@ -15,8 +15,9 @@ class FaceBookProxy extends puremvc.Proxy
   loadData: (id) ->
     $.when(@getComments(id)).done(
       (data) =>
-        @sendNotification enummers.AppConstants::FACEBOOK_COMMENTS_LOADED,
-          comments: data
+        if data? and data.length > 0
+          @sendNotification enummers.AppConstants::FACEBOOK_COMMENTS_LOADED,comments: data
+          @facade.sendNotification enummers.AppConstants::START_FACEBOOK_TIMER
     )
 
   getComments: (url) ->
@@ -24,9 +25,9 @@ class FaceBookProxy extends puremvc.Proxy
     $.ajax url,
       dataType: "json"
       cache: false
-      timeout: 5000
+      timeout: 10000
       success: (data) =>
-        console.log data
+        console.log data.length
         dfd.resolve(data)
         return @
       error:  (jqXHR, textStatus, errorThrown) ->

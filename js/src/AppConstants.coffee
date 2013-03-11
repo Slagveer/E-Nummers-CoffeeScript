@@ -15,6 +15,8 @@ class AppConstants
 
   # Notifications
   STARTUP: "startup"
+  START_TWITTER_TIMER: "start_twitter_timer"
+  START_FACEBOOK_TIMER: "start_facebook_timer"
   ADD_TODO: "add_todo"
   DELETE_TODO: "delete_todo"
   UPDATE_TODO: "update_todo"
@@ -36,6 +38,7 @@ class AppConstants
   STATUS_CHANGED: "status_changed"
   FACEBOOK_COMMENTS_LOADED: "facebook_comments_loaded"
   TWITTER_TWEETS_LOADED: "twitter_tweets_loaded"
+  CHANGE_MESSAGE: "change_message"
 
   # Filter routes
   FILTER_ALL: "all"

@@ -11,7 +11,7 @@ PureMVC JS is multi-core, meaning you may have multiple,
 named and isolated PureMVC cores. This app only has one.
 */
 
-var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, FaceBookModel, FaceBookProxy, FaceBookView, FaceBookViewMediator, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TwitterModel, TwitterProxy, TwitterView, TwitterViewMediator,
+var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, FaceBookModel, FaceBookProxy, FaceBookTimerCommand, FaceBookView, FaceBookViewMediator, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TwitterModel, TwitterProxy, TwitterTimerCommand, TwitterView, TwitterViewMediator,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -23,6 +23,10 @@ AppConstants = (function() {
   AppConstants.prototype.CORE_NAME = "TodoMVC";
 
   AppConstants.prototype.STARTUP = "startup";
+
+  AppConstants.prototype.START_TWITTER_TIMER = "start_twitter_timer";
+
+  AppConstants.prototype.START_FACEBOOK_TIMER = "start_facebook_timer";
 
   AppConstants.prototype.ADD_TODO = "add_todo";
 
@@ -66,6 +70,8 @@ AppConstants = (function() {
 
   AppConstants.prototype.TWITTER_TWEETS_LOADED = "twitter_tweets_loaded";
 
+  AppConstants.prototype.CHANGE_MESSAGE = "change_message";
+
   AppConstants.prototype.FILTER_ALL = "all";
 
   AppConstants.prototype.FILTER_ACTIVE = "active";
@@ -106,9 +112,12 @@ TwitterProxy = (function(_super) {
   TwitterProxy.prototype.loadData = function(id) {
     var _this = this;
     return $.when(this.getComments(id)).done(function(data) {
-      return _this.sendNotification(enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED, {
-        comments: data
-      });
+      if ((data != null) && data.length > 0) {
+        _this.sendNotification(enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED, {
+          tweets: data
+        });
+        return _this.facade.sendNotification(enummers.AppConstants.prototype.START_TWITTER_TIMER);
+      }
     });
   };
 
@@ -116,13 +125,13 @@ TwitterProxy = (function(_super) {
     var dfd,
       _this = this;
     dfd = $.Deferred();
-    $.ajax("http://search.twitter.com/search.json?q=%40e-nummers&callback=?&rpp=100&result_type=recent", {
-      dataType: "jsonp",
+    $.ajax("http://127.0.0.1:3000/twitter", {
+      dataType: "json",
       cache: false,
-      timeout: 5000,
+      timeout: 10000,
       success: function(data) {
-        console.log(data.results.length);
-        dfd.resolve(data.results);
+        console.log(data.length);
+        dfd.resolve(data);
         return _this;
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -174,9 +183,12 @@ FaceBookProxy = (function(_super) {
   FaceBookProxy.prototype.loadData = function(id) {
     var _this = this;
     return $.when(this.getComments(id)).done(function(data) {
-      return _this.sendNotification(enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED, {
-        comments: data
-      });
+      if ((data != null) && data.length > 0) {
+        _this.sendNotification(enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED, {
+          comments: data
+        });
+        return _this.facade.sendNotification(enummers.AppConstants.prototype.START_FACEBOOK_TIMER);
+      }
     });
   };
 
@@ -187,9 +199,9 @@ FaceBookProxy = (function(_super) {
     $.ajax(url, {
       dataType: "json",
       cache: false,
-      timeout: 5000,
+      timeout: 10000,
       success: function(data) {
-        console.log(data);
+        console.log(data.length);
         dfd.resolve(data);
         return _this;
       },
@@ -867,8 +879,11 @@ puremvc.DefineNamespace('enummers.model.component', function(exports) {
 FaceBookModel = (function() {
 
   function FaceBookModel(data) {
+    this.changeMessage = __bind(this.changeMessage, this);
+
     this.setComments = __bind(this.setComments, this);
     this.comments = ko.observableArray(data);
+    this.currentMessage = ko.observable();
     this.view;
   }
 
@@ -878,6 +893,12 @@ FaceBookModel = (function() {
 
   FaceBookModel.prototype.setComments = function(data) {
     return this.comments(data);
+  };
+
+  FaceBookModel.prototype.changeMessage = function() {
+    var number;
+    number = Math.floor(Math.random() * this.comments().length);
+    return this.currentMessage(this.comments()[number]);
   };
 
   FaceBookModel.prototype.addEventListener = function(type, listener, useCapture) {
@@ -913,8 +934,11 @@ puremvc.DefineNamespace('enummers.model.component', function(exports) {
 TwitterModel = (function() {
 
   function TwitterModel(data) {
-    this.setComments = __bind(this.setComments, this);
-    this.tweets = ko.observableArray([]);
+    this.changeMessage = __bind(this.changeMessage, this);
+
+    this.setTweets = __bind(this.setTweets, this);
+    this.tweets = ko.observableArray(data);
+    this.currentMessage = ko.observable();
     this.view;
   }
 
@@ -922,8 +946,14 @@ TwitterModel = (function() {
     return console.log("Class " + enummers.model.component.TwitterModel.prototype.NAME);
   };
 
-  TwitterModel.prototype.setComments = function(data) {
+  TwitterModel.prototype.setTweets = function(data) {
     return this.tweets(data);
+  };
+
+  TwitterModel.prototype.changeMessage = function() {
+    var number;
+    number = Math.floor(Math.random() * this.tweets().length);
+    return this.currentMessage(this.tweets()[number]);
   };
 
   TwitterModel.prototype.addEventListener = function(type, listener, useCapture) {
@@ -1738,6 +1768,8 @@ puremvc.DefineNamespace('enummers.view.component', function(exports) {
 FaceBookView = (function() {
 
   function FaceBookView(event) {
+    this.changeMessage = __bind(this.changeMessage, this);
+
     this.setComments = __bind(this.setComments, this);
 
     this.changeComments = __bind(this.changeComments, this);
@@ -1776,8 +1808,11 @@ FaceBookView = (function() {
   FaceBookView.prototype.setComments = function(data) {
     this.viewModel = new enummers.model.component.FaceBookModel(data);
     this.viewModel.view = this.facebook;
-    ko.applyBindings(this.viewModel, this.facebook);
-    return console.log(data);
+    return ko.applyBindings(this.viewModel, this.facebook);
+  };
+
+  FaceBookView.prototype.changeMessage = function() {
+    return this.viewModel.changeMessage();
   };
 
   FaceBookView.prototype.NAME = "FaceBookView";
@@ -1801,6 +1836,8 @@ puremvc.DefineNamespace('enummers.view.component', function(exports) {
 TwitterView = (function() {
 
   function TwitterView(event) {
+    this.changeMessage = __bind(this.changeMessage, this);
+
     this.setTweets = __bind(this.setTweets, this);
 
     this.changeTweets = __bind(this.changeTweets, this);
@@ -1834,13 +1871,17 @@ TwitterView = (function() {
   };
 
   TwitterView.prototype.changeTweets = function(data) {
-    return this.tweets = data;
+    return this.viewModel.tweets(data);
   };
 
   TwitterView.prototype.setTweets = function(data) {
     this.viewModel = new enummers.model.component.TwitterModel(data);
     this.viewModel.view = this.twitter;
     return ko.applyBindings(this.viewModel, this.twitter);
+  };
+
+  TwitterView.prototype.changeMessage = function() {
+    return this.viewModel.changeMessage();
   };
 
   TwitterView.prototype.NAME = "TwitterView";
@@ -2202,7 +2243,9 @@ ResultViewMediator = (function(_super) {
       case enummers.AppConstants.prototype.CATEGORYFILTER_CHANGED:
         return this.viewComponent.filterByCategorie(note.getBody());
       case enummers.AppConstants.prototype.SEARCHFILTER_CHANGED:
-        return this.viewComponent.filterBySearch(note.getBody());
+        if (note.getBody() != null) {
+          return this.viewComponent.filterBySearch(note.getBody());
+        }
     }
   };
 
@@ -2338,7 +2381,7 @@ FaceBookViewMediator = (function(_super) {
   }
 
   FaceBookViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED];
+    return [enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED, enummers.AppConstants.prototype.CHANGE_MESSAGE];
   };
 
   FaceBookViewMediator.prototype.onRegister = function() {
@@ -2360,6 +2403,10 @@ FaceBookViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.FACEBOOK_COMMENTS_LOADED:
         return this.viewComponent.setComments(note.getBody().comments);
+      case enummers.AppConstants.prototype.CHANGE_MESSAGE:
+        if (note.getBody().type === "facebook") {
+          return this.viewComponent.changeMessage();
+        }
     }
   };
 
@@ -2390,7 +2437,7 @@ TwitterViewMediator = (function(_super) {
   }
 
   TwitterViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED];
+    return [enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED, enummers.AppConstants.prototype.CHANGE_MESSAGE];
   };
 
   TwitterViewMediator.prototype.onRegister = function() {
@@ -2412,6 +2459,11 @@ TwitterViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.TWITTER_TWEETS_LOADED:
         return this.viewComponent.setTweets(note.getBody().tweets);
+      case enummers.AppConstants.prototype.CHANGE_MESSAGE:
+        console.log(note.getBody().type);
+        if (note.getBody().type === "twitter") {
+          return this.viewComponent.changeMessage();
+        }
     }
   };
 
@@ -2628,6 +2680,104 @@ puremvc.DefineNamespace('enummers.controller.command', function(exports) {
 });
 
 /*
+@author Mike Britton, Cliff Hall
+
+@class FaceBookTimerCommand
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+FaceBookTimerCommand = (function(_super) {
+
+  __extends(FaceBookTimerCommand, _super);
+
+  function FaceBookTimerCommand() {
+    this.sendMessage = __bind(this.sendMessage, this);
+    return FaceBookTimerCommand.__super__.constructor.apply(this, arguments);
+  }
+
+  /*
+    Perform business logic (in this case, based on Notification name)
+    @override
+  */
+
+
+  FaceBookTimerCommand.prototype.execute = function(note) {
+    return this.startFaceBookTimer();
+  };
+
+  FaceBookTimerCommand.prototype.startFaceBookTimer = function() {
+    var _this = this;
+    setInterval((function() {
+      return _this.sendMessage;
+    })(), 10000);
+    return this;
+  };
+
+  FaceBookTimerCommand.prototype.sendMessage = function() {
+    return this.sendNotification(enummers.AppConstants.prototype.CHANGE_MESSAGE, {
+      type: "facebook"
+    });
+  };
+
+  return FaceBookTimerCommand;
+
+})(puremvc.SimpleCommand);
+
+puremvc.DefineNamespace('enummers.controller.command', function(exports) {
+  return exports.FaceBookTimerCommand = FaceBookTimerCommand;
+});
+
+/*
+@author Mike Britton, Cliff Hall
+
+@class TwitterTimerCommand
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+TwitterTimerCommand = (function(_super) {
+
+  __extends(TwitterTimerCommand, _super);
+
+  function TwitterTimerCommand() {
+    this.sendMessage = __bind(this.sendMessage, this);
+    return TwitterTimerCommand.__super__.constructor.apply(this, arguments);
+  }
+
+  /*
+    Perform business logic (in this case, based on Notification name)
+    @override
+  */
+
+
+  TwitterTimerCommand.prototype.execute = function(note) {
+    return this.startTwitterTimer();
+  };
+
+  TwitterTimerCommand.prototype.startTwitterTimer = function() {
+    var _this = this;
+    setInterval((function() {
+      return _this.sendMessage;
+    })(), 15000);
+    return this;
+  };
+
+  TwitterTimerCommand.prototype.sendMessage = function() {
+    return this.sendNotification(enummers.AppConstants.prototype.CHANGE_MESSAGE, {
+      type: "twitter"
+    });
+  };
+
+  return TwitterTimerCommand;
+
+})(puremvc.SimpleCommand);
+
+puremvc.DefineNamespace('enummers.controller.command', function(exports) {
+  return exports.TwitterTimerCommand = TwitterTimerCommand;
+});
+
+/*
 @author Mike Britton
 
 @class enummers.Application
@@ -2639,6 +2789,8 @@ Application = (function() {
 
   function Application() {
     this.facade.registerCommand(enummers.AppConstants.prototype.STARTUP, enummers.controller.command.StartupCommand);
+    this.facade.registerCommand(enummers.AppConstants.prototype.START_FACEBOOK_TIMER, enummers.controller.command.FaceBookTimerCommand);
+    this.facade.registerCommand(enummers.AppConstants.prototype.START_TWITTER_TIMER, enummers.controller.command.TwitterTimerCommand);
     this.facade.sendNotification(enummers.AppConstants.prototype.STARTUP);
   }
 

@@ -9,7 +9,7 @@ class TwitterViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.AppConstants::TWITTER_TWEETS_LOADED]
+    [enummers.AppConstants::TWITTER_TWEETS_LOADED,enummers.AppConstants::CHANGE_MESSAGE]
 
 
   # Code to be executed when the Mediator instance is registered with the View
@@ -29,6 +29,9 @@ class TwitterViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::TWITTER_TWEETS_LOADED
         @viewComponent.setTweets(note.getBody().tweets)
+      when enummers.AppConstants::CHANGE_MESSAGE
+        console.log note.getBody().type
+        @viewComponent.changeMessage() if note.getBody().type is "twitter"
 
   # STATIC MEMBERS
   NAME: "TwitterViewMediator"

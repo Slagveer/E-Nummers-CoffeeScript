@@ -49,7 +49,7 @@ class ResultViewMediator extends puremvc.Mediator
       when enummers.AppConstants::CATEGORYFILTER_CHANGED
         @viewComponent.filterByCategorie(note.getBody())
       when enummers.AppConstants::SEARCHFILTER_CHANGED
-        @viewComponent.filterBySearch(note.getBody())
+        @viewComponent.filterBySearch(note.getBody()) if note.getBody()?
 
   # STATIC MEMBERS
   NAME: "ResultViewMediator"

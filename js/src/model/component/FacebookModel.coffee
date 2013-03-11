@@ -1,6 +1,7 @@
 class FaceBookModel
   constructor: (data) ->
     @comments = ko.observableArray(data)
+    @currentMessage = ko.observable()
     @view
 
   getModelName: ->
@@ -8,6 +9,10 @@ class FaceBookModel
 
   setComments: (data) =>
     @comments(data)
+
+  changeMessage: =>
+    number = Math.floor(Math.random() * @comments().length)
+    @currentMessage @comments()[number]
 
   addEventListener: (type, listener, useCapture) ->
     enummers.view.event.AppEvents::addEventListener @view, type, listener, useCapture

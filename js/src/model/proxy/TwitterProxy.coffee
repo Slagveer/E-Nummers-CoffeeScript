@@ -13,19 +13,20 @@ class TwitterProxy extends puremvc.Proxy
   loadData: (id) ->
     $.when(@getComments(id)).done(
       (data) =>
-        @sendNotification enummers.AppConstants::TWITTER_TWEETS_LOADED,
-          comments: data
+        if data? and data.length > 0
+          @sendNotification enummers.AppConstants::TWITTER_TWEETS_LOADED, tweets: data
+          @facade.sendNotification enummers.AppConstants::START_TWITTER_TIMER
     )
 
   getComments: (id) ->
     dfd = $.Deferred()
-    $.ajax "http://search.twitter.com/search.json?q=%40e-nummers&callback=?&rpp=100&result_type=recent",
-      dataType: "jsonp"
+    $.ajax "http://127.0.0.1:3000/twitter",
+      dataType: "json"
       cache: false
-      timeout: 5000
+      timeout: 10000
       success: (data) =>
-        console.log data.results.length
-        dfd.resolve(data.results)
+        console.log data.length
+        dfd.resolve(data)
         return @
       error:  (jqXHR, textStatus, errorThrown) ->
         dfd.reject(textStatus)

@@ -18,7 +18,7 @@
         <!--<link rel="stylesheet" href="css/enummers.css" type="text/css" media="screen"/>-->
         <link rel="stylesheet/less" href="css/enummers.less" type="text/css"/>
         <script src="js/libs/modernizr-2.5.3.min.js"></script>
-
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         <!--
         BEGIN::TEMPLATES
         -->
@@ -37,7 +37,7 @@
                     <div class="icons">
                         <div class="hidden " data-bind="css:{ 'soort1': soortId ==  '1', 'soort2': soortId == '2', 'soort3': soortId == '3'}"/>
                     </div>
-                    <a data-bind="href: naam,text: 'Tweet ' + naam" href="https://twitter.com/intent/tweet?button_hashtag=enummers&text=Tweet%20#E-Nummers" class="twitter-hashtag-button" data-lang="nl" data-related="enummers"></a>
+                    <a data-bind="text:'Tweet ' + naam,attr:{href:'https://twitter.com/intent/tweet?button_hashtag=enummer' + naam + '&text=Tweet%20#' + naam}" class="twitter-hashtag-button" data-lang="nl" data-related="enummer"></a>
                 </div>
                 <div class="id"><span data-bind="text: id"></span></div>
             </div>
@@ -78,7 +78,25 @@
 
         <!-- JQUERY TMPL -->
 
-        <script type="text/html" id="comments-template">
+        <script type="text/html" id="tweet-template">
+
+            <div class="comment tweet-share-button">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" data-bind="attr:{'src':profile_image_url}">
+                    </a>
+                    <div class="media-body">
+                        <a class="link" data-bind="attr:{href:'http://www.twitter.com/' + from_user}" target="_new">
+                            <h4 class="media-heading" data-bind="text:from_user_name "></h4>
+                        </a>
+                        <p data-bind="text:text"></p>
+                    </div>
+                </div>
+            </div>
+
+        </script>
+
+        <script type="text/html" id="post-template">
 
             <div class="comment facebook-share-button">
                 <div class="media">
@@ -86,7 +104,9 @@
                         <img class="media-object" data-bind="attr:{'src':'http://graph.facebook.com/' + from.id + '/picture'}">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading" data-bind="text:from.name"></h4>
+                        <a class="link" data-bind="attr:{href:'http://www.facebook.com/' + from.id}" target="_new">
+                            <h4 class="media-heading" data-bind="text:from.name"></h4>
+                        </a>
                         {{if type == 'link'}}
                         <a class="link" data-bind="attr:{href:link}" target="_new">
                             <p data-bind="text:message"></p>
@@ -178,7 +198,7 @@
             </div>
 
             <div id="soorten" class="row">
-                <div class="span6 soorten box">
+                <div class="span6 soorten box" data-bind="style: { display: soortdata.length > 0 ? 'block' : 'none' }">
                     <div class="row">
                         <div data-bind="template: { name: 'checkbox-soorten-template', foreach: soortdata }" class="soorten-menu-container"></div>
                     </div>
@@ -190,7 +210,7 @@
             </div>
 
             <div id="categorieen" class="row">
-                <div class="span12 categorieen box">
+                <div class="span12 categorieen box" data-bind="style: { display: categorydata.length > 0 ? 'block' : 'none' }">
                     <div class="row">
                         <div data-bind="template: { name: 'checkbox-categorieen-template' }" class="categorieen-menu-container"></div>
                     </div>
@@ -217,48 +237,21 @@
 
                 <div id="socials" class="span3">
                     <div class="row">
-                        <div id="twitter" class="span3 box"></div>
-                    </div>
-                    <div class="row">
-                        <div id="facebook" class="span3 box">
-                            <div class="facebook-container" data-bind="visible: $root.comments().length > 0">
-                                <img class="facebook-logo" src="img/facebook.png" alt="Comment this">
-                                <div data-bind="template: { name: 'comments-template', foreach: $root.comments }"></div>
+                        <div id="twitter" class="span3 box" data-bind="style: { display: currentMessage() != null ? 'block' : 'none' }">
+                            <div class="twitter-container">
+                                <div class="logo" ><img src="img/twitter.png" alt="Twitter"/></div>
+                                <div data-bind="template: { name: 'tweet-template', foreach: $root.currentMessage }"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="jumbotron">
-                <h1>Super awesome marketing speak!</h1>
-                <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <a class="btn btn-large btn-success" href="#">Sign up today</a>
-            </div>
-
-            <hr>
-
-            <div class="row-fluid marketing">
-                <div class="span6">
-                    <h4>Subheading</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                    <h4>Subheading</h4>
-                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-                    <h4>Subheading</h4>
-                    <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-                </div>
-
-                <div class="span6">
-                    <h4>Subheading</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                    <h4>Subheading</h4>
-                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-                    <h4>Subheading</h4>
-                    <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                    <div class="row">
+                        <div id="facebook" class="span3 box" data-bind="style: { display: currentMessage() != null ? 'block' : 'none' }">
+                            <div class="facebook-container">
+                                <div class="logo" ><img src="img/facebook.png" alt="Facebook"/></div>
+                                <div data-bind="template: { name: 'post-template', foreach: $root.currentMessage }"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -267,7 +260,7 @@
             <div id="fb-root"></div>
 
             <div class="footer">
-                <p>&copy; Company 2013</p>
+                <p>&copy; Slagveer 2013</p>
             </div>
 
         </div> <!-- /container -->

@@ -21,6 +21,11 @@ body {
     background: #666000;
 }
 
+hr{
+    border-top: 1px none;
+    border-color: #333333 !important;
+}
+
 .popover{
     background: #fff;
     color:#fff;
@@ -56,16 +61,6 @@ body {
     background-image: url("../img/blinkstripes_2.png");
 }
 
-.veilig{
-    background: url(../img/veilig.png) no-repeat 10px 10px !important;
-}
-.gevaar-veilig{
-    background: url(../img/gevaar_veilig.png) no-repeat 10px 10px !important;
-}
-.gevaar{
-    background: url(../img/gevaar.png) no-repeat 10px 10px !important;
-}
-
 .green{
     background-color:#006600;
 }
@@ -79,136 +74,20 @@ body {
     background-color: #000;
     width: 520px !important;
 }
-.soort1, .soort2, .soort3{
-    background-repeat: no-repeat;
-    background-position: left top;
-    background-image: url("../img/gevaar.png");
-    width:70px;
-    height:70px;
-    display: block !important;
-    visibility: visible !important;
-}
-.soort2{
-    background-image: url("../img/gevaar_veilig.png");
-}
-.soort3{
-    background-image: url("../img/veilig.png");
-}
 
 .hide{
     display: none !important;
 }
 
-#search{
-    color: #ffffff;
-    font-size:30px;
-    line-height:30px;
-    input {
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        height:40px;
-        width: 100%;
-        float: left;
-        position: relative;
-        border: none;
-        font-size: inherit;
-        line-height:inherit;
-    }
-    label{
-        position: relative;
-        float:left;
-        font-size: inherit;
-        line-height:inherit;
-    }
-    a{
-        background-color: #ccc;
-        background-image: linear-gradient(to bottom, #ccc, #ccc);
-        background-repeat: repeat-x;
-        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-        color: #FFFFFF;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    }
-}
-
-.search{
-    height:90px;
-    line-height: 70px;
-}
-
 .categorieen-menu-container{
     .span2{
-        height:70px !important;
+        height:45px !important;
     }
 }
 
 .soorten-menu-container{
     .span2{
         height:90px !important;
-    }
-}
-
-#soorten{
-    div.menu-large{
-        height:120px;
-        width:100%;
-        position:relative;
-        float:left;
-        div.checkbox-large{
-            background: url(../img/checkbox_unchecked.png) no-repeat 0px 23px;
-            width:48px;
-            height: 96px;
-            float:left;
-            cursor:pointer;
-        }
-        div.checkbox-large.checked{
-            background: url(../img/checkbox_checked.png) no-repeat 0px 23px;
-        }
-        div.label-large{
-            background: url(../img/gevaar.png) no-repeat 10px 10px;
-            width:100px;
-            height: 100px;
-            float:left;
-            display: block;
-        }
-    }
-}
-
-#categorieen{
-    div.menu-little{
-        height:120px;
-        width:50%;
-        position:relative;
-        float:left;
-        div.checkbox-little{
-            background: url(../img/checkbox_unchecked_lt.png) no-repeat 0px 5px;
-            width:34px;
-            height: 40px;
-            float:left;
-            cursor:pointer;
-        }
-        div.checkbox-little.checked{
-            background: url(../img/checkbox_checked_lt.png) no-repeat 0px 5px;
-        }
-        div.label-little{
-            background: url(../img/types.png) no-repeat 5px 0px;
-            width:50px;
-            height: 50px;
-            float:left;
-            display: block;
-            p{
-                text-align: center;
-                font-weight: bold;
-                line-height: 40px;
-                font-size: 13px;
-                height: 50px;
-                display: block;
-                width: 50px;
-                vertical-align: middle;
-                color: #fff;
-                margin: 0 0 10px;
-            }
-        }
     }
 }
 
@@ -320,9 +199,13 @@ body {
 }
 
 #facebook{
+    display: none;
     .facebook-container{
         color: #fff;
         position:relative;
+        .logo{
+            text-align: center;
+        }
         div.comment{
             width:100%;
             position: relative;
@@ -334,28 +217,26 @@ body {
                 }
             }
         }
-        div.facebook-usr-name, div.facebook-usr, div.facebook-text{
+    }
+}
+
+#twitter{
+    display: none;
+    .twitter-container{
+        color: #fff;
+        position:relative;
+        .logo{
+            text-align: center;
+        }
+        div.comment{
             width:100%;
             position: relative;
-            p{
-                font-weight: normal;
-                font-size: 15px;
-                line-height: 15px;
-            }
-        }
-        div.facebook-usr-name, div.facebook-usr{
-            p{
-                font-weight: bolder;
-                font-size:20px;
-                line-height: 20px;
-            }
-        }
-        div.facebook-usr{
-        /*background:url(../img/bird_lt.png) no-repeat #000 right top;*/
-            p{
-                font-size:12px;
-                line-height: 12px;
-                font-weight: normal;
+            .link {
+                color: #fff;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
     }
@@ -439,49 +320,246 @@ body {
     transition-duration: 0s;
 }
 
-
-/* Custom container */
-.container-narrow {
-    margin: 0 auto;
-    max-width: 700px;
-}
-.container-narrow > hr {
-                        margin: 30px 0;
-                    }
-
-/* Main marketing message and sign up button */
-.jumbotron {
-    margin: 60px 0;
-    text-align: center;
-}
-.jumbotron h1 {
-    font-size: 72px;
-    line-height: 1;
-}
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-/* Supporting marketing content */
-.marketing {
-    margin: 60px 0;
-}
-.marketing p + h4 {
-    margin-top: 28px;
-}
-
 /* Large desktop */
 @media (min-width: 1200px) {
     body{
         background: #666000;
     }
+
+    #search{
+        color: #ffffff;
+        font-size:30px;
+        line-height:30px;
+        .span5{
+            padding-top: 17px;
+            input {
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                height:40px;
+                width: 100%;
+                float: left;
+                position: relative;
+                border: none;
+                font-size: inherit;
+                line-height:inherit;
+            }
+        }
+        label{
+            position: relative;
+            float:left;
+            font-size: inherit;
+            line-height:inherit;
+        }
+        a{
+            background-color: #ccc;
+            background-image: linear-gradient(to bottom, #ccc, #ccc);
+            background-repeat: repeat-x;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            color: #FFFFFF;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .search{
+        height:90px;
+        line-height: 70px;
+    }
+
+    #soorten{
+        div.menu-large{
+            height:120px;
+            width:100%;
+            position:relative;
+            float:left;
+            div.checkbox-large{
+                background: url(../img/checkbox_unchecked.png) no-repeat 0px 23px;
+                width:48px;
+                height: 96px;
+                float:left;
+                cursor:pointer;
+            }
+            div.checkbox-large.checked{
+                background: url(../img/checkbox_checked.png) no-repeat 0px 23px;
+            }
+            div.label-large{
+                background: url(../img/gevaar.png) no-repeat 10px 10px;
+                width:100px;
+                height: 100px;
+                float:left;
+                display: block;
+            }
+        }
+    }
+
+    .veilig{
+        background: url(../img/veilig.png) no-repeat 10px 10px !important;
+    }
+    .gevaar-veilig{
+        background: url(../img/gevaar_veilig.png) no-repeat 10px 10px !important;
+    }
+    .gevaar{
+        background: url(../img/gevaar.png) no-repeat 10px 10px !important;
+    }
+
+    #categorieen{
+        div.menu-little{
+            height:120px;
+            width:50%;
+            position:relative;
+            float:left;
+            div.checkbox-little{
+                background: url(../img/checkbox_unchecked_lt.png) no-repeat 0px 5px;
+                width:34px;
+                height: 40px;
+                float:left;
+                cursor:pointer;
+            }
+            div.checkbox-little.checked{
+                background: url(../img/checkbox_checked_lt.png) no-repeat 0px 5px;
+            }
+            div.label-little{
+                background: url(../img/types.png) no-repeat 5px 0px;
+                width:50px;
+                height: 50px;
+                float:left;
+                display: block;
+                p{
+                    text-align: center;
+                    font-weight: bold;
+                    line-height: 40px;
+                    font-size: 13px;
+                    height: 50px;
+                    display: block;
+                    width: 50px;
+                    vertical-align: middle;
+                    color: #fff;
+                    margin: 0 0 10px;
+                }
+            }
+        }
+    }
+
 }
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
     body{
         background: #ff6000;
+    }
+
+    #search{
+        color: #ffffff;
+        font-size:19px;
+        line-height:30px;
+        .span5{
+            padding-top: 17px;
+            input {
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                height:40px;
+                width: 100%;
+                float: left;
+                position: relative;
+                border: none;
+                font-size: inherit;
+                line-height:inherit;
+            }
+        }
+        label{
+            position: relative;
+            float:left;
+            font-size: inherit;
+            line-height:inherit;
+        }
+        a{
+            background-color: #ccc;
+            background-image: linear-gradient(to bottom, #ccc, #ccc);
+            background-repeat: repeat-x;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            color: #FFFFFF;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    .search{
+        height:90px;
+        line-height: 70px;
+    }
+
+    #soorten{
+        div.menu-large{
+            height:90px;
+            width:100%;
+            position:relative;
+            float:left;
+            div.checkbox-large{
+                background: url(../img/checkbox_unchecked.png) no-repeat 0px 23px;
+                width:48px;
+                height: 90px;
+                float:left;
+                cursor:pointer;
+            }
+            div.checkbox-large.checked{
+                background: url(../img/checkbox_checked.png) no-repeat 0px 23px;
+            }
+            div.label-large{
+                background: url(../img/gevaar_768.png) no-repeat 10px 10px;
+                width:50px;
+                height: 90px;
+                float:left;
+                display: block;
+            }
+        }
+    }
+
+    .veilig{
+        background: url(../img/veilig_768.png) no-repeat 2px 50% !important;
+    }
+    .gevaar-veilig{
+        background: url(../img/gevaar_veilig_768.png) no-repeat 2px 50% !important;
+    }
+    .gevaar{
+        background: url(../img/gevaar_768.png) no-repeat 2px 50% !important;
+    }
+
+    #categorieen{
+        div.menu-little{
+            height:120px;
+            width:100%;
+            position:relative;
+            float:left;
+            div.checkbox-little{
+                background: url(../img/checkbox_unchecked_lt.png) no-repeat 0px 5px;
+                width:34px;
+                height: 40px;
+                float:left;
+                cursor:pointer;
+            }
+            div.checkbox-little.checked{
+                background: url(../img/checkbox_checked_lt.png) no-repeat 0px 5px;
+            }
+            div.label-little{
+                background: url(../img/types.png) no-repeat 5px 0px;
+                width:50px;
+                height: 50px;
+                float:left;
+                display: block;
+                p{
+                    text-align: center;
+                    font-weight: bold;
+                    line-height: 40px;
+                    font-size: 13px;
+                    height: 50px;
+                    display: block;
+                    width: 50px;
+                    vertical-align: middle;
+                    color: #fff;
+                    margin: 0 0 10px;
+                }
+            }
+        }
     }
 }
 
