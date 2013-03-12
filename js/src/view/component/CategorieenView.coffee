@@ -41,6 +41,9 @@ class CategorieenView
     #if Modernizr.mq('(max-width: 767px)') then console.log 22222
     jQuery('.menu-little').popover {trigger:'hover',placement:'top'}
 
+  setFilterResult: (data) =>
+    @viewModel.filterResult data
+
   # STATIC MEMBERS
   NAME: "CategorieenView"
 

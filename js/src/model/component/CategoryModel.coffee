@@ -2,6 +2,7 @@ class CategoryModel
   constructor: (data) ->
     @categorydata = []
     @categorieFilter = ko.observableArray([])
+    @filterResult = ko.observable("")
     @view
     for category in data
       @categorydata.push category

@@ -83,7 +83,9 @@ class ResultView
 
   filterBySoort: (data) =>
     @viewModel.filterBySoort data
-    dsfgdfggrecd
+    setTimeout ( =>
+      @updateResult()
+    ),@timeout
 
   filterByCategorie: (data) =>
     @viewModel.filterByCategorie data

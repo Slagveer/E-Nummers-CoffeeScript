@@ -39,6 +39,7 @@ class AppConstants
   FACEBOOK_COMMENTS_LOADED: "facebook_comments_loaded"
   TWITTER_TWEETS_LOADED: "twitter_tweets_loaded"
   CHANGE_MESSAGE: "change_message"
+  ENUMMERS_FILTERED: "enummers_filtered"
 
   # Filter routes
   FILTER_ALL: "all"

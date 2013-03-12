@@ -2,6 +2,7 @@ class SoortModel
   constructor: (data) ->
     @soortdata = []
     @soortFilter = ko.observableArray([])
+    @filterResult = ko.observable("")
     @view
     for soort in data
       @soortdata.push soort

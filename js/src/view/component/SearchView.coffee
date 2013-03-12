@@ -39,6 +39,9 @@ class SearchView
     @viewModel.view = @search
     ko.applyBindings(@viewModel, @search)
 
+  setFilterResult: (data) =>
+    @viewModel.filterResult data
+
   # STATIC MEMBERS
   NAME: "SearchView"
 

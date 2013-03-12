@@ -9,7 +9,7 @@ class SearchViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.AppConstants::ENUMMERS_LOADED]
+    [enummers.AppConstants::ENUMMERS_LOADED,enummers.AppConstants::ENUMMERS_FILTERED]
 
 
   # Code to be executed when the Mediator instance is registered with the View
@@ -28,6 +28,11 @@ class SearchViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::ENUMMERS_LOADED
         @viewComponent.setSearch()
+      when enummers.AppConstants::ENUMMERS_FILTERED
+        if note.getBody().by is "search"
+          @viewComponent.setFilterResult(note.getBody().result)
+        else
+          @viewComponent.setFilterResult ""
 
   # STATIC MEMBERS
   NAME: "SearchViewMediator"

@@ -9,7 +9,7 @@ class CategorieenViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.view.event.AppEvents::CATEGORIEEN_LOADED, enummers.AppConstants::ENUMMER_SELECTED]
+    [enummers.AppConstants::CATEGORIEEN_LOADED, enummers.AppConstants::ENUMMER_SELECTED,enummers.AppConstants::ENUMMERS_FILTERED]
 
 
   # Code to be executed when the Mediator instance is registered with the View
@@ -31,6 +31,11 @@ class CategorieenViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::CATEGORIEEN_LOADED
         @viewComponent.setCategorieen(note.getBody().categorieen)
+      when enummers.AppConstants::ENUMMERS_FILTERED
+        if note.getBody().by is "categorie"
+          @viewComponent.setFilterResult(note.getBody().result)
+        else
+          @viewComponent.setFilterResult ""
 
   # STATIC MEMBERS
   NAME: "CategorieenViewMediator"

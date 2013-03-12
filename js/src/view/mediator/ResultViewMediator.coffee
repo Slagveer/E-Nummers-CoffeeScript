@@ -46,10 +46,13 @@ class ResultViewMediator extends puremvc.Mediator
         @viewComponent.setEnummersEffecten(note.getBody().enummerseffecten)
       when enummers.AppConstants::SOORTFILTER_CHANGED
         @viewComponent.filterBySoort(note.getBody())
+        @sendNotification enummers.AppConstants::ENUMMERS_FILTERED, {result:@viewComponent.viewModel.filteredEnummers().length,by:'soort'}
       when enummers.AppConstants::CATEGORYFILTER_CHANGED
         @viewComponent.filterByCategorie(note.getBody())
+        @sendNotification enummers.AppConstants::ENUMMERS_FILTERED, {result:@viewComponent.viewModel.filteredEnummers().length,by:'categorie'}
       when enummers.AppConstants::SEARCHFILTER_CHANGED
         @viewComponent.filterBySearch(note.getBody()) if note.getBody()?
+        @sendNotification enummers.AppConstants::ENUMMERS_FILTERED, {result:@viewComponent.viewModel.filteredEnummers().length,by:'search'}
 
   # STATIC MEMBERS
   NAME: "ResultViewMediator"

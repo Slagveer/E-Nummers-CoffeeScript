@@ -72,6 +72,8 @@ AppConstants = (function() {
 
   AppConstants.prototype.CHANGE_MESSAGE = "change_message";
 
+  AppConstants.prototype.ENUMMERS_FILTERED = "enummers_filtered";
+
   AppConstants.prototype.FILTER_ALL = "all";
 
   AppConstants.prototype.FILTER_ACTIVE = "active";
@@ -412,6 +414,7 @@ CategoryModel = (function() {
     var category, _i, _len;
     this.categorydata = [];
     this.categorieFilter = ko.observableArray([]);
+    this.filterResult = ko.observable("");
     this.view;
     for (_i = 0, _len = data.length; _i < _len; _i++) {
       category = data[_i];
@@ -494,6 +497,7 @@ SoortModel = (function() {
     var soort, _i, _len;
     this.soortdata = [];
     this.soortFilter = ko.observableArray([]);
+    this.filterResult = ko.observable("");
     this.view;
     for (_i = 0, _len = data.length; _i < _len; _i++) {
       soort = data[_i];
@@ -785,6 +789,7 @@ SearchModel = (function() {
   function SearchModel(data) {
     this.onSearchChange = __bind(this.onSearchChange, this);
     this.searchFilter = ko.observable("");
+    this.filterResult = ko.observable("");
     this.view;
   }
 
@@ -1393,6 +1398,7 @@ puremvc.DefineNamespace('enummers.view.component', function(exports) {
 CategorieenView = (function() {
 
   function CategorieenView(event) {
+    this.setFilterResult = __bind(this.setFilterResult, this);
     this.enummers = [];
     this.categorieen = $("#categorieen")[0];
     this.viewModel = {};
@@ -1432,6 +1438,10 @@ CategorieenView = (function() {
     });
   };
 
+  CategorieenView.prototype.setFilterResult = function(data) {
+    return this.viewModel.filterResult(data);
+  };
+
   CategorieenView.prototype.NAME = "CategorieenView";
 
   return CategorieenView;
@@ -1453,6 +1463,9 @@ puremvc.DefineNamespace('enummers.view.component', function(exports) {
 SoortenView = (function() {
 
   function SoortenView(event) {
+    this.setFilterResult = __bind(this.setFilterResult, this);
+
+    this.setSoorten = __bind(this.setSoorten, this);
     this.enummers = [];
     this.soorten = $("#soorten")[0];
     this.viewModel = {};
@@ -1490,6 +1503,10 @@ SoortenView = (function() {
       trigger: 'hover',
       placement: 'top'
     });
+  };
+
+  SoortenView.prototype.setFilterResult = function(data) {
+    return this.viewModel.filterResult(data);
   };
 
   SoortenView.prototype.NAME = "SoortenView";
@@ -1609,8 +1626,11 @@ ResultView = (function() {
   };
 
   ResultView.prototype.filterBySoort = function(data) {
+    var _this = this;
     this.viewModel.filterBySoort(data);
-    return dsfgdfggrecd;
+    return setTimeout((function() {
+      return _this.updateResult();
+    }), this.timeout);
   };
 
   ResultView.prototype.filterByCategorie = function(data) {
@@ -1650,6 +1670,7 @@ puremvc.DefineNamespace('enummers.view.component', function(exports) {
 SearchView = (function() {
 
   function SearchView(event) {
+    this.setFilterResult = __bind(this.setFilterResult, this);
     this.enummers = [];
     this.search = $("#search")[0];
     this.viewModel = {};
@@ -1683,6 +1704,10 @@ SearchView = (function() {
     this.viewModel = new enummers.model.component.SearchModel(data);
     this.viewModel.view = this.search;
     return ko.applyBindings(this.viewModel, this.search);
+  };
+
+  SearchView.prototype.setFilterResult = function(data) {
+    return this.viewModel.filterResult(data);
   };
 
   SearchView.prototype.NAME = "SearchView";
@@ -2096,7 +2121,7 @@ CategorieenViewMediator = (function(_super) {
   }
 
   CategorieenViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.view.event.AppEvents.prototype.CATEGORIEEN_LOADED, enummers.AppConstants.prototype.ENUMMER_SELECTED];
+    return [enummers.AppConstants.prototype.CATEGORIEEN_LOADED, enummers.AppConstants.prototype.ENUMMER_SELECTED, enummers.AppConstants.prototype.ENUMMERS_FILTERED];
   };
 
   CategorieenViewMediator.prototype.onRegister = function() {
@@ -2120,6 +2145,12 @@ CategorieenViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.CATEGORIEEN_LOADED:
         return this.viewComponent.setCategorieen(note.getBody().categorieen);
+      case enummers.AppConstants.prototype.ENUMMERS_FILTERED:
+        if (note.getBody().by === "categorie") {
+          return this.viewComponent.setFilterResult(note.getBody().result);
+        } else {
+          return this.viewComponent.setFilterResult("");
+        }
     }
   };
 
@@ -2150,7 +2181,7 @@ SoortenViewMediator = (function(_super) {
   }
 
   SoortenViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.view.event.AppEvents.prototype.SOORTEN_LOADED];
+    return [enummers.AppConstants.prototype.SOORTEN_LOADED, enummers.AppConstants.prototype.ENUMMERS_FILTERED];
   };
 
   SoortenViewMediator.prototype.onRegister = function() {
@@ -2175,6 +2206,12 @@ SoortenViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.SOORTEN_LOADED:
         return this.viewComponent.setSoorten(note.getBody().soorten);
+      case enummers.AppConstants.prototype.ENUMMERS_FILTERED:
+        if (note.getBody().by === "soort") {
+          return this.viewComponent.setFilterResult(note.getBody().result);
+        } else {
+          return this.viewComponent.setFilterResult("");
+        }
     }
   };
 
@@ -2239,13 +2276,25 @@ ResultViewMediator = (function(_super) {
       case enummers.AppConstants.prototype.ENUMMERS_EFFECTEN_LOADED:
         return this.viewComponent.setEnummersEffecten(note.getBody().enummerseffecten);
       case enummers.AppConstants.prototype.SOORTFILTER_CHANGED:
-        return this.viewComponent.filterBySoort(note.getBody());
+        this.viewComponent.filterBySoort(note.getBody());
+        return this.sendNotification(enummers.AppConstants.prototype.ENUMMERS_FILTERED, {
+          result: this.viewComponent.viewModel.filteredEnummers().length,
+          by: 'soort'
+        });
       case enummers.AppConstants.prototype.CATEGORYFILTER_CHANGED:
-        return this.viewComponent.filterByCategorie(note.getBody());
+        this.viewComponent.filterByCategorie(note.getBody());
+        return this.sendNotification(enummers.AppConstants.prototype.ENUMMERS_FILTERED, {
+          result: this.viewComponent.viewModel.filteredEnummers().length,
+          by: 'categorie'
+        });
       case enummers.AppConstants.prototype.SEARCHFILTER_CHANGED:
         if (note.getBody() != null) {
-          return this.viewComponent.filterBySearch(note.getBody());
+          this.viewComponent.filterBySearch(note.getBody());
         }
+        return this.sendNotification(enummers.AppConstants.prototype.ENUMMERS_FILTERED, {
+          result: this.viewComponent.viewModel.filteredEnummers().length,
+          by: 'search'
+        });
     }
   };
 
@@ -2276,7 +2325,7 @@ SearchViewMediator = (function(_super) {
   }
 
   SearchViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.AppConstants.prototype.ENUMMERS_LOADED];
+    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.ENUMMERS_FILTERED];
   };
 
   SearchViewMediator.prototype.onRegister = function() {
@@ -2297,6 +2346,12 @@ SearchViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.ENUMMERS_LOADED:
         return this.viewComponent.setSearch();
+      case enummers.AppConstants.prototype.ENUMMERS_FILTERED:
+        if (note.getBody().by === "search") {
+          return this.viewComponent.setFilterResult(note.getBody().result);
+        } else {
+          return this.viewComponent.setFilterResult("");
+        }
     }
   };
 

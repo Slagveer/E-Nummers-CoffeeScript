@@ -50,6 +50,12 @@ hr{
     padding:5px;
 }
 
+.logo .img{
+    width:150px;
+    height:150px;
+    background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+}
+
 .stripes{
     background-repeat: no-repeat;
     background-position: right top;
@@ -144,6 +150,21 @@ hr{
             }
         }
     }
+}
+
+.soorten,.search,.categorieen{
+    position: relative;
+    .badge-pos{
+        left: 95%;
+        margin: 0 0 10px;
+        position: absolute;
+        top:-15px;
+    }
+}
+
+.badge{
+    background-color: #ff0000;
+    border: 2px solid #FFFFFF;
 }
 
 /**** Isotope Filtering ****/
@@ -466,6 +487,17 @@ hr{
         background: #666000;
     }
 
+    .logo .img{
+        width:75px;
+        height:75px;
+        background: url("../img/logo_lt.png") no-repeat scroll 0 0 transparent;
+    }
+
+    .box{
+        
+        border-radius: 23px;
+    }
+
     #search{
         color: #ffffff;
         font-size:19px;
@@ -707,8 +739,15 @@ hr{
         background: #666000;
     }
 
+    .logo .img{
+        width:75px;
+        height:75px;
+        background: url("../img/logo_lt.png") no-repeat scroll 0 0 transparent;
+    }
+
     .box{
         margin: 0px;
+        border-radius: 23px;
     }
 
     #search{
@@ -967,6 +1006,12 @@ hr{
 @media (max-width: 480px) {
     body{
         background: #666000;
+    }
+
+    .logo .img{
+        width:75px;
+        height:75px;
+        background: url("../img/logo_lt.png") no-repeat scroll 0 0 transparent;
     }
 
     #status{

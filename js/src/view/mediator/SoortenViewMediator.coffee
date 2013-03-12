@@ -9,7 +9,7 @@ class SoortenViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.view.event.AppEvents::SOORTEN_LOADED]
+    [enummers.AppConstants::SOORTEN_LOADED,enummers.AppConstants::ENUMMERS_FILTERED]
 
 
   # Code to be executed when the Mediator instance is registered with the View
@@ -32,6 +32,11 @@ class SoortenViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::SOORTEN_LOADED
         @viewComponent.setSoorten(note.getBody().soorten)
+      when enummers.AppConstants::ENUMMERS_FILTERED
+        if note.getBody().by is "soort"
+          @viewComponent.setFilterResult(note.getBody().result)
+        else
+          @viewComponent.setFilterResult ""
 
   # STATIC MEMBERS
   NAME: "SoortenViewMediator"

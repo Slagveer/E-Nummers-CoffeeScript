@@ -34,11 +34,14 @@ class SoortenView
     logoClickedEvent = @createEvent(enummers.view.event.AppEvents::CATEGORY_CLICKED)
     @dispatchEvent logoClickedEvent
 
-  setSoorten: (data) ->
+  setSoorten: (data) =>
     @viewModel = new enummers.model.component.SoortModel(data)
     @viewModel.view = @soorten
     ko.applyBindings(@viewModel, @soorten)
     $('.menu-large').popover {trigger:'hover',placement:'top'}
+
+  setFilterResult: (data) =>
+    @viewModel.filterResult data
 
   # STATIC MEMBERS
   NAME: "SoortenView"
