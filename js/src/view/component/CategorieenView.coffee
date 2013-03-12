@@ -38,6 +38,7 @@ class CategorieenView
     @viewModel = new enummers.model.component.CategoryModel(data)
     @viewModel.view = @categorieen
     ko.applyBindings(@viewModel, @categorieen)
+    #if Modernizr.mq('(max-width: 767px)') then console.log 22222
     jQuery('.menu-little').popover {trigger:'hover',placement:'top'}
 
   # STATIC MEMBERS

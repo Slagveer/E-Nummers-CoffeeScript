@@ -70,10 +70,6 @@ hr{
 .orange{
     background-color:#ff9900;
 }
-.black{
-    background-color: #000;
-    width: 520px !important;
-}
 
 .hide{
     display: none !important;
@@ -86,105 +82,13 @@ hr{
 }
 
 .soorten-menu-container{
-    .span2{
-        height:90px !important;
-    }
+
 }
 
 .container-component{
     display: block;
     position: relative;
     float: left;
-}
-
-#result{
-    #grid{
-        .enummer{
-            color:#fff;
-            cursor: pointer;
-            border:5px solid #000;
-            width:240px;
-            position:relative;
-            height:168px;
-            float: left;
-            .main-container{
-                .container-component;
-                width:50%;
-                height:100%;
-                h3.title{
-                    top:50px;
-                    position: relative;
-                    font-size: 40px !important;
-                    line-height: 40px;
-                }
-                .effect-container{
-                    position: absolute;
-                    z-index:100;
-                    display: none;
-                    .astma{
-                        background:url(../img/astma_lt.png) 0px 0px no-repeat;
-                    }
-                    .astma-volwassen{
-                        background:url(../img/astma-volwassen_lt.png) 0px 0px no-repeat;
-                    }
-                    .alergie{
-                        background:url(../img/alergie_lt.png) 0px 0px no-repeat;
-                    }
-                    .netelroos{
-                        background:url(../img/netelroos_lt.png) 0px 0px no-repeat;
-                    }
-                    .overgevoelig{
-                        background:url(../img/overgevoelig_lt.png) 0px 0px no-repeat;
-                    }
-                    .lever{
-                        background:url(../img/lever_lt.png) 0px 0px no-repeat;
-                    }
-                    .nier{
-                        background:url(../img/nier_lt.png) 0px 0px no-repeat;
-                    }
-                }
-                .effect{
-                    width:50px;height:50px;background-color:#000;position:relative;float:left;
-                    background-repeat: no-repeat;
-                    font-size: 20px;
-                }
-            }
-            .extra-container{
-                .container-component;
-                width:50%;
-                height:100%;
-                a{
-                    text-decoration: none;
-                    color: #000;
-                    position: absolute; bottom: 10px;
-                    height:12px;
-                    top: 150px;
-                    font-size:12px;
-                    line-height: 12px;
-                    .setbackground(#ccc);
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
-                    border-radius: 5px;
-                    padding:2px 4px 2px 4px;
-                    font-weight: bold;
-                }
-                a:hover, a:visited{
-                    color:#00ACED;
-                }
-                .icons{
-                    position: absolute;
-                    top:70px;
-                }
-            }
-            .id{
-                position: absolute;
-                bottom:20px;
-                right:10px;
-                font-size: 10px;
-                line-height: 10px;
-            }
-        }
-    }
 }
 
 #status{
@@ -330,7 +234,7 @@ hr{
         color: #ffffff;
         font-size:30px;
         line-height:30px;
-        .span5{
+
             padding-top: 17px;
             input {
                 -webkit-border-radius: 5px;
@@ -344,7 +248,7 @@ hr{
                 font-size: inherit;
                 line-height:inherit;
             }
-        }
+
         label{
             position: relative;
             float:left;
@@ -392,6 +296,22 @@ hr{
         }
     }
 
+    .soort1, .soort2, .soort3{
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-image: url("../img/gevaar.png");
+        width:100px;
+        height:100px;
+        display: block !important;
+        visibility: visible !important;
+    }
+    .soort2{
+        background-image: url("../img/gevaar_veilig.png");
+    }
+    .soort3{
+        background-image: url("../img/veilig.png");
+    }
+
     .veilig{
         background: url(../img/veilig.png) no-repeat 10px 10px !important;
     }
@@ -404,23 +324,26 @@ hr{
 
     #categorieen{
         div.menu-little{
-            height:120px;
-            width:50%;
+
+            width:100%;
             position:relative;
             float:left;
             div.checkbox-little{
-                background: url(../img/checkbox_unchecked_lt.png) no-repeat 0px 5px;
-                width:34px;
-                height: 40px;
+                background: url(../img/checkbox_unchecked_xlt.png) no-repeat 0px 8px;
+                width:25px;
+                height: 44px;
                 float:left;
                 cursor:pointer;
+                .checkbox-little-text{
+                    display: none;
+                }
             }
             div.checkbox-little.checked{
-                background: url(../img/checkbox_checked_lt.png) no-repeat 0px 5px;
+                background: url(../img/checkbox_checked_xlt.png) no-repeat 0px 8px;
             }
             div.label-little{
-                background: url(../img/types.png) no-repeat 5px 0px;
-                width:50px;
+                background: url(../img/types.png) no-repeat 3px 0px;
+                width:45px;
                 height: 50px;
                 float:left;
                 display: block;
@@ -440,20 +363,115 @@ hr{
         }
     }
 
+    #result{
+        #grid{
+            .enummer{
+                color:#fff;
+                cursor: pointer;
+                border:5px solid #000;
+                width:240px;
+                position:relative;
+                height:168px;
+                float: left;
+                .main-container{
+                    .container-component;
+                    width:50%;
+                    height:100%;
+                    h3.title{
+                        top:50px;
+                        position: relative;
+                        font-size: 40px !important;
+                        line-height: 40px;
+                    }
+                    .effect-container{
+                        position: absolute;
+                        z-index:100;
+                        display: none;
+                        .astma{
+                            background:url(../img/astma_lt.png) 0px 0px no-repeat;
+                        }
+                        .astma-volwassen{
+                            background:url(../img/astma-volwassen_lt.png) 0px 0px no-repeat;
+                        }
+                        .alergie{
+                            background:url(../img/alergie_lt.png) 0px 0px no-repeat;
+                        }
+                        .netelroos{
+                            background:url(../img/netelroos_lt.png) 0px 0px no-repeat;
+                        }
+                        .overgevoelig{
+                            background:url(../img/overgevoelig_lt.png) 0px 0px no-repeat;
+                        }
+                        .lever{
+                            background:url(../img/lever_lt.png) 0px 0px no-repeat;
+                        }
+                        .nier{
+                            background:url(../img/nier_lt.png) 0px 0px no-repeat;
+                        }
+                    }
+                    .effect{
+                        width:50px;height:50px;background-color:#000;position:relative;float:left;
+                        background-repeat: no-repeat;
+                        font-size: 20px;
+                    }
+                }
+                .extra-container{
+                    .container-component;
+                    width:50%;
+                    height:100%;
+                    a{
+                        text-decoration: none;
+                        color: #000;
+                        position: absolute; bottom: 10px;
+                        height:12px;
+                        top: 150px;
+                        font-size:12px;
+                        line-height: 12px;
+                        .setbackground(#ccc);
+                        -webkit-border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        border-radius: 5px;
+                        padding:2px 4px 2px 4px;
+                        font-weight: bold;
+                    }
+                    a:hover, a:visited{
+                        color:#00ACED;
+                    }
+                    .icons{
+                        position: absolute;
+                        top:70px;
+                    }
+                }
+                .id{
+                    position: absolute;
+                    bottom:20px;
+                    right:10px;
+                    font-size: 10px;
+                    line-height: 10px;
+                }
+            }
+        }
+    }
+
+    .black{
+        background-color: #000;
+        width: 520px !important;
+    }
+
 }
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     body{
-        background: #ff6000;
+        background: #666000;
     }
 
     #search{
         color: #ffffff;
         font-size:19px;
         line-height:30px;
-        .span5{
-            padding-top: 17px;
+
+
             input {
                 -webkit-border-radius: 5px;
                 -moz-border-radius: 5px;
@@ -466,7 +484,7 @@ hr{
                 font-size: inherit;
                 line-height:inherit;
             }
-        }
+
         label{
             position: relative;
             float:left;
@@ -484,7 +502,7 @@ hr{
     }
 
     .search{
-        height:90px;
+        height:70px;
         line-height: 70px;
     }
 
@@ -514,6 +532,22 @@ hr{
         }
     }
 
+    .soort1, .soort2, .soort3{
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-image: url("../img/gevaar.png");
+        width:100px;
+        height:100px;
+        display: block !important;
+        visibility: visible !important;
+    }
+    .soort2{
+        background-image: url("../img/gevaar_veilig.png");
+    }
+    .soort3{
+        background-image: url("../img/veilig.png");
+    }
+
     .veilig{
         background: url(../img/veilig_768.png) no-repeat 2px 50% !important;
     }
@@ -525,9 +559,12 @@ hr{
     }
 
     #categorieen{
+        .span2{
+            /*width:170px;*/
+        }
         div.menu-little{
-            height:120px;
-            width:100%;
+            height:100%;
+            width:50%;
             position:relative;
             float:left;
             div.checkbox-little{
@@ -536,16 +573,22 @@ hr{
                 height: 40px;
                 float:left;
                 cursor:pointer;
+                .checkbox-little-text{
+                    display: block;
+                    text-align: center;
+                    font-size: 15px;
+                    line-height: 40px;
+                }
             }
             div.checkbox-little.checked{
-                background: url(../img/checkbox_checked_lt.png) no-repeat 0px 5px;
+                background: url(../img/checkbox_checked_lt_gray.png) no-repeat 0px 5px;
             }
             div.label-little{
                 background: url(../img/types.png) no-repeat 5px 0px;
                 width:50px;
                 height: 50px;
                 float:left;
-                display: block;
+                display: none;
                 p{
                     text-align: center;
                     font-weight: bold;
@@ -561,6 +604,101 @@ hr{
             }
         }
     }
+
+    #result{
+        #grid{
+            .enummer{
+                color:#fff;
+                cursor: pointer;
+                border:5px solid #000;
+                width:135px;
+                position:relative;
+                height:168px;
+                float: left;
+                .main-container{
+                    .container-component;
+                    width:50%;
+                    height:100%;
+                    h3.title{
+                        top:50px;
+                        position: relative;
+                        font-size: 40px !important;
+                        line-height: 40px;
+                    }
+                    .effect-container{
+                        position: absolute;
+                        z-index:100;
+                        display: none;
+                        .astma{
+                            background:url(../img/astma_lt.png) 0px 0px no-repeat;
+                        }
+                        .astma-volwassen{
+                            background:url(../img/astma-volwassen_lt.png) 0px 0px no-repeat;
+                        }
+                        .alergie{
+                            background:url(../img/alergie_lt.png) 0px 0px no-repeat;
+                        }
+                        .netelroos{
+                            background:url(../img/netelroos_lt.png) 0px 0px no-repeat;
+                        }
+                        .overgevoelig{
+                            background:url(../img/overgevoelig_lt.png) 0px 0px no-repeat;
+                        }
+                        .lever{
+                            background:url(../img/lever_lt.png) 0px 0px no-repeat;
+                        }
+                        .nier{
+                            background:url(../img/nier_lt.png) 0px 0px no-repeat;
+                        }
+                    }
+                    .effect{
+                        width:50px;height:50px;background-color:#000;position:relative;float:left;
+                        background-repeat: no-repeat;
+                        font-size: 20px;
+                    }
+                }
+                .extra-container{
+                    .container-component;
+                    width:50%;
+                    height:100%;
+                    a{
+                        text-decoration: none;
+                        color: #000;
+                        position: absolute; bottom: 10px;
+                        height:12px;
+                        top: 150px;
+                        font-size:12px;
+                        line-height: 12px;
+                        .setbackground(#ccc);
+                        -webkit-border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        border-radius: 5px;
+                        padding:2px 4px 2px 4px;
+                        font-weight: bold;
+                    }
+                    a:hover, a:visited{
+                        color:#00ACED;
+                    }
+                    .icons{
+                        position: absolute;
+                        top:70px;
+                    }
+                }
+                .id{
+                    position: absolute;
+                    bottom:20px;
+                    right:10px;
+                    font-size: 10px;
+                    line-height: 10px;
+                }
+            }
+        }
+    }
+
+    .black{
+        background-color: #000;
+        width: 500px !important;
+    }
 }
 
 /* Landscape phone to portrait tablet */
@@ -568,11 +706,406 @@ hr{
     body{
         background: #666000;
     }
+
+    .box{
+        margin: 0px;
+    }
+
+    #search{
+        color: #ffffff;
+        font-size:14px;
+        line-height:30px;
+
+
+            input {
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                height:40px;
+                width: 50%;
+                float: left;
+                position: relative;
+                border: none;
+                font-size: inherit;
+                line-height:inherit;
+                margin-top: 2px;
+            }
+
+        label{
+            position: relative;
+            float:left;
+            font-size: 14px;
+            line-height:40px;
+        }
+        a{
+            background-color: #ccc;
+            background-image: linear-gradient(to bottom, #ccc, #ccc);
+            background-repeat: repeat-x;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            color: #FFFFFF;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            margin-left:5px;
+            font-size: 14px;
+            line-height:20px;
+        }
+    }
+
+    .search{
+        height:90px;
+        line-height: 20px;
+    }
+
+    #soorten{
+        div.menu-large{
+            height:90px;
+            width:30%;
+            position:relative;
+            float:left;
+            div.checkbox-large{
+                background: url(../img/checkbox_unchecked.png) no-repeat 0px 23px;
+                width:48px;
+                height: 70px;
+                float:left;
+                cursor:pointer;
+            }
+            div.checkbox-large.checked{
+                background: url(../img/checkbox_checked.png) no-repeat 0px 23px;
+            }
+            div.label-large{
+                background: url(../img/gevaar_768.png) no-repeat 10px 10px;
+                width:50px;
+                height: 90px;
+                float:left;
+                display: block;
+            }
+        }
+    }
+
+    .soort1, .soort2, .soort3{
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-image: url("../img/gevaar.png");
+        width:100px;
+        height:100px;
+        display: block !important;
+        visibility: visible !important;
+    }
+    .soort2{
+        background-image: url("../img/gevaar_veilig.png");
+    }
+    .soort3{
+        background-image: url("../img/veilig.png");
+    }
+
+    .veilig{
+        background: url(../img/veilig_768.png) no-repeat 2px 50% !important;
+    }
+    .gevaar-veilig{
+        background: url(../img/gevaar_veilig_768.png) no-repeat 2px 50% !important;
+    }
+    .gevaar{
+        background: url(../img/gevaar_768.png) no-repeat 2px 50% !important;
+    }
+
+    #categorieen{
+        .span1{
+            min-height:0px;
+        }
+        div.menu-little{
+            height:100%;
+            width:8%;
+            position:relative;
+            float:left;
+            div.checkbox-little{
+                background: url(../img/checkbox_unchecked_lt.png) no-repeat 0px 5px;
+                width:34px;
+                height: 40px;
+                float:left;
+                cursor:pointer;
+                .checkbox-little-text{
+                    display: block;
+                    text-align: center;
+                    font-size: 15px;
+                    line-height: 40px;
+                }
+            }
+            div.checkbox-little.checked{
+                background: url(../img/checkbox_checked_lt_gray.png) no-repeat 0px 5px;
+            }
+            div.label-little{
+                background: url(../img/types.png) no-repeat 5px 0px;
+                width:50px;
+                height: 50px;
+                float:left;
+                display: none;
+                p{
+                    text-align: center;
+                    font-weight: bold;
+                    line-height: 40px;
+                    font-size: 13px;
+                    height: 50px;
+                    display: block;
+                    width: 50px;
+                    vertical-align: middle;
+                    color: #fff;
+                    margin: 0 0 10px;
+                }
+            }
+        }
+    }
+
+    #result{
+        #grid{
+            .enummer{
+                margin: 10px;
+                color:#fff;
+                cursor: pointer;
+                border:5px solid #000;
+                width:135px;
+                position:relative;
+                height:168px;
+                float: left;
+                .main-container{
+                    .container-component;
+                    width:50%;
+                    height:100%;
+                    h3.title{
+                        top:50px;
+                        position: relative;
+                        font-size: 40px !important;
+                        line-height: 40px;
+                    }
+                    .effect-container{
+                        position: absolute;
+                        z-index:100;
+                        display: none;
+                        .astma{
+                            background:url(../img/astma_lt.png) 0px 0px no-repeat;
+                        }
+                        .astma-volwassen{
+                            background:url(../img/astma-volwassen_lt.png) 0px 0px no-repeat;
+                        }
+                        .alergie{
+                            background:url(../img/alergie_lt.png) 0px 0px no-repeat;
+                        }
+                        .netelroos{
+                            background:url(../img/netelroos_lt.png) 0px 0px no-repeat;
+                        }
+                        .overgevoelig{
+                            background:url(../img/overgevoelig_lt.png) 0px 0px no-repeat;
+                        }
+                        .lever{
+                            background:url(../img/lever_lt.png) 0px 0px no-repeat;
+                        }
+                        .nier{
+                            background:url(../img/nier_lt.png) 0px 0px no-repeat;
+                        }
+                    }
+                    .effect{
+                        width:50px;height:50px;background-color:#000;position:relative;float:left;
+                        background-repeat: no-repeat;
+                        font-size: 20px;
+                    }
+                }
+                .extra-container{
+                    .container-component;
+                    width:50%;
+                    height:100%;
+                    a{
+                        text-decoration: none;
+                        color: #000;
+                        position: absolute; bottom: 10px;
+                        height:12px;
+                        top: 150px;
+                        font-size:12px;
+                        line-height: 12px;
+                        .setbackground(#ccc);
+                        -webkit-border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        border-radius: 5px;
+                        padding:2px 4px 2px 4px;
+                        font-weight: bold;
+                    }
+                    a:hover, a:visited{
+                        color:#00ACED;
+                    }
+                    .icons{
+                        position: absolute;
+                        top:70px;
+                    }
+                }
+                .id{
+                    position: absolute;
+                    bottom:20px;
+                    right:10px;
+                    font-size: 10px;
+                    line-height: 10px;
+                }
+            }
+        }
+    }
+
+    .black{
+        background-color: #000;
+        width: 500px !important;
+    }
+
+    #twitter{
+        margin-top:10px;
+    }
+
+    #facebook{
+        margin-top:10px;
+    }
+
+    #status{
+        margin-top:10px;
+    }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
     body{
         background: #666000;
+    }
+
+    #status{
+        width:100%;
+    }
+
+    #search{
+        color: #ffffff;
+        font-size:14px;
+        line-height:14px;
+
+
+        input {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            float: left;
+            font-size: inherit;
+            height: 20px;
+            line-height: inherit;
+            margin-top: 2px;
+            position: relative;
+            width: 50%;
+        }
+
+        label{
+            float: left;
+            font-size: 13px;
+            line-height: 14px;
+            position: relative;
+            width: 25%;
+        }
+        a{
+            background-color: #ccc;
+            background-image: linear-gradient(to bottom, #ccc, #ccc);
+            background-repeat: repeat-x;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            color: #FFFFFF;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            margin-left:5px;
+            font-size: 14px;
+            line-height:20px;
+            width:20%;
+            padding: 0px !important;
+        }
+    }
+
+    .search{
+        height: 70px;
+        line-height: 14px;
+        padding: 15px;
+        .btn-large{
+
+        }
+    }
+
+    #soorten{
+        div.menu-large{
+            height:90px;
+            width:33%;
+            position:relative;
+            float:left;
+            div.checkbox-large{
+                background: url(../img/checkbox_unchecked_lt.png) no-repeat 0px 23px;
+                width:34px;
+                height: 70px;
+                float:left;
+                cursor:pointer;
+            }
+            div.checkbox-large.checked{
+                background: url(../img/checkbox_checked_lt.png) no-repeat 0px 23px;
+            }
+            div.label-large{
+                background: url(../img/gevaar_768.png) no-repeat 10px 10px;
+                width:50px;
+                height: 75px;
+                float:left;
+                display: block;
+            }
+        }
+    }
+
+    #categorieen{
+        display: none;
+        visibility: hidden;
+    }
+
+    #result{
+        #grid{
+            .enummer{
+                .main-container{
+                    width:100%;
+                    height: 50%;
+                }
+                .extra-container{
+                    width:100%;
+                    height: 50%;
+                    .icons{
+                        position: absolute;
+                        top:0px;
+                        display: none;
+                    }
+                    h3{
+                        top: 43px;
+                        position: absolute;
+                        font-size: 13px;
+                        width: 70%;
+                        line-height: 13px;
+                    }
+                    a{
+                        height: 12px;
+                        left: 150px;
+                        position: absolute;
+                        top: 53px;
+                    }
+                }
+                width:240px;
+            }
+        }
+    }
+
+    .black{
+        background-color: #000;
+        width: 240px !important;
+        h3.title{
+            display:none;
+        }
+    }
+
+    .soort1, .soort2, .soort3{
+        background-image: url("../img/gevaar_768.png");
+        position: relative;
+        top: 41px;
+        left: 165px;
+    }
+    .soort2{
+        background-image: url("../img/gevaar_veilig_768.png");
+    }
+    .soort3{
+        background-image: url("../img/veilig_768.png");
     }
 }

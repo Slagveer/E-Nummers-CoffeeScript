@@ -2,26 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88ebc976-9e93-40f1-baea-c611245756d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img/twitter.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/src/controller/command/TwitterTimerCommand.coffee" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/js/src/model/component/FacebookModel.coffee" afterPath="$PROJECT_DIR$/js/src/model/component/FaceBookModel.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cakefile" afterPath="$PROJECT_DIR$/Cakefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/enummers.less" afterPath="$PROJECT_DIR$/css/enummers.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.min.js" afterPath="$PROJECT_DIR$/js/main.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/AppConstants.coffee" afterPath="$PROJECT_DIR$/js/src/AppConstants.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/app.coffee" afterPath="$PROJECT_DIR$/js/src/app.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/model/component/TwitterModel.coffee" afterPath="$PROJECT_DIR$/js/src/model/component/TwitterModel.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/model/proxy/FaceBookProxy.coffee" afterPath="$PROJECT_DIR$/js/src/model/proxy/FaceBookProxy.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/model/proxy/TwitterProxy.coffee" afterPath="$PROJECT_DIR$/js/src/model/proxy/TwitterProxy.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/FaceBookView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/FaceBookView.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/TwitterView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/TwitterView.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/FaceBookViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/FaceBookViewMediator.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/TwitterViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/TwitterViewMediator.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee" />
     </list>
     <ignored path="E-Nummers-CoffeeScript.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,15 +38,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TwitterTimerCommand.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/controller/command/TwitterTimerCommand.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="23" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TwitterModel.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/model/component/TwitterModel.coffee">
           <provider selected="true" editor-type-id="text-editor">
@@ -79,28 +56,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TwitterViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/TwitterViewMediator.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="55" selection-start="1107" selection-end="1107" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="188" column="59" selection-start="8690" selection-end="8690" vertical-scroll-proportion="-4.375">
+            <state line="134" column="254" selection-start="6710" selection-end="6936" vertical-scroll-proportion="-7.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CategorieenView.coffee" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CategorieenView.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="13" selection-start="192" selection-end="200" vertical-scroll-proportion="0.0">
+            <state line="40" column="5" selection-start="1230" selection-end="1230" vertical-scroll-proportion="0.6458558">
               <folding />
             </state>
           </provider>
@@ -115,19 +83,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enummers.less" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="enummers.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/enummers.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="529" column="21" selection-start="13583" selection-end="13583" vertical-scroll-proportion="0.4348762">
+            <state line="1076" column="39" selection-start="30359" selection-end="30359" vertical-scroll-proportion="-16.26923">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FaceBookViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/FaceBookViewMediator.coffee">
+      <file leaf-file-name="ResultView.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/view/component/ResultView.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="1178" selection-end="1302" vertical-scroll-proportion="0.0">
+            <state line="75" column="59" selection-start="2256" selection-end="2256" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResultModel.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/model/component/ResultModel.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="21" selection-start="2640" selection-end="2656" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResultViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="51" column="72" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -146,8 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/src/view/component/FaceBookView.coffee" />
-        <option value="$PROJECT_DIR$/js/src/view/component/TwitterView.coffee" />
         <option value="$PROJECT_DIR$/js/src/model/component/FaceBookModel.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/mediator/FaceBookViewMediator.coffee" />
         <option value="$PROJECT_DIR$/Cakefile" />
@@ -160,6 +144,8 @@
         <option value="$PROJECT_DIR$/js/src/view/mediator/TwitterViewMediator.coffee" />
         <option value="$PROJECT_DIR$/js/src/controller/command/TwitterTimerCommand.coffee" />
         <option value="$PROJECT_DIR$/js/src/model/proxy/TwitterProxy.coffee" />
+        <option value="$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee" />
+        <option value="$PROJECT_DIR$/js/src/view/component/ResultView.coffee" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/enummers.less" />
       </list>
@@ -618,34 +604,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="20" selection-start="324" selection-end="324" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/view/component/ResultView.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="16" selection-start="2580" selection-end="2594" vertical-scroll-proportion="-25.846153">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/AppConstants.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="37" selection-start="438" selection-end="438" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="72" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/src/app.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="101" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
@@ -695,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/model/proxy/TwitterProxy.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="31" selection-start="744" selection-end="744" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/src/model/component/CategoryModel.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="17" selection-start="50" selection-end="62" vertical-scroll-proportion="0.0">
@@ -709,23 +660,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee">
+    <entry file="file://$PROJECT_DIR$/js/src/model/proxy/TwitterProxy.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="192" selection-end="200" vertical-scroll-proportion="0.0">
+        <state line="27" column="31" selection-start="744" selection-end="744" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/bootstrap-responsive.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-17.00323">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/component/ResultView.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="59" selection-start="2256" selection-end="2256" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="59" selection-start="8690" selection-end="8690" vertical-scroll-proportion="-4.375">
+        <state line="134" column="254" selection-start="6710" selection-end="6936" vertical-scroll-proportion="-7.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="72" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/model/component/ResultModel.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="21" selection-start="2640" selection-end="2656" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/css/enummers.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="529" column="21" selection-start="13583" selection-end="13583" vertical-scroll-proportion="0.4348762">
+        <state line="1076" column="39" selection-start="30359" selection-end="30359" vertical-scroll-proportion="-16.26923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="5" selection-start="1230" selection-end="1230" vertical-scroll-proportion="0.6458558">
           <folding />
         </state>
       </provider>

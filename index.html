@@ -124,19 +124,23 @@
 
         <script type="text/html" id="checkbox-categorieen-template">
             {{each(i,categorie) categorydata}}
-            {{if id}}
-                {{if id%2==1}}
-                    <div class="span2">
+            {{if id%12==1}}
+            <div class="row">
+            {{/if}}
+                {{if 1==1}}
+                    <div class="span1">
                 {{/if}}
 
-                <div class="menu-little" data-toggle="popover" data-original-title="${categorie.naam}" data-content="${categorie.betekenis}">
-                    <div class="checkbox-little" checked="false" data-bind="event:{'click' : $root.setCategorieFilter},id:'cb-' + categorie.naam.trim(),attr:{category:categorie.id}"></div>
-                    <div class="label-little"><p>${categorie.afkorting}</p></div>
-                </div>
+                        <div class="menu-little" data-toggle="popover" data-original-title="${categorie.naam}" data-content="${categorie.betekenis}">
+                            <div class="checkbox-little" checked="false" data-bind="event:{'click' : $root.setCategorieFilter},id:'cb-' + categorie.naam.trim(),attr:{category:categorie.id}"><p class="checkbox-little-text">${categorie.afkorting}</p></div>
+                            <div class="label-little"><p>${categorie.afkorting}</p></div>
+                        </div>
 
-                {{if id%2==0}}
+                {{if 0==0}}
                     </div>
                 {{/if}}
+            {{if id%12==0}}
+            </div>
             {{/if}}
             {{/each}}
         </script>
@@ -203,6 +207,7 @@
                         <div data-bind="template: { name: 'checkbox-soorten-template', foreach: soortdata }" class="soorten-menu-container"></div>
                     </div>
                 </div>
+                <!--<p style="position: absolute;width:50px;height:50px;color:red;" data-bind="text:$root.soortdata.length">100</p>-->
             </div>
 
             <div class="row">
@@ -211,9 +216,9 @@
 
             <div id="categorieen" class="row">
                 <div class="span12 categorieen box" data-bind="style: { display: categorydata.length > 0 ? 'block' : 'none' }">
-                    <div class="row">
+
                         <div data-bind="template: { name: 'checkbox-categorieen-template' }" class="categorieen-menu-container"></div>
-                    </div>
+
                 </div>
             </div>
 
