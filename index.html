@@ -184,11 +184,13 @@
             </div>
 
             <div class="row">
-                <div class="span12">&nbsp;</div>
+                <div class="span12">
+                    &nbsp;
+                </div>
             </div>
 
             <div id="search" class="row">
-                <div class="span10 search box">
+                <div class="span10 search box" data-bind="style: { display: enummers().length > 0 ? 'block' : 'none' }">
                     <p class="badge-pos"><span class="badge" data-bind="text:$root.filterResult()"></span></p>
                     <div class="row">
                         <div class="span3"><label for="searchterm">Naam of nummer :&nbsp;</label></div>
@@ -267,6 +269,12 @@
             <div class="footer">
                 <p>&copy; Slagveer 2013</p>
             </div>
+
+            <div class="alert alert-error">
+                <button class="close" data-dismiss="alert" type="button">×</button>
+                <strong>Problemen met het laden van de enummers!</strong>
+            </div>
+
 
         </div> <!-- /container -->
 

@@ -12,7 +12,7 @@ class LogoView
 
     # Fixed DOM elements managed by this view component
     @logo = $("#logo")[0]
-    @img = $("#logo").find("img")[0]
+    @img = $("#logo").find(".img")[0]
 
     # Event listeners for fixed UI elements
     @img.component = this

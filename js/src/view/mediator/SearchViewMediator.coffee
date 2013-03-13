@@ -27,7 +27,7 @@ class SearchViewMediator extends puremvc.Mediator
   handleNotification: (note) ->
     switch note.getName()
       when enummers.AppConstants::ENUMMERS_LOADED
-        @viewComponent.setSearch()
+        @viewComponent.setSearch(note.getBody().enummers)
       when enummers.AppConstants::ENUMMERS_FILTERED
         if note.getBody().by is "search"
           @viewComponent.setFilterResult(note.getBody().result)

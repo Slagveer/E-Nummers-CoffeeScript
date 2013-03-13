@@ -2,6 +2,7 @@ class SearchModel
   constructor: (data) ->
     @searchFilter = ko.observable("")
     @filterResult = ko.observable("")
+    @enummers = ko.observable(data)
     @view
 
   getModelName: ->

@@ -790,6 +790,7 @@ SearchModel = (function() {
     this.onSearchChange = __bind(this.onSearchChange, this);
     this.searchFilter = ko.observable("");
     this.filterResult = ko.observable("");
+    this.enummers = ko.observable(data);
     this.view;
   }
 
@@ -1348,7 +1349,7 @@ LogoView = (function() {
   function LogoView(event) {
     this.enummers = [];
     this.logo = $("#logo")[0];
-    this.img = $("#logo").find("img")[0];
+    this.img = $("#logo").find(".img")[0];
     this.img.component = this;
     enummers.view.event.AppEvents.prototype.addEventListener(this.img, "click", function(event) {
       return this.component.dispatchLogoClicked(event);
@@ -1703,7 +1704,10 @@ SearchView = (function() {
   SearchView.prototype.setSearch = function(data) {
     this.viewModel = new enummers.model.component.SearchModel(data);
     this.viewModel.view = this.search;
-    return ko.applyBindings(this.viewModel, this.search);
+    ko.applyBindings(this.viewModel, this.search);
+    return createjs.Tween.get($("#search")).to({
+      x: 1000
+    }, 500, createjs.Ease.linear);
   };
 
   SearchView.prototype.setFilterResult = function(data) {
@@ -2345,7 +2349,7 @@ SearchViewMediator = (function(_super) {
   SearchViewMediator.prototype.handleNotification = function(note) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.ENUMMERS_LOADED:
-        return this.viewComponent.setSearch();
+        return this.viewComponent.setSearch(note.getBody().enummers);
       case enummers.AppConstants.prototype.ENUMMERS_FILTERED:
         if (note.getBody().by === "search") {
           return this.viewComponent.setFilterResult(note.getBody().result);

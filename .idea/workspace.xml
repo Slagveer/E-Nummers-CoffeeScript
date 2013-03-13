@@ -7,18 +7,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.min.js" afterPath="$PROJECT_DIR$/js/main.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/AppConstants.coffee" afterPath="$PROJECT_DIR$/js/src/AppConstants.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/model/component/CategoryModel.coffee" afterPath="$PROJECT_DIR$/js/src/model/component/CategoryModel.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/model/component/SearchModel.coffee" afterPath="$PROJECT_DIR$/js/src/model/component/SearchModel.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/model/component/SoortModel.coffee" afterPath="$PROJECT_DIR$/js/src/model/component/SoortModel.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/ResultView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/ResultView.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/SearchView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/SearchView.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/SoortenView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/SoortenView.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/CategorieenViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/CategorieenViewMediator.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/SoortenViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/SoortenViewMediator.coffee" />
     </list>
     <ignored path="E-Nummers-CoffeeScript.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,16 +34,7 @@
       <file leaf-file-name="SearchViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="1103" selection-end="1316" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SoortenViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/SoortenViewMediator.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="52" selection-start="1357" selection-end="1357" vertical-scroll-proportion="0.0">
+            <state line="28" column="49" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -88,25 +70,34 @@
       <file leaf-file-name="SoortModel.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/model/component/SoortModel.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="7" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
+            <state line="2" column="14" selection-start="47" selection-end="56" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enummers.less" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="enummers.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/enummers.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="496" column="8" selection-start="12665" selection-end="12665" vertical-scroll-proportion="0.2857143">
+            <state line="89" column="30" selection-start="1637" selection-end="1637" vertical-scroll-proportion="-21.923077">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="181" column="37" selection-start="8523" selection-end="8523" vertical-scroll-proportion="-9.375">
+            <state line="296" column="59" selection-start="14043" selection-end="14043" vertical-scroll-proportion="0.80406654">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchModel.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/model/component/SearchModel.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="34" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -115,16 +106,7 @@
       <file leaf-file-name="SearchView.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/view/component/SearchView.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="2" selection-start="1192" selection-end="1192" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResultViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="140" selection-start="2394" selection-end="2394" vertical-scroll-proportion="-27.692308">
+            <state line="39" column="41" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -143,29 +125,29 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/src/controller/command/TwitterTimerCommand.coffee" />
-        <option value="$PROJECT_DIR$/js/src/model/proxy/TwitterProxy.coffee" />
         <option value="$PROJECT_DIR$/js/src/AppConstants.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/component/SoortenView.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/component/ResultView.coffee" />
         <option value="$PROJECT_DIR$/js/src/model/component/SoortModel.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/mediator/ResultViewMediator.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/mediator/SoortenViewMediator.coffee" />
-        <option value="$PROJECT_DIR$/js/src/model/component/SearchModel.coffee" />
         <option value="$PROJECT_DIR$/js/src/model/component/CategoryModel.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/mediator/CategorieenViewMediator.coffee" />
         <option value="$PROJECT_DIR$/js/src/view/component/CategorieenView.coffee" />
-        <option value="$PROJECT_DIR$/js/src/view/component/SearchView.coffee" />
-        <option value="$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/enummers.less" />
+        <option value="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" />
+        <option value="$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee" />
+        <option value="$PROJECT_DIR$/js/src/model/component/SearchModel.coffee" />
+        <option value="$PROJECT_DIR$/js/libs/jquery.easing.js" />
+        <option value="$PROJECT_DIR$/js/src/view/component/SearchView.coffee" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1920" />
-    <option name="height" value="1099" />
+    <option name="height" value="1090" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -419,6 +401,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="img" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -469,11 +469,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js/libs" />
       <recent name="$PROJECT_DIR$/img" />
       <recent name="$PROJECT_DIR$/js/src/controller/command" />
       <recent name="$PROJECT_DIR$/js/src/view/mediator" />
       <recent name="$PROJECT_DIR$/js/src/view/component" />
-      <recent name="$PROJECT_DIR$/js/src/model/component" />
     </key>
   </component>
   <component name="RunManager">
@@ -537,14 +537,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1099" extended-state="6" />
+    <frame x="0" y="22" width="1920" height="1090" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920536" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32610938" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26307365" sideWeight="0.9386503" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26307365" sideWeight="0.6738906" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -554,7 +555,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32684427" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -615,20 +615,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/src/AppConstants.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="19" selection-start="1341" selection-end="1358" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1662" column="0" selection-start="52526" selection-end="52526" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/src/view/component/ResultView.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="4" selection-start="2437" selection-end="2489" vertical-scroll-proportion="-20.307692">
@@ -643,23 +629,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/model/component/SearchModel.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="37" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/src/model/component/CategoryModel.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="37" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/model/component/SoortModel.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="7" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -692,6 +664,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/model/component/SoortModel.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="14" selection-start="47" selection-end="56" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/enummers.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="30" selection-start="1637" selection-end="1637" vertical-scroll-proportion="-21.923077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/component/LogoView.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="14" selection-start="134" selection-end="134" vertical-scroll-proportion="0.097826086">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="49" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/model/component/SearchModel.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="34" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/src/view/component/SoortenView.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="0" selection-start="1244" selection-end="1305" vertical-scroll-proportion="0.0">
@@ -701,28 +708,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/src/view/component/SearchView.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="2" selection-start="1192" selection-end="1192" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/view/mediator/SearchViewMediator.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="1103" selection-end="1316" vertical-scroll-proportion="0.0">
+        <state line="39" column="41" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="37" selection-start="8523" selection-end="8523" vertical-scroll-proportion="-9.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/enummers.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="496" column="8" selection-start="12665" selection-end="12665" vertical-scroll-proportion="0.2857143">
+        <state line="296" column="59" selection-start="14043" selection-end="14043" vertical-scroll-proportion="0.80406654">
           <folding />
         </state>
       </provider>
