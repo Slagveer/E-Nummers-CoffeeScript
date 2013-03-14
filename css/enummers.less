@@ -54,12 +54,17 @@ hr{
     width:150px;
     height:150px;
     background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+    position: absolute;
+}
+
+.img{
+    z-index:1;
 }
 
 canvas{
     float:left;
     position: relative;
-    left:150px;
+    left:0px;
 }
 
 .stripes{
@@ -492,7 +497,7 @@ canvas{
 }
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1199px) {
     body{
         background: #666000;
     }

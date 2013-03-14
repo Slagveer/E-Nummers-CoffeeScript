@@ -40,6 +40,7 @@ class AppConstants
   TWITTER_TWEETS_LOADED: "twitter_tweets_loaded"
   CHANGE_MESSAGE: "change_message"
   ENUMMERS_FILTERED: "enummers_filtered"
+  PASS_RANDOM_ENUMMER: "pass_random_enummer"
 
   # Filter routes
   FILTER_ALL: "all"

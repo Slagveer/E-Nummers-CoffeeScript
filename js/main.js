@@ -11,7 +11,7 @@ PureMVC JS is multi-core, meaning you may have multiple,
 named and isolated PureMVC cores. This app only has one.
 */
 
-var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, FaceBookModel, FaceBookProxy, FaceBookTimerCommand, FaceBookView, FaceBookViewMediator, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TwitterModel, TwitterProxy, TwitterTimerCommand, TwitterView, TwitterViewMediator,
+var AppConstants, AppEvents, Application, CategorieenView, CategorieenViewMediator, CategoryModel, EnummersProxy, FaceBookModel, FaceBookProxy, FaceBookTimerCommand, FaceBookView, FaceBookViewMediator, LogoTimerCommand, LogoView, LogoViewMediator, PrepControllerCommand, PrepModelCommand, PrepViewCommand, ResultModel, ResultView, ResultViewMediator, RoutesMediator, SearchModel, SearchView, SearchViewMediator, SoortModel, SoortenView, SoortenViewMediator, StartupCommand, StatusModel, StatusView, StatusViewMediator, TodoCommand, TodoForm, TodoFormMediator, TwitterModel, TwitterProxy, TwitterTimerCommand, TwitterView, TwitterViewMediator,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -73,6 +73,8 @@ AppConstants = (function() {
   AppConstants.prototype.CHANGE_MESSAGE = "change_message";
 
   AppConstants.prototype.ENUMMERS_FILTERED = "enummers_filtered";
+
+  AppConstants.prototype.PASS_RANDOM_ENUMMER = "pass_random_enummer";
 
   AppConstants.prototype.FILTER_ALL = "all";
 
@@ -1347,6 +1349,8 @@ puremvc.DefineNamespace('todomvc.view.component', function(exports) {
 LogoView = (function() {
 
   function LogoView(event) {
+    this.passEnummer = __bind(this.passEnummer, this);
+    this.processingCanvas;
     this.enummers = [];
     this.logo = $("#logo")[0];
     this.img = $("#logo").find(".img")[0];
@@ -1378,11 +1382,18 @@ LogoView = (function() {
 
   LogoView.prototype.enableLogo = function(enummers) {
     var _this = this;
+    this.enummers = enummers;
     return $.get("enummers.pjs", function(code) {
-      var processingCanvas;
-      processingCanvas = new Processing($("#processing")[0], code);
-      return processingCanvas.setEnummers(enummers);
+      var width;
+      width = $("#logo").width() - 40;
+      code = code.toString().replace("##WIDTH##", width);
+      _this.processingCanvas = new Processing($("#processing")[0], code);
+      return _this.processingCanvas.setEnummers(enummers);
     });
+  };
+
+  LogoView.prototype.passEnummer = function(enummer) {
+    return this.processingCanvas.passEnummer(enummer);
   };
 
   LogoView.prototype.NAME = "LogoView";
@@ -2081,7 +2092,7 @@ LogoViewMediator = (function(_super) {
   }
 
   LogoViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.view.event.AppEvents.prototype.ENUMMERS_LOADED];
+    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.PASS_RANDOM_ENUMMER];
   };
 
   LogoViewMediator.prototype.onRegister = function() {
@@ -2100,6 +2111,8 @@ LogoViewMediator = (function(_super) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.ENUMMERS_LOADED:
         return this.viewComponent.enableLogo(note.getBody().enummers);
+      case enummers.AppConstants.prototype.PASS_RANDOM_ENUMMER:
+        return this.viewComponent.passEnummer(note.getBody().enummer);
     }
   };
 
@@ -2757,6 +2770,10 @@ FaceBookTimerCommand = (function(_super) {
 
   function FaceBookTimerCommand() {
     this.sendMessage = __bind(this.sendMessage, this);
+
+    this.startFaceBookTimer = __bind(this.startFaceBookTimer, this);
+
+    this.execute = __bind(this.execute, this);
     return FaceBookTimerCommand.__super__.constructor.apply(this, arguments);
   }
 
@@ -2842,6 +2859,65 @@ puremvc.DefineNamespace('enummers.controller.command', function(exports) {
 });
 
 /*
+@author Mike Britton, Cliff Hall
+
+@class LogoTimerCommand
+@link https://github.com/PureMVC/puremvc-js-demo-enummers.git
+*/
+
+
+LogoTimerCommand = (function(_super) {
+
+  __extends(LogoTimerCommand, _super);
+
+  function LogoTimerCommand() {
+    this.sendEnummer = __bind(this.sendEnummer, this);
+
+    this.startEnummerTimer = __bind(this.startEnummerTimer, this);
+
+    this.execute = __bind(this.execute, this);
+    return LogoTimerCommand.__super__.constructor.apply(this, arguments);
+  }
+
+  LogoTimerCommand.enummers = [];
+
+  /*
+    Perform business logic (in this case, based on Notification name)
+    @override
+  */
+
+
+  LogoTimerCommand.prototype.execute = function(note) {
+    this.enummers = note.getBody().enummers;
+    return this.startEnummerTimer();
+  };
+
+  LogoTimerCommand.prototype.startEnummerTimer = function() {
+    var _this = this;
+    setInterval((function() {
+      return _this.sendEnummer;
+    })(), 5000);
+    return this;
+  };
+
+  LogoTimerCommand.prototype.sendEnummer = function() {
+    var enummer, l;
+    l = this.enummers.length;
+    enummer = this.enummers[Math.floor(Math.random() * l)];
+    return this.sendNotification(enummers.AppConstants.prototype.PASS_RANDOM_ENUMMER, {
+      enummer: enummer
+    });
+  };
+
+  return LogoTimerCommand;
+
+})(puremvc.SimpleCommand);
+
+puremvc.DefineNamespace('enummers.controller.command', function(exports) {
+  return exports.LogoTimerCommand = LogoTimerCommand;
+});
+
+/*
 @author Mike Britton
 
 @class enummers.Application
@@ -2855,6 +2931,7 @@ Application = (function() {
     this.facade.registerCommand(enummers.AppConstants.prototype.STARTUP, enummers.controller.command.StartupCommand);
     this.facade.registerCommand(enummers.AppConstants.prototype.START_FACEBOOK_TIMER, enummers.controller.command.FaceBookTimerCommand);
     this.facade.registerCommand(enummers.AppConstants.prototype.START_TWITTER_TIMER, enummers.controller.command.TwitterTimerCommand);
+    this.facade.registerCommand(enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.controller.command.LogoTimerCommand);
     this.facade.sendNotification(enummers.AppConstants.prototype.STARTUP);
   }
 

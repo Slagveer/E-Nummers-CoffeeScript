@@ -12,10 +12,10 @@ class FaceBookTimerCommand extends puremvc.SimpleCommand
   Perform business logic (in this case, based on Notification name)
   @override
   ###
-  execute: (note) ->
+  execute: (note) =>
     @startFaceBookTimer()
 
-  startFaceBookTimer: ->
+  startFaceBookTimer: =>
     setInterval (do =>
       @sendMessage), 10000
     @

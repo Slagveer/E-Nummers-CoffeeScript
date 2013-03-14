@@ -55,6 +55,7 @@ config =
     'controller/command/TodoCommand'
     'controller/command/FaceBookTimerCommand'
     'controller/command/TwitterTimerCommand'
+    'controller/command/LogoTimerCommand'
 
     'app'
   ]

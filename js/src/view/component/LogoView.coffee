@@ -6,7 +6,7 @@
 ###
 class LogoView
   constructor: (event) ->
-
+    @processingCanvas
     # data
     @enummers = []
 
@@ -35,11 +35,18 @@ class LogoView
     @dispatchEvent logoClickedEvent
 
   enableLogo: (enummers) ->
+    @enummers = enummers
     $.get("enummers.pjs", (code) =>
-      processingCanvas = new Processing($("#processing")[0], code)
+      width = $("#logo").width() - 40
+      code = code.toString().replace("##WIDTH##",width)
+      @processingCanvas = new Processing($("#processing")[0], code)
       #calling from JS to PJS:
-      processingCanvas.setEnummers(enummers);
+      @processingCanvas.setEnummers(enummers)
+      #console.log "#{$("#logo").css('width')} LOGO"
     )
+
+  passEnummer: (enummer) =>
+    @processingCanvas.passEnummer(enummer)
 
   # STATIC MEMBERS
   NAME: "LogoView"

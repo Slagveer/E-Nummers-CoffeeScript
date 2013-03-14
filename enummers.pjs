@@ -1,39 +1,23 @@
-// ---------------------------------------------------------------- //
-//  Kerning Pairs Visualizator
-//  2005 Martin Bereciartua - email (at) m-i-b.com.ar
-//  http://www.m-i-b.com.ar/
-// ---------------------------------------------------------------- //
-//
 //  This source is released under the creative commons license
 //  http://creativecommons.org/licenses/by-nc-sa/1.0/
 //
 //  Thanks to:
-//  Ben Fry and Karsten Schmidt for inspiration
-//
-// ---------------------------------------------------------------- //
-//  Made with Processing (Beta) v091
-// ---------------------------------------------------------------- //
-
-
-int nro_linea = 2;
-int nro_espacio = 0;
+//  Martin Bereciartua, Ben Fry and Karsten Schmidt for inspiration
 
 PFont font;
-String par_actual = "";               // valor actual del escaneo del texto
-String[] lines;                       // lineas del texto escaneado
-int arrastrando = -1;
+int draggingBubbleId = -1;
 
 int pares_totales = 0;
 float k_total;
 
-int espacio_abajo;
-int espacio_arriba;
-int espacio_derecha;
-int espacio_izquierda;
+int downSpace;
+int topSpace;
+int rightSpace;
+int leftSpace;
 String layout_actual = "standard";
 String visual_mode = "lineal";
-int burbujas_maximas = 49;
-int burbujas_graficadas = 0;
+int bubblesMax = 49;
+int bubblesDisplayed = 0;
 
 Ball[] balls = new Ball[0];
 float grav = 1.40;                    // Gravedad
@@ -47,13 +31,14 @@ color ColorAcentoCompanion = color(255, 180, 0);
 int lapso_refresh = 1;               // cada cuantos frames se renueva la info del listado
 int timer_interno = 0;
 boolean resorte_activado = false;
-boolean show_info = true;
-boolean llenar_burbujas = false;
+boolean show_info = false;
+boolean fillBubbles = true;
 boolean hay_gravedad = false;
 int enummersAmount = 0;
+ENummer passedEnummer;
 
 void setup() {
-    size(1000, 150);
+    size(##WIDTH##, 150);
     smooth();
     loop();
     font = loadFont("Arial");
@@ -62,10 +47,14 @@ void setup() {
 
 void setEnummers(enummers){
     for ( int i=enummers.length-1; i>=0; i-- ) {
-        ENummer enummer = new ENummer(enummers[i].id,enummers[i].naam,enummers[i].gevaarId,enummers[i].soortId,enummers[i].categorieId);
+        ENummer enummer = new ENummer(enummers[i].id,enummers[i].naam,0,enummers[i].soortId,enummers[i].categorieId);
         createEnummer( enummer );
     }
     enummersAmount = enummers.length;
+}
+
+void passEnummer(enummer){
+    passedEnummer = new ENummer(enummer.id,enummer.naam,0,enummer.soortId,enummer.categorieId);
 }
 
 void draw() {
@@ -74,23 +63,28 @@ void draw() {
         background(0);
 
         pares_totales = 0;
-        burbujas_graficadas = 0;
-        for ( int i=burbujas_maximas; i>=0; i-- ) {
+        bubblesDisplayed = 0;
+        for ( int i=bubblesMax; i>=0; i-- ) {
             if ( i < balls.length ) {
-                pares_totales += balls[i].ocurrencias;
-                burbujas_graficadas++;
+                pares_totales += balls[i].occurrences;
+                bubblesDisplayed++;
+                if(passedEnummer && (balls[i].name == passedEnummer.naam)){
+                    balls[i].occurrences = 5;
+                }else{
+                    balls[i].occurrences = 1;
+                }
             }
         }
 
             calcularKtotal();
 
             for ( int i=0; i<balls.length; i++ ) {
-              float kprima = ( k_total * balls[i].ocurrencias ) / pares_totales;
+              float kprima = ( k_total * balls[i].occurrences ) / pares_totales;
               balls[i].ka = kprima;
               balls[i].r = sqrt( ( ( kprima ) / PI ) );
             }
 
-            for ( int i=burbujas_maximas; i>=0; i-- ) {
+            for ( int i=bubblesMax; i>=0; i-- ) {
               if ( i < balls.length ) {
                 if ( hay_gravedad ) balls[i].fall();
                 if ( resorte_activado ) balls[i].spring();
@@ -115,9 +109,9 @@ void createEnummer( ENummer enummer ) {
   int kp_encontrado = 0;
   // buscar kp a sumar en array existente
   for (int i=0; i < balls.length; i++) {
-    if ( balls[i].nombre == enummer.naam ) { // si encuentro el kp le sumo una ocurrencia
+    if ( balls[i].name == enummer.naam ) { // si encuentro el kp le sumo una ocurrencia
       kp_encontrado = 1;
-      balls[i].ocurrencias++;
+      balls[i].occurrences++;
     }
     if ( kp_encontrado == 1 ) break;
   }
@@ -144,18 +138,18 @@ void calcularKtotal () {
   // encontrar un valor de k (superficie a ocupar) que concuerde con
   // la cantidad de burbujar a dibujar (evitar que se superpongan)
 
-  float alto = height-espacio_arriba-espacio_abajo;
-  float ancho = width-espacio_izquierda-espacio_derecha;
+  float alto = height-topSpace-downSpace;
+  float ancho = width-leftSpace-rightSpace;
 
-  if ( burbujas_graficadas <= 1 ) {
+  if ( bubblesDisplayed <= 1 ) {
     if ( alto < ancho ) k_total = PI*pow(alto/2,2)*0.8;
     else k_total = PI*pow(ancho/2,2)*0.8;
   }
-  else if ( burbujas_graficadas > 1 && burbujas_graficadas <= 6 ) k_total = ancho * alto * 0.65;
-  else if ( burbujas_graficadas > 6 && burbujas_graficadas <= 20 ) k_total = ancho * alto * 0.75;
-  else if ( burbujas_graficadas > 20 && burbujas_graficadas <= 50 ) k_total = ancho * alto * 0.80;
-  else if ( burbujas_graficadas > 50 && burbujas_graficadas <= 200 ) k_total = ancho * alto * 0.86;
-  else if ( burbujas_graficadas > 200 ) k_total = ancho * alto * 0.92;
+  else if ( bubblesDisplayed > 1 && bubblesDisplayed <= 6 ) k_total = ancho * alto * 0.65;
+  else if ( bubblesDisplayed > 6 && bubblesDisplayed <= 20 ) k_total = ancho * alto * 0.75;
+  else if ( bubblesDisplayed > 20 && bubblesDisplayed <= 50 ) k_total = ancho * alto * 0.80;
+  else if ( bubblesDisplayed > 50 && bubblesDisplayed <= 200 ) k_total = ancho * alto * 0.86;
+  else if ( bubblesDisplayed > 200 ) k_total = ancho * alto * 0.92;
 
 }
 
@@ -165,28 +159,28 @@ void keyPressed() {
 
     if(keyCode<256) keyboard.press(keyCode);
 
-    if (key == 'a') { // viendo mas burbujas
-      if ( burbujas_maximas == 0 ) burbujas_maximas = 4;
-      else if ( burbujas_maximas == 4 ) burbujas_maximas = 19;
-      else if ( burbujas_maximas == 19 ) burbujas_maximas = 49;
-      else if ( burbujas_maximas == 49 ) burbujas_maximas = 99;
+    if (key == 'a') { // viendo mas bubbles
+      if ( bubblesMax == 0 ) bubblesMax = 4;
+      else if ( bubblesMax == 4 ) bubblesMax = 19;
+      else if ( bubblesMax == 19 ) bubblesMax = 49;
+      else if ( bubblesMax == 49 ) bubblesMax = 99;
     }
-    if (key == 's') { // viendo menos burbujas
-      if ( burbujas_maximas == 99 ) burbujas_maximas = 49;
-      else if ( burbujas_maximas == 49 ) burbujas_maximas = 19;
-      else if ( burbujas_maximas == 19 ) burbujas_maximas = 4;
+    if (key == 's') { // viendo menos bubbles
+      if ( bubblesMax == 99 ) bubblesMax = 49;
+      else if ( bubblesMax == 49 ) bubblesMax = 19;
+      else if ( bubblesMax == 19 ) bubblesMax = 4;
     }
     if (key == 'r' || key == 'R') { // activando resortes
       if ( resorte_activado == true ) resorte_activado = false;
       else if ( resorte_activado == false ) resorte_activado = true;
     }
-    if (key == 'i' || key == 'I') { // mostrar info en burbujas
+    if (key == 'i' || key == 'I') { // mostrar info en bubbles
       if ( show_info == true ) show_info = false;
       else if ( show_info == false ) show_info = true;
     }
-    if (key == 'l' || key == 'L') { // mostrar burbujas opacas
-      if ( llenar_burbujas == true ) llenar_burbujas = false;
-      else if ( llenar_burbujas == false ) llenar_burbujas = true;
+    if (key == 'l' || key == 'L') { // mostrar bubbles opacas
+      if ( fillBubbles == true ) fillBubbles = false;
+      else if ( fillBubbles == false ) fillBubbles = true;
     }
     if (key == 'f' || key == 'F') { // cambiar modo de layout
       if ( layout_actual == "standard" ) layout_actual = "reducido";
@@ -203,8 +197,8 @@ void keyPressed() {
     }
     if (key == 'd' || key == 'D') { // redistribuyendo
       for ( int i=0; i<balls.length; i++ ) {
-        balls[i].x = random(balls[i].r+espacio_izquierda, width-espacio_derecha-balls[i].r);
-        balls[i].y = random(balls[i].r+espacio_arriba, height-espacio_abajo-balls[i].r);
+        balls[i].x = random(balls[i].r+leftSpace, width-rightSpace-balls[i].r);
+        balls[i].y = random(balls[i].r+topSpace, height-downSpace-balls[i].r);
       }
     }
 
@@ -218,7 +212,7 @@ void keyReleased() {
 
 void mouseReleased() {
 
-  arrastrando = -1;
+  draggingBubbleId = -1;
 
 }
 
@@ -240,37 +234,35 @@ class Ball {
   int id;
   float ka;
 
-  String nombre;
-  int ocurrencias;
+  String name;
+  int occurrences;
 
   // Spring
   float mass;                                       // Masa
   float kspring;                                    // Constante de resorte
   float damp;                                       // Damping
-  float rest_posx = ( ( width-espacio_derecha ) / 2 ) + espacio_izquierda / 2;
-  float rest_posy = ( ( height-espacio_abajo ) / 2 ) + espacio_derecha / 2;
+  float rest_posx = ( ( width-rightSpace ) / 2 ) + leftSpace / 2;
+  float rest_posy = ( ( height-downSpace ) / 2 ) + rightSpace / 2;
   float accel = 0;                                  // Aceleracion
   float force = 0;                                  // Fuerza
 
   boolean estamos_encima;
 
-  Ball( float KA, ENummer ENUMMER, int OCURR ) {
-
+  Ball( float KA, ENummer ENUMMER, int EVENTS ) {
     enummer = ENUMMER;
     ka = KA;
     r = sqrt( ka / PI );
     m = r;
-    x = random(r+espacio_izquierda,width-espacio_derecha-r);
-    y = random(r+espacio_arriba,height-espacio_abajo-r);
+    x = random(r+leftSpace,width-rightSpace-r);
+    y = random(r+topSpace,height-downSpace-r);
     vx = random(-3,3);
     vy = random(-3,3);
     id = enummer.id;
-    nombre = enummer.naam;
-    console.error(id);
-    ocurrencias = OCURR;
+    name = enummer.naam;
+    occurrences = EVENTS;
     estamos_encima = false;
 
-    mass = sqrt( ( ( (PI*pow((height-espacio_abajo-espacio_arriba)/2,2)*0.8) / 2000 ) / PI ) );
+    mass = sqrt( ( ( (PI*pow((height-downSpace-topSpace)/2,2)*0.8) / 2000 ) / PI ) );
     damp = 0.85;
     kspring = 0.01;
   }
@@ -285,20 +277,20 @@ class Ball {
 
   void spring() {
 
-    rest_posx = ( ( width-espacio_derecha ) / 2 ) + espacio_izquierda / 2;
-    rest_posy = ( ( height-espacio_abajo ) / 2 ) + espacio_derecha / 2;
+    rest_posx = ( ( width-rightSpace ) / 2 ) + leftSpace / 2;
+    rest_posy = ( ( height-downSpace ) / 2 ) + rightSpace / 2;
 
-    if ( balls.length > 0 && ( balls[0].ocurrencias - balls[burbujas_graficadas-1].ocurrencias ) > 0 ) {
-      float A = balls[0].ocurrencias;                        // maximo original
-      float C = ocurrencias;                                 // valor original
-      float B = balls[burbujas_graficadas-1].ocurrencias;    // minimo original
+    if ( balls.length > 0 && ( balls[0].occurrences - balls[bubblesDisplayed-1].occurrences ) > 0 ) {
+      float A = balls[0].occurrences;                        // maximo original
+      float C = occurrences;                                 // valor original
+      float B = balls[bubblesDisplayed-1].occurrences;    // minimo original
       float D = 5;                                           // nuevo maximo
       float E;                                               // nuevo minimo
-      if ( burbujas_graficadas > 20 ) E = -1;
+      if ( bubblesDisplayed > 20 ) E = -1;
       else E = 0;
       kspring = -1 * ( ( ( A - C ) / ( A - B ) ) * ( D - E ) - D );
     }
-    if ( burbujas_graficadas == 1 ) kspring = 4;
+    if ( bubblesDisplayed == 1 ) kspring = 4;
 
     //mass = r;
 
@@ -315,27 +307,27 @@ class Ball {
 
   void bounce() {
 
-    if ( y + vy + r > height-espacio_abajo ) {
+    if ( y + vy + r > height-downSpace ) {
 
-      y = height-espacio_abajo - r;
+      y = height-downSpace - r;
       vx *= f;
       vy *= -b;
     }
-    if ( y + vy - r < espacio_arriba ) {
+    if ( y + vy - r < topSpace ) {
 
-      y = r+espacio_arriba;
+      y = r+topSpace;
       vx *= f;
       vy *= -b;
     }
-    if ( x + vx + r > width-espacio_derecha ) {
+    if ( x + vx + r > width-rightSpace ) {
 
-      x = width-espacio_derecha - r;
+      x = width-rightSpace - r;
       vx *= -b;
       vy *= f;
     }
-    if ( x + vx - r < espacio_izquierda ) {
+    if ( x + vx - r < leftSpace ) {
 
-      x = r+espacio_izquierda;
+      x = r+leftSpace;
       vx *= -b;
       vy *= f;
     }
@@ -343,7 +335,7 @@ class Ball {
 
   void collide() {
 
-    for ( int i=burbujas_maximas; i>=0; i-- ) {
+    for ( int i=bubblesMax; i>=0; i-- ) {
 
       if ( i < balls.length ) {
 
@@ -374,12 +366,12 @@ class Ball {
 
   void move() {
 
-    if ( estamos_encima && mousePressed && ( arrastrando == -1 || arrastrando == id ) ) {
+    if ( estamos_encima && mousePressed && ( draggingBubbleId == -1 || draggingBubbleId == id ) ) {
       x = mouseX;
       y = mouseY;
       vx = 0;
       vy = 0;
-      arrastrando = id;
+      draggingBubbleId = id;
     } else {
       x += vx;
       y += vy;
@@ -397,18 +389,29 @@ class Ball {
 
   void display() {
 
-    float A = balls[0].ocurrencias;                        // maximo original
-    float C = ocurrencias;                                 // valor original
-    float B = balls[burbujas_graficadas-1].ocurrencias;    // minimo original
+    float A = balls[0].occurrences;                        // maximo original
+    float C = occurrences;                                 // valor original
+    float B = balls[bubblesDisplayed-1].occurrences;    // minimo original
     float D;                                               // nuevo maximo
     float E;                                               // nuevo minimo
     //nuevo_valor = -1 * ( ( ( A - C ) / ( A - B ) ) * ( D - E ) - D );
 
     if ( visual_mode == "lineal" ) {
 
-      if ( llenar_burbujas ) fill(255,255,255);
+      if ( fillBubbles ) {
+        if(enummer.soortId == 1){
+            fill(255, 0, 0,75);
+        }else if(enummer.soortId == 2){
+            fill(255, 153, 0,75);
+        }else{
+            fill(51, 102, 0,75);
+        }
+      }
       else noFill();
-      if ( estamos_encima ) fill(0,0,0,15);
+      if ( estamos_encima ) {
+        //fill(0,0,0,15);
+        passedEnummer = enummer;
+      }
       strokeWeight(r/10);
       //stroke(ColorLineasGrales);
       float lc = -1 * ( ( ( A - C ) / ( A - B ) ) * ( 60 - 200 ) - 60 );
@@ -431,9 +434,9 @@ class Ball {
         fill(51, 102, 0);
       }
 
-      //if ( show_info || estamos_encima ) text(nombre, x, y+tamanio/5);
-      if ( show_info ) text(nombre, x, y+tamanio/5);
-      else text(nombre, x, y+tamanio/3);
+      //if ( show_info || estamos_encima ) text(name, x, y+tamanio/5);
+      if ( show_info ) text(name, x, y+tamanio/5);
+      else text(name, x, y+tamanio/3);
 
       //if ( show_info || estamos_encima ) {
       if ( show_info ) {
@@ -447,8 +450,8 @@ class Ball {
         }else{
             fill(51, 102, 0);
         }
-        //text(str(ocurrencias), x, y+tamanio/3+tamanio1);
-        text(str(ocurrencias), x, y+tamanio/3+tamanio1);
+        //text(str(occurrences), x, y+tamanio/3+tamanio1);
+        text(str(occurrences), x, y+tamanio/3+tamanio1);
       }
 
     }

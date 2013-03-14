@@ -9,7 +9,7 @@ class LogoViewMediator extends puremvc.Mediator
 
   # Notifications this mediator is interested in
   listNotificationInterests: ->
-    [enummers.view.event.AppEvents::ENUMMERS_LOADED]
+    [enummers.AppConstants::ENUMMERS_LOADED,enummers.AppConstants::PASS_RANDOM_ENUMMER]
 
 
   # Code to be executed when the Mediator instance is registered with the View
@@ -28,6 +28,8 @@ class LogoViewMediator extends puremvc.Mediator
     switch note.getName()
       when enummers.AppConstants::ENUMMERS_LOADED
         @viewComponent.enableLogo(note.getBody().enummers)
+      when enummers.AppConstants::PASS_RANDOM_ENUMMER
+        @viewComponent.passEnummer(note.getBody().enummer)
 
   # STATIC MEMBERS
   NAME: "LogoViewMediator"
