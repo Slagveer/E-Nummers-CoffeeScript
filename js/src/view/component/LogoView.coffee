@@ -34,8 +34,12 @@ class LogoView
     logoClickedEvent = @createEvent(enummers.view.event.AppEvents::LOGO_CLICKED)
     @dispatchEvent logoClickedEvent
 
-  enableLogo: ->
-
+  enableLogo: (enummers) ->
+    $.get("enummers.pjs", (code) =>
+      processingCanvas = new Processing($("#processing")[0], code)
+      #calling from JS to PJS:
+      processingCanvas.setEnummers(enummers);
+    )
 
   # STATIC MEMBERS
   NAME: "LogoView"

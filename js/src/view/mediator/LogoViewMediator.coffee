@@ -24,10 +24,10 @@ class LogoViewMediator extends puremvc.Mediator
         @sendNotification enummers.AppConstants::SHOW_INFO
 
   # Handle notifications from other PureMVC actors
-  handleNotification: (note) ->
+  handleNotification: (note) =>
     switch note.getName()
       when enummers.AppConstants::ENUMMERS_LOADED
-        @viewComponent.enableLogo()
+        @viewComponent.enableLogo(note.getBody().enummers)
 
   # STATIC MEMBERS
   NAME: "LogoViewMediator"

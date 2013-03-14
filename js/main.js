@@ -1376,7 +1376,14 @@ LogoView = (function() {
     return this.dispatchEvent(logoClickedEvent);
   };
 
-  LogoView.prototype.enableLogo = function() {};
+  LogoView.prototype.enableLogo = function(enummers) {
+    var _this = this;
+    return $.get("enummers.pjs", function(code) {
+      var processingCanvas;
+      processingCanvas = new Processing($("#processing")[0], code);
+      return processingCanvas.setEnummers(enummers);
+    });
+  };
 
   LogoView.prototype.NAME = "LogoView";
 
@@ -1704,10 +1711,7 @@ SearchView = (function() {
   SearchView.prototype.setSearch = function(data) {
     this.viewModel = new enummers.model.component.SearchModel(data);
     this.viewModel.view = this.search;
-    ko.applyBindings(this.viewModel, this.search);
-    return createjs.Tween.get($("#search")).to({
-      x: 1000
-    }, 500, createjs.Ease.linear);
+    return ko.applyBindings(this.viewModel, this.search);
   };
 
   SearchView.prototype.setFilterResult = function(data) {
@@ -2072,6 +2076,7 @@ LogoViewMediator = (function(_super) {
   __extends(LogoViewMediator, _super);
 
   function LogoViewMediator() {
+    this.handleNotification = __bind(this.handleNotification, this);
     return LogoViewMediator.__super__.constructor.apply(this, arguments);
   }
 
@@ -2094,7 +2099,7 @@ LogoViewMediator = (function(_super) {
   LogoViewMediator.prototype.handleNotification = function(note) {
     switch (note.getName()) {
       case enummers.AppConstants.prototype.ENUMMERS_LOADED:
-        return this.viewComponent.enableLogo();
+        return this.viewComponent.enableLogo(note.getBody().enummers);
     }
   };
 
