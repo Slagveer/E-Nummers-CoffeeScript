@@ -180,9 +180,9 @@
             <div id="logo" class="row">
                 <div class="span12 logo box">
                     <div class="img">
-
+                        &nbsp;
                     </div><!--<img src="img/logo.png" alt="E-Nummers"/>-->
-                    <canvas id="processing" width="700" height="150"></canvas>
+                    <canvas id="processing"></canvas>
                 </div>
             </div>
 
@@ -238,7 +238,7 @@
 
                 <div id="info" class="span3">
                     <div id="status" class="row">
-                        <div class="span3 box" data-bind="visible: $root.status() != null">
+                        <div class="span3 box" data-bind="style: { display: $root.status() != null ? 'block' : 'none' }">
                             <h2 data-bind="text: status() ? status().betekenis : ''"></h2>
                             <div id="status-selected" data-bind="text: status() ? status().naam : ''"></div>
                         </div>
@@ -298,6 +298,10 @@
         <script src="./js/libs/jquery.isotope.js"></script>
         <!-- MASONRY LIBRARY -->
         <script src="./js/libs/jquery.masonry.js"></script>
+        <!-- DEBOUNCEDRESIZE LIBRARY -->
+        <script src="./js/libs/jquery.debouncedresize.js"></script>
+        <!-- THROTTLERESIZE LIBRARY -->
+        <script src="./js/libs/jquery.throttledresize.js"></script>
         <!-- PROCESSING LIBRARY -->
         <script src="./js/libs/processing.js"></script>
         <script src="js/main.js"></script>

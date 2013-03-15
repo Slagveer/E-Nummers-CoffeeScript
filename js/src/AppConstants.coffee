@@ -41,6 +41,7 @@ class AppConstants
   CHANGE_MESSAGE: "change_message"
   ENUMMERS_FILTERED: "enummers_filtered"
   PASS_RANDOM_ENUMMER: "pass_random_enummer"
+  WINDOW_RESIZE_END: "window_resize_end"
 
   # Filter routes
   FILTER_ALL: "all"

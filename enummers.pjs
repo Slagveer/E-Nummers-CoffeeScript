@@ -38,7 +38,7 @@ int enummersAmount = 0;
 ENummer passedEnummer;
 
 void setup() {
-    size(##WIDTH##, 150);
+    size(##WIDTH##, ##HEIGHT##);
     smooth();
     loop();
     font = loadFont("Arial");

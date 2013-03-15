@@ -76,6 +76,8 @@ AppConstants = (function() {
 
   AppConstants.prototype.PASS_RANDOM_ENUMMER = "pass_random_enummer";
 
+  AppConstants.prototype.WINDOW_RESIZE_END = "window_resize_end";
+
   AppConstants.prototype.FILTER_ALL = "all";
 
   AppConstants.prototype.FILTER_ACTIVE = "active";
@@ -850,6 +852,7 @@ StatusModel = (function() {
   };
 
   StatusModel.prototype.setStatus = function(enummer) {
+    console.log(enummer);
     this.status(enummer);
     return this.dispatchModelUpdatedEvent;
   };
@@ -1349,8 +1352,11 @@ puremvc.DefineNamespace('todomvc.view.component', function(exports) {
 LogoView = (function() {
 
   function LogoView(event) {
+    this.paintCanvas = __bind(this.paintCanvas, this);
+
     this.passEnummer = __bind(this.passEnummer, this);
     this.processingCanvas;
+    this.code;
     this.enummers = [];
     this.logo = $("#logo")[0];
     this.img = $("#logo").find(".img")[0];
@@ -1384,9 +1390,13 @@ LogoView = (function() {
     var _this = this;
     this.enummers = enummers;
     return $.get("enummers.pjs", function(code) {
-      var width;
+      var height, width;
+      _this.code = code;
       width = $("#logo").width() - 40;
-      code = code.toString().replace("##WIDTH##", width);
+      height = $(".logo").find(".img").height();
+      code = _this.code.toString().replace("##WIDTH##", width);
+      code = code.toString().replace("##HEIGHT##", height);
+      console.log("" + width + " " + height);
       _this.processingCanvas = new Processing($("#processing")[0], code);
       return _this.processingCanvas.setEnummers(enummers);
     });
@@ -1394,6 +1404,42 @@ LogoView = (function() {
 
   LogoView.prototype.passEnummer = function(enummer) {
     return this.processingCanvas.passEnummer(enummer);
+  };
+
+  /*
+    * @param {String} item The name of the file (no extension)
+    * @param {Array} sketchlist Array of sketches to choose from
+    * @returns true
+    * @type Boolean
+  */
+
+
+  LogoView.prototype.paintCanvas = function(item, sketchlist) {
+    var code, ctx, cvs, height, instance, width, _i, _len, _ref;
+    cvs = document.getElementById('processing');
+    ctx = cvs.getContext('2d');
+    if ($.inArray(item, sketchlist) !== -1) {
+      return false;
+    }
+    if (Processing.instances.length > 1) {
+      _ref = Processing.instances;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        instance = _ref[_i];
+        Processing.instance.exit();
+      }
+    } else {
+      Processing.instances[0].exit();
+    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    width = $("#logo").width() - 40;
+    height = $(".logo").find(".img").height();
+    code = this.code.toString().replace("##WIDTH##", width);
+    code = code.toString().replace("##HEIGHT##", height);
+    console.log("" + width + " " + height);
+    this.processingCanvas = new Processing($("#processing")[0], code);
+    this.processingCanvas.setEnummers(this.enummers);
+    return true;
   };
 
   LogoView.prototype.NAME = "LogoView";
@@ -2092,7 +2138,7 @@ LogoViewMediator = (function(_super) {
   }
 
   LogoViewMediator.prototype.listNotificationInterests = function() {
-    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.PASS_RANDOM_ENUMMER];
+    return [enummers.AppConstants.prototype.ENUMMERS_LOADED, enummers.AppConstants.prototype.PASS_RANDOM_ENUMMER, enummers.AppConstants.prototype.WINDOW_RESIZE_END];
   };
 
   LogoViewMediator.prototype.onRegister = function() {
@@ -2113,6 +2159,8 @@ LogoViewMediator = (function(_super) {
         return this.viewComponent.enableLogo(note.getBody().enummers);
       case enummers.AppConstants.prototype.PASS_RANDOM_ENUMMER:
         return this.viewComponent.passEnummer(note.getBody().enummer);
+      case enummers.AppConstants.prototype.WINDOW_RESIZE_END:
+        return this.viewComponent.paintCanvas();
     }
   };
 
@@ -2567,6 +2615,9 @@ StartupCommand = (function(_super) {
   __extends(StartupCommand, _super);
 
   function StartupCommand() {
+    this.resizeMonitor = __bind(this.resizeMonitor, this);
+
+    this.initializeMacroCommand = __bind(this.initializeMacroCommand, this);
     return StartupCommand.__super__.constructor.apply(this, arguments);
   }
 
@@ -2578,7 +2629,22 @@ StartupCommand = (function(_super) {
 
   StartupCommand.prototype.initializeMacroCommand = function() {
     this.addSubCommand(enummers.controller.command.PrepModelCommand);
-    return this.addSubCommand(enummers.controller.command.PrepViewCommand);
+    this.addSubCommand(enummers.controller.command.PrepViewCommand);
+    return this.resizeMonitor();
+  };
+
+  StartupCommand.prototype.resizeMonitor = function() {
+    var _this = this;
+    $(window).bind("resize", function() {
+      return console.log("RESIZE 1");
+    });
+    $(window).bind("debouncedresize", function() {
+      console.log("RESIZE 2");
+      return _this.sendNotification(enummers.AppConstants.prototype.WINDOW_RESIZE_END);
+    });
+    return $(window).bind("throttledresize", function() {
+      return console.log("RESIZE 3");
+    });
   };
 
   return StartupCommand;
@@ -2677,6 +2743,7 @@ PrepViewCommand = (function(_super) {
   __extends(PrepViewCommand, _super);
 
   function PrepViewCommand() {
+    this.execute = __bind(this.execute, this);
     return PrepViewCommand.__super__.constructor.apply(this, arguments);
   }
 

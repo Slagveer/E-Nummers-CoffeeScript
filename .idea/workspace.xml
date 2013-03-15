@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88ebc976-9e93-40f1-baea-c611245756d9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/src/controller/command/LogoTimerCommand.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/libs/jquery.debouncedresize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/libs/jquery.throttledresize.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cakefile" afterPath="$PROJECT_DIR$/Cakefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/enummers.less" afterPath="$PROJECT_DIR$/css/enummers.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/enummers.pjs" afterPath="$PROJECT_DIR$/enummers.pjs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.min.js" afterPath="$PROJECT_DIR$/js/main.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/AppConstants.coffee" afterPath="$PROJECT_DIR$/js/src/AppConstants.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/app.coffee" afterPath="$PROJECT_DIR$/js/src/app.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee" afterPath="$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/controller/command/PrepViewCommand.coffee" afterPath="$PROJECT_DIR$/js/src/controller/command/PrepViewCommand.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/controller/command/StartupCommand.coffee" afterPath="$PROJECT_DIR$/js/src/controller/command/StartupCommand.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" afterPath="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/src/view/mediator/LogoViewMediator.coffee" afterPath="$PROJECT_DIR$/js/src/view/mediator/LogoViewMediator.coffee" />
     </list>
@@ -36,55 +36,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="enummers.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/enummers.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="499" column="46" selection-start="12595" selection-end="12595" vertical-scroll-proportion="-13.846154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/app.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="59" selection-start="612" selection-end="612" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="enummers.pjs" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/enummers.pjs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="14" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.5217391">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LogoViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/LogoViewMediator.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="34" selection-start="1099" selection-end="1110" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="66" selection-start="8666" selection-end="8666" vertical-scroll-proportion="-15.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FaceBookTimerCommand.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="59" selection-start="456" selection-end="511" vertical-scroll-proportion="0.0">
+            <state line="240" column="119" selection-start="11368" selection-end="11368" vertical-scroll-proportion="-10.8">
               <folding />
             </state>
           </provider>
@@ -93,34 +48,79 @@
       <file leaf-file-name="LogoView.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/src/view/component/LogoView.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="18" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.0">
+            <state line="84" column="36" selection-start="2792" selection-end="2792" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogoTimerCommand.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/controller/command/LogoTimerCommand.coffee">
+      <file leaf-file-name="enummers.less" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/css/enummers.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="34" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
+            <state line="100" column="31" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cakefile" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cakefile">
+      <file leaf-file-name="SoortenView.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/view/component/SoortenView.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="48" selection-start="1876" selection-end="1876" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppConstants.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/src/AppConstants.coffee">
+      <file leaf-file-name="PrepViewCommand.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/controller/command/PrepViewCommand.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="2" selection-start="1574" selection-end="1574" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SoortenViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/SoortenViewMediator.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StatusView.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/view/component/StatusView.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="25" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StatusModel.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/model/component/StatusModel.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="25" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StatusViewMediator.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/src/view/mediator/StatusViewMediator.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="51" selection-start="1114" selection-end="1114" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enummers.pjs" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/enummers.pjs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="16" selection-start="1074" selection-end="1074" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -139,22 +139,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/src/model/component/SearchModel.coffee" />
-        <option value="$PROJECT_DIR$/js/libs/jquery.easing.js" />
-        <option value="$PROJECT_DIR$/js/src/view/component/SearchView.coffee" />
-        <option value="$PROJECT_DIR$/borges.txt" />
-        <option value="$PROJECT_DIR$/letters.pjs" />
         <option value="$PROJECT_DIR$/index2.html" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/js/src/AppConstants.coffee" />
         <option value="$PROJECT_DIR$/Cakefile" />
         <option value="$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee" />
         <option value="$PROJECT_DIR$/js/src/app.coffee" />
-        <option value="$PROJECT_DIR$/js/src/view/mediator/LogoViewMediator.coffee" />
         <option value="$PROJECT_DIR$/js/src/controller/command/LogoTimerCommand.coffee" />
-        <option value="$PROJECT_DIR$/css/enummers.less" />
-        <option value="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" />
+        <option value="$PROJECT_DIR$/js/src/controller/command/PrepViewCommand.coffee" />
+        <option value="$PROJECT_DIR$/js/src/AppConstants.coffee" />
+        <option value="$PROJECT_DIR$/js/src/view/mediator/LogoViewMediator.coffee" />
+        <option value="$PROJECT_DIR$/js/src/controller/command/StartupCommand.coffee" />
         <option value="$PROJECT_DIR$/enummers.pjs" />
+        <option value="$PROJECT_DIR$/js/src/view/component/LogoView.coffee" />
+        <option value="$PROJECT_DIR$/js/src/view/mediator/StatusViewMediator.coffee" />
+        <option value="$PROJECT_DIR$/js/src/view/component/StatusView.coffee" />
+        <option value="$PROJECT_DIR$/js/src/model/component/StatusModel.coffee" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/css/enummers.less" />
       </list>
     </option>
   </component>
@@ -341,11 +341,91 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="component" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="command" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="E-Nummers-CoffeeScript" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -366,16 +446,16 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="265" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1059" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1059" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1059" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="265" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="261" />
-    <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PublishConfig" serverName="E-Nummers CoffeeScript" serverId="9e4308c7-e1de-4d74-9621-cc1f5a2ccabd">
     <servers>
@@ -383,6 +463,13 @@
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </server>
+      <server id="cee6620e-17dd-4a7b-8e31-e49c98dc5657">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </server>
@@ -397,10 +484,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js/libs" />
       <recent name="$PROJECT_DIR$/js/src/controller/command" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/img" />
-      <recent name="$PROJECT_DIR$/js/libs" />
       <recent name="$PROJECT_DIR$/js/src/view/mediator" />
     </key>
   </component>
@@ -470,19 +557,19 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920536" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32610938" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26307365" sideWeight="0.6707946" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26627535" sideWeight="0.6707946" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="JsTestDriver Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32920536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32920536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32610938" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -543,114 +630,112 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/src/view/component/SoortenView.coffee">
+    <entry file="file://$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1244" selection-end="1305" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/libs/processing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="5" selection-start="430" selection-end="430" vertical-scroll-proportion="-3.6294417">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/borges.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="19" selection-start="16354" selection-end="16354" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/letters.pjs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="6" selection-start="3570" selection-end="3570" vertical-scroll-proportion="-35.192307">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/view/component/SearchView.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="41" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="376" selection-end="376" vertical-scroll-proportion="0.3119584">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="66" selection-start="8666" selection-end="8666" vertical-scroll-proportion="-15.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cakefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="48" selection-start="1876" selection-end="1876" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="23" column="59" selection-start="456" selection-end="511" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/src/AppConstants.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="2" selection-start="1574" selection-end="1574" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/app.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="59" selection-start="612" selection-end="612" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/controller/command/FaceBookTimerCommand.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="59" selection-start="456" selection-end="511" vertical-scroll-proportion="0.0">
+        <state line="43" column="39" selection-start="1464" selection-end="1464" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/src/view/mediator/LogoViewMediator.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="34" selection-start="1099" selection-end="1110" vertical-scroll-proportion="0.0">
+        <state line="33" column="35" selection-start="1263" selection-end="1263" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/controller/command/LogoTimerCommand.coffee">
+    <entry file="file://$PROJECT_DIR$/js/src/controller/command/StartupCommand.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="34" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
+        <state line="24" column="39" selection-start="630" selection-end="630" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/enummers.less">
+    <entry file="file://$PROJECT_DIR$/letters.pjs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="499" column="46" selection-start="12595" selection-end="12595" vertical-scroll-proportion="-13.846154">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/src/view/component/LogoView.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="18" selection-start="1504" selection-end="1504" vertical-scroll-proportion="0.0">
+        <state line="137" column="6" selection-start="3570" selection-end="3570" vertical-scroll-proportion="0.016304348">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/enummers.pjs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="14" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.5217391">
+        <state line="40" column="16" selection-start="1074" selection-end="1074" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1069" column="51" selection-start="33095" selection-end="33095" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/component/LogoView.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="36" selection-start="2792" selection-end="2792" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/mediator/StatusViewMediator.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="51" selection-start="1114" selection-end="1114" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/component/StatusView.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="25" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/model/component/StatusModel.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/controller/command/PrepViewCommand.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/mediator/SoortenViewMediator.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/src/view/component/SoortenView.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="119" selection-start="11368" selection-end="11368" vertical-scroll-proportion="-10.8">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/enummers.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="31" selection-start="1751" selection-end="1751" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>

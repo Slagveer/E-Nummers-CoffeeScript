@@ -12,7 +12,7 @@ class PrepViewCommand extends puremvc.SimpleCommand
   Register Mediators with the View
   @override
   ###
-  execute: (note) ->
+  execute: (note) =>
     @facade.registerMediator new enummers.view.mediator.LogoViewMediator()
     @facade.registerMediator new enummers.view.mediator.CategorieenViewMediator()
     @facade.registerMediator new enummers.view.mediator.SoortenViewMediator()
